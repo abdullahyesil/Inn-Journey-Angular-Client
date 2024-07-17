@@ -1,0 +1,46 @@
+
+<div class="container">
+
+  <div class="mb-3">
+    <input [(ngModel)]="filterText" (keyup)="onInputChange()" type="text" class="form-control"
+        placeholder="Hotel ara..">
+    <small class="text-muted" *ngIf="filterText"> Aradığınız kelime {{filterText}}</small>
+</div>
+
+<div class="mb-3">
+  <select class="form-select" aria-label="Default select example">
+    <option selected>Yıldıza göre filtrele</option>
+    <option value="1">One</option>
+    <option value="2">Two</option>
+    <option value="3">Three</option>
+    <option value="4">Four</option>
+    <option value="5">Five</option>
+  </select>
+</div>
+
+  <div class="row">
+    <div *ngFor="let item of Filteredhotel; let i = index" class="col-md-6">
+      <div class="card mb-4" >
+        <img class="card-img-top" src="https://w7.pngwing.com/pngs/948/610/png-transparent-white-and-brown-hotel-building-illustration-hotel-manager-child-apps-hotel-illustration-hotels-lights-text-cloud-thumbnail.png" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{item.name}}</h5>
+          <p class="card-text">{{item.description == null ? "Boş" : item.description}}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">{{item.email == null ? "Boş" : item.email}}</li>
+          <li class="list-group-item">{{item.phone == null ? "Boş" : item.phone}}</li>
+          <li class="list-group-item">{{item.star == null ? "Boş" : item.star}}</li>
+          <li class="list-group-item">{{item.starRating == null ? "Boş" : item.starRating}}</li>
+          <li class="list-group-item">{{item.address == null ? "Boş" : item.address}}</li>
+        </ul>
+        <div class="card-body">
+          <a routerLink="rentRoom/{{item.id}}" class="btn btn-primary">Details</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

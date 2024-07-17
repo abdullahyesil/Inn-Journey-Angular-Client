@@ -1,0 +1,60 @@
+<h2 mat-dialog-title>Rezervasyon ap</h2>
+<mat-dialog-content class="mat-typography">
+    <form [formGroup]="reservationForm" class="example-form">
+        <mat-form-field class="example-full-width">
+          <mat-label>User Id</mat-label>
+          <input formControlName="userId" matInput placeholder="User Id">
+          <mat-error *ngIf="reservationForm.get('userId')?.hasError('required')">
+            User Id gereklidir
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Hotel Id</mat-label>
+          <input formControlName="hotelId" matInput placeholder="Hotel Id">
+          <mat-error *ngIf="reservationForm.get('hotelId')?.hasError('required')">
+            Hotel Id gereklidir
+          </mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+          <mat-label>Oda Seçimi</mat-label>
+          <mat-select formControlName="roomId" (selectionChange)="onSelectionChange($event.value)">
+            <mat-option *ngFor="let oda of Room" [value]="oda.id">
+              {{ oda.basePrice }} - {{ getRoomTypeName(oda.roomTypeId) }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="reservationForm.get('roomId')?.hasError('required')">
+            Oda Seçimi gereklidir
+          </mat-error>
+        </mat-form-field>
+        <br>
+
+        <p>Selected range: {{range.value | json}}</p>
+        <!-- DateTimepicker -->
+
+        <mat-form-field>
+          <input formControlName="checkIn" matInput [matDatepickerFilter]="checkInFilter" [matDatepicker]="checkInPicker" placeholder="Check-in Date" (dateChange)="onCheckInDateChange($event)">
+          <mat-datepicker-toggle matSuffix [for]="checkInPicker"></mat-datepicker-toggle>
+          <mat-datepicker #checkInPicker></mat-datepicker>
+          <mat-error *ngIf="reservationForm.get('checkIn')?.hasError('required')">
+            Check-in Tarihi gereklidir
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input formControlName="checkOut" matInput [matDatepickerFilter]="checkOutFilter" [matDatepicker]="checkOutPicker" placeholder="Check-out Date" [min]="checkInDate" (dateChange)="onCheckOutDateChange($event)">
+          <mat-datepicker-toggle matSuffix [for]="checkOutPicker"></mat-datepicker-toggle>
+          <mat-datepicker #checkOutPicker></mat-datepicker>
+          <mat-error *ngIf="reservationForm.get('checkOut')?.hasError('required')">
+            Check-out Tarihi gereklidir
+          </mat-error>
+        </mat-form-field>
+
+        <label>Toplam fiyat: {{totalPrice}}</label>
+
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button (click)="addReservation()" mat-button [disabled]="!reservationForm.valid">Rezervasyon Yap</button>
+</mat-dialog-actions>

@@ -1,0 +1,16 @@
+
+<h5> Hotel componenttt</h5>
+
+<div class="card" *ngIf="hotel else no_Hotel">
+    <div class="card-body">
+      <h5 class="card-title">{{hotel.name}}</h5>
+      <p class="card-text">{{hotel.description}}</p>
+      <p class="card-text"><small class="text-body-secondary">{{hotel.phone}}</small></p>
+      <button class="bg-primary text-white" mat-button (click)="openRezervation(hotel.id)">Rezervasyon Yap</button>
+    </div>
+    <img src="..." class="card-img-bottom" alt="...">
+  </div>
+
+  <ng-template #no_Hotel>
+    <div class="alert alert-warning"> Hotel Bulunamadı</div>
+</ng-template>
