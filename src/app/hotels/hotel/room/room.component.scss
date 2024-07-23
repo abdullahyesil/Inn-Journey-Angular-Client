@@ -1,0 +1,63 @@
+// Detay butonlarının stili
+
+
+.popular__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.popular__card:hover {
+    transform: scale(1.1)
+}
+
+.popular__card {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border-radius: 1rem;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    transition: 0.4s;
+
+}
+
+.popular__content {
+    padding: 0.5rem;
+}
+
+.popular__card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.reservation-btn {
+    padding: 8px 12px; // Buton içeriğinin iç boşluğu
+    font-size: 14px; // Yazı boyutu
+    border: none; // Kenarlık yok
+    border-radius: 20px; // Yuvarlak kenarlık
+    background-color: #f0ece6; // Arka plan rengi (ten rengi)
+    color: #333; // Yazı rengi
+    cursor: pointer; // İmleç türü: işaretçi
+    transition: background-color 0.3s ease; // Geçiş efekti: arka plan rengi
+
+    &:hover {
+        background-color: #e0dcd6; // Buton üzerine gelindiğinde arka plan rengi değişimi
+    }
+}
+.price-info {
+    // position: absolute; // Absolute positioning within the .popular__card container
+    position:fixed;
+    bottom: 50px; // 10 pixels from the bottom
+    right: 10px; // 10 pixels from the right
+    background-color: rgba(255, 255, 255, 0.8); // Semi-transparent background
+    padding: 5px 10px; // Padding around the text
+    border-radius: 5px; // Rounded corners
+    font-size: 1.2em; // Slightly larger font size
+    font-weight: bold; // Bold text
+    color: #333; // Dark text color
+}

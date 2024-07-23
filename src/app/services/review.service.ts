@@ -14,25 +14,28 @@ export class ReviewService {
   
 get(): Observable<reviewModel[]>
 {
-  return this.http.get<reviewModel[]>(this.url+"/Review")
+  return this.http.get<reviewModel[]>(this.url+"/Reviews")
 }
 
 getById(id:string): Observable<reviewModel>
 {
-  return this.http.get<reviewModel>(this.url+"/Review/"+id)
+  return this.http.get<reviewModel>(this.url+"/Reviews/"+id)
 }
 
 add(hotel: reviewModel): Observable<any>
 {
-  return this.http.post<reviewModel>(this.url+"/Review", hotel)
+  return this.http.post<reviewModel>(this.url+"/Reviews", hotel)
 }
 delete(id:string): Observable<any>
 {
-  return this.http.delete(this.url+"/Review/"+id)
+  return this.http.delete(this.url+"/Reviews/"+id)
 }
 update(hotel: reviewModel): Observable<any>
 {
- return this.http.put(this.url+"/Review/",hotel)
+ return this.http.put(this.url+"/Reviews/",hotel)
+}
+getbyIdHotel(hotelId:string):Observable<reviewModel[]>{
+  return this.http.get<reviewModel[]>(this.url+"/Reviews/comments/"+hotelId)
 }
 
 }

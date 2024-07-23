@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { LocalStorageService } from '../services/localstorage.service';
+import { NavbarComponent } from '../navbar/navbar.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { HotelComponent } from '../hotels/hotel/hotel.component';
 
 @Component({
   selector: 'app-auth',
@@ -10,9 +14,13 @@ import { Router } from '@angular/router';
 export class AuthComponent {
   email: string = '';
   password: string = '';
+  errorMessage: string = ''; // Hata mesajı değişkeni
 
   constructor(private authService:AuthService,
-    private router:Router
+    private router:Router,
+    private localService:LocalStorageService,
+    private _snackBar: MatSnackBar
+   
   ){}
 
   login() {
@@ -23,11 +31,21 @@ export class AuthComponent {
           console.log('Login successful:', response);
           this.router.navigate(['/hotels']);
           // Burada başarılı giriş işlemi sonrası yapılacak işlemleri ekleyebilirsiniz
+          this.localService.setItem("Token", response.token)
+          this.authService.emitLoginStatus(true);  // Login durumunu yayınla
+        this._snackBar.open( 'Başarıyla Giriş yapıldı.','',{ duration:4000 });
+
         },
         (error) => {
+    
           console.error('Login failed:', error);
+          this.errorMessage = 'Kullanıcı adı veya şifre hatalı. Lütfen tekrar deneyin. Hata Mesajı:' + error;
           // Hata durumunda kullanıcıya bildirim gösterebilirsiniz
         }
       );
   }
+
+
+
+
 }

@@ -21,11 +21,17 @@
   
     <mat-form-field class="example-full-width m-1">
       <mat-label>Base Price</mat-label>
-      <input matInput formControlName="basePrice" placeholder="Base Price" type="number">
-      <mat-error *ngIf="roomForm.get('basePrice').hasError('required')">Base Price is required</mat-error>
-      <mat-error *ngIf="roomForm.get('basePrice').hasError('min')">Base Price cannot be negative</mat-error>
+      <input matInput formControlName="baseAdultPrice" placeholder="Adult Price" type="number">
+      <mat-error *ngIf="roomForm.get('baseAdultPrice').hasError('required')">Base Price is required</mat-error>
+      <mat-error *ngIf="roomForm.get('baseAdultPrice').hasError('min')">Base Price cannot be negative</mat-error>
     </mat-form-field>
   
+    <mat-form-field class="example-full-width m-1">
+      <mat-label>Cocuk fiyatı</mat-label>
+      <input matInput formControlName="baseChildPrice" placeholder="Base Price" type="number">
+      <mat-error *ngIf="roomForm.get('baseChildPrice').hasError('required')">Base Price is required</mat-error>
+      <mat-error *ngIf="roomForm.get('baseChildPrice').hasError('min')">Base Price cannot be negative</mat-error>
+    </mat-form-field>
     <mat-form-field class="example-full-width m-1">
       <mat-label>Status</mat-label>
       <input matInput formControlName="status" placeholder="Status">

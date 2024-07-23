@@ -14,24 +14,28 @@ export class RoomService {
   
 get(): Observable<roomModel[]>
 {
-  return this.http.get<roomModel[]>(this.url+"/Room")
+  return this.http.get<roomModel[]>(this.url+"/Rooms")
 }
 
 getById(id:string): Observable<roomModel>
 {
-  return this.http.get<roomModel>(this.url+"/Room/"+id)
+  return this.http.get<roomModel>(this.url+"/Rooms/"+id)
 }
 
 add(hotel: roomModel): Observable<any>
 {
-  return this.http.post<roomModel>(this.url+"/Room", hotel)
+  return this.http.post<roomModel>(this.url+"/Rooms", hotel)
 }
 delete(id:string): Observable<any>
 {
-  return this.http.delete(this.url+"/Room/"+id)
+  return this.http.delete(this.url+"/Rooms/"+id)
 }
 update(hotel: roomModel): Observable<any>
 {
- return this.http.put(this.url+"/Room/",hotel)
+ return this.http.put(this.url+"/Rooms/",hotel)
+}
+getRoomByHotelId(id:String):Observable<roomModel[]>{
+  return this.http.get<roomModel[]>(this.url+"/Rooms/hotel/"+id)
 }
 }
+

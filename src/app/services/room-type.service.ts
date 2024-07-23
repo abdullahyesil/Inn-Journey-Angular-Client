@@ -13,25 +13,25 @@ export class RoomTypeService {
   
 get(): Observable<roomTypeModel[]>
 {
-  return this.http.get<roomTypeModel[]>(this.url+"/RoomType")
+  return this.http.get<roomTypeModel[]>(this.url+"/RoomTypes")
 }
 
 getById(id:string): Observable<roomTypeModel>
 {
-  return this.http.get<roomTypeModel>(this.url+"/RoomType/"+id)
+  return this.http.get<roomTypeModel>(this.url+"/RoomTypes/"+id)
 }
 
 add(hotel: roomTypeModel): Observable<any>
 {
-  return this.http.post<roomTypeModel>(this.url+"/RoomType", hotel)
+  return this.http.post<roomTypeModel>(this.url+"/RoomTypes", hotel)
 }
 delete(id:string): Observable<any>
 {
-  return this.http.delete(this.url+"/RoomType/"+id)
+  return this.http.delete(this.url+"/RoomTypes/"+id)
 }
 update(hotel: roomTypeModel): Observable<any>
 {
- return this.http.put(this.url+"/RoomType/",hotel)
+ return this.http.put(this.url+"/RoomTypes/",hotel)
 }
 
 }

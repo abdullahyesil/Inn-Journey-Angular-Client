@@ -61,6 +61,7 @@ private formBuilder: FormBuilder, // FormBuilder eklenmesi
     if (this.hotelForm.valid) {
       console.log(this.hotelForm.value);
       this.hotelService.updateHotel(this.hotelForm.value).subscribe(response => console.log(response))
+      
     } else {
       console.log('Form geçersiz');
     }

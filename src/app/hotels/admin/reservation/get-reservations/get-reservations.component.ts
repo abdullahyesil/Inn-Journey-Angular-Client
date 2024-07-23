@@ -19,11 +19,9 @@ export class GetReservationsComponent implements OnInit{
   ){}
 
   ngOnInit(): void {
-    
 this.activatedRoute.params.subscribe(params=> {
   this.rezervationService.getByHotelRezervation(params["id"]).subscribe(data => this.myHotelRezervation = data);
 });
-
 
   }
 

@@ -30,16 +30,16 @@ addHotel(hotel: HotelModal): Observable<any>
 }
 deleteHotel(id:string): Observable<any>
 {
-  return this.http.delete(this.url+"/Delete/"+id)
+  return this.http.delete(this.url+"/Hotels/"+id)
 }
 updateHotel(hotel: HotelModal): Observable<any>
 {
- return this.http.put(this.url+"/Hotel/",hotel)
+ return this.http.put(this.url+"/Hotels/",hotel)
 }
 
 getMyHotels(userId:string): Observable<HotelModal[]>
 {
-  return this.http.get<HotelModal[]>(this.url+"/Hotel/myHotels/"+ userId)
+  return this.http.get<HotelModal[]>(this.url+"/Hotels/myHotels/"+ userId)
 }
 
 

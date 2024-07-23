@@ -25,7 +25,6 @@ export class HotelComponent implements OnInit{
       this.activatedRoot.params.subscribe(params=> 
       {
         this.hotelService.getHotelById(params["id"]).subscribe(data => { this.hotel=data})
-
       }
       )
   }
@@ -34,7 +33,6 @@ export class HotelComponent implements OnInit{
       
     const diagloRef= this.dialog.open(ReservationComponent ,{ data: {hotelId}
     });
-    
     }
 
 }

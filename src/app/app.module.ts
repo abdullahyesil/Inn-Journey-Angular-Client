@@ -15,6 +15,14 @@ import { CommonModule } from '@angular/common';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { AuthComponent } from './auth/auth.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatButtonModule} from '@angular/material/button';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatTabsModule } from '@angular/material/tabs';
+import { UsersModule } from './users/users.module';
+
+
+
 
 @NgModule({
   declarations: [
@@ -25,7 +33,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ContactComponent,
     AboutComponent,
     MenuComponent,
-    AuthComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,
@@ -34,13 +42,17 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MatMenuModule,
+    MatButtonModule,
+    MatSnackBarModule,
+    MatTabsModule,
+    UsersModule
   ],
   exports:[
    
   ],
   providers: [
-    { provide: LOCALE_ID, useValue: 'TR' },
     provideAnimationsAsync(),
 
   ],

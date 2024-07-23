@@ -4,4 +4,5 @@ export interface reviewModel{
     userId: string,
     rating: number,
     comment: string,
+    createdDate?: Date,
 }

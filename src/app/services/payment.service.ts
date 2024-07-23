@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { PaymentModel } from '../model/payment';
 import { HttpClient } from '@angular/common/http';
+import { payModal } from '../model/payModal';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,11 @@ delete(id:string): Observable<any>
 update(hotel: PaymentModel): Observable<any>
 {
  return this.http.put(this.url+"/Payment/",hotel)
+}
+
+odeme(veri :payModal): Observable<payModal>
+{
+ return this.http.post<payModal>(this.url+"/Pay2/", veri)
 }
 
 

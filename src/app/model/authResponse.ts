@@ -2,6 +2,7 @@ export interface AuthResponse{
     token:{
     accessToken:string,
     refreshToken:string,
-    expiration:Date,}
-  
+    expiration:Date,
+    userId:string
+}
     }

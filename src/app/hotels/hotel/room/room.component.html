@@ -1,0 +1,34 @@
+<section class="section__container popular__container">
+    <div *ngIf="roomModel else no_Room"  class="popular__grid">
+        <div class="popular__card"  *ngFor="let item of roomModel">
+            <img src="https://cdng.jollytur.com/files/cms/media/hotel/7979a03c-dca6-4e2b-995b-5531309d236f-1024.jpg"
+                width="400" height="400" alt="popular hotel" />
+            <div class="popular__content">
+                <div class="popular__card__header">
+                    <h4>{{getRoomName(item.roomTypeId)}}</h4>
+                    <div class="star-rating">
+                        <span class="icon">
+                            <i class="ri-star-line"></i>
+                            <i class="ri-star-line"></i>
+                            <i class="ri-star-line"></i>
+                            <i class="ri-star-line"></i>
+                        </span> <br><br>
+                    </div>
+                </div>
+                <p><i class="ri-map-pin-line"></i> {{item.status}}</p>
+                <div class="star-rating">
+                    <span class="icon">
+                        <i class="ri-star-fill"></i>
+                    </span>
+                </div>
+            </div>
+            <span class="price-info">
+                {{item.baseAdultPrice}} per night
+            </span>
+            <button class="reservation-btn" routerLink="/reservation" target="_blank">Make a reservation</button>
+        </div>
+    </div>
+    <ng-template #no_Room>
+        <div class="alert alert-warning">Oda Bulunamadı</div>
+      </ng-template>
+</section>

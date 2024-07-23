@@ -1,16 +1,47 @@
 
-<h5> Hotel componenttt</h5>
-
-<div class="card" *ngIf="hotel else no_Hotel">
-    <div class="card-body">
-      <h5 class="card-title">{{hotel.name}}</h5>
-      <p class="card-text">{{hotel.description}}</p>
-      <p class="card-text"><small class="text-body-secondary">{{hotel.phone}}</small></p>
-      <button class="bg-primary text-white" mat-button (click)="openRezervation(hotel.id)">Rezervasyon Yap</button>
+<div *ngIf="hotel else no_Hotel" class="card">
+  <img src="https://www.enucuzu.com/blog/wp-content/uploads/2024/06/7-yildizli-otel-nedir.webp" class="card-img-top" alt="Card Image">
+  <div class="card-img-overlay">
+    <h5 class="card-title text-white">{{hotel.name}}</h5>
+    <div class="text-warning pb-1">
+      <ng-container *ngFor="let _ of [].constructor(hotel.star)">
+        <i class="fa fa-star" aria-hidden="true"></i>
+      </ng-container>
     </div>
-    <img src="..." class="card-img-bottom" alt="...">
+      </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-6">
+        <h5 class="card-title">Açıklama</h5>
+        <p class="card-text">{{hotel.description}} Lorem ipsum dolor, sit amet consectetur adipisicing elit. Necessitatibus maiores asperiores voluptate earum nobis dicta corrupti saepe eos aperiam possimus, cupiditate ad fuga consequuntur laboriosam?</p>
+      </div>
+      <div class="col-md-6">
+        <h5 class="card-title">Oda Bilgileri</h5>
+        <ul class="list-unstyled">
+          <li>
+            <label class="card-text"><b>Telefon Numarası:</b></label>
+            <span class="ml-1">{{ hotel.phone }} Lorem, ipsum dolor.</span>
+          </li>
+          <li>
+            <label class="card-text"><b>Adres:</b></label>
+            <span class="ml-3">{{ hotel.address }} Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempora, harum.</span>
+          </li>
+          <li>
+            <label class="card-text"><b>Email Adresi:</b></label>
+            <span class="ml-2">{{ hotel.email }} Lorem, ipsum dolor.</span>
+          </li>
+        </ul>
+      </div>
+      
+    </div>
   </div>
+  <button class="bg-primary text-white" mat-button (click)="openRezervation(hotel.id)">Rezervasyon Yap</button>
+</div>
 
-  <ng-template #no_Hotel>
-    <div class="alert alert-warning"> Hotel Bulunamadı</div>
+<ng-template #no_Hotel>
+  <div class="alert alert-warning">Hotel Bulunamadı</div>
 </ng-template>
+<app-room *ngIf="hotel" [hotelId]="hotel.id"></app-room>
+<app-review *ngIf="hotel" [hotelId]="hotel.id"></app-review>
+
+

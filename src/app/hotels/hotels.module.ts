@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { LOCALE_ID, NgModule } from '@angular/core';
+import { CommonModule, registerLocaleData } from '@angular/common';
 
 import { HotelsRoutingModule } from './hotels-routing.module';
 import { HotelsComponent } from './hotels.component';
@@ -14,13 +14,19 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, NativeDateAdapt
 import {MatSelectModule} from '@angular/material/select';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from '../services/interceptor/auth-interceptor';
+import { ReviewComponent } from './hotel/review/review.component';
+import { PaymentComponent } from './hotel/reservation/payment/payment.component';
+import { RoomComponent } from './hotel/room/room.component';
 
 
 @NgModule({
   declarations: [
     HotelsComponent,
     HotelComponent,
-    ReservationComponent
+    ReservationComponent,
+    ReviewComponent,
+    PaymentComponent,
+    RoomComponent
   ],
   imports: [
     CommonModule,
@@ -37,7 +43,8 @@ import { AuthInterceptor } from '../services/interceptor/auth-interceptor';
   providers:[
     { provide: DateAdapter, useClass: NativeDateAdapter },
     { provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS },
-    {provide:HTTP_INTERCEPTORS, useClass:AuthInterceptor, multi:true}
+    {provide:HTTP_INTERCEPTORS, useClass:AuthInterceptor, multi:true},
+
   ]
 })
 export class HotelsModule { }

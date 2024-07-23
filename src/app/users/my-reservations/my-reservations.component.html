@@ -1,0 +1,27 @@
+<div class="row" >
+    <div class="col-md-12">
+      <div class="card-deck">
+        <div class="card mb-3" *ngFor="let item of myReservation">
+          <div class="row no-gutters">
+            <div class="col-md-4">
+              <img src="https://cdn.tatilsepeti.com/Files/Images/Tesis/00283/1050X700/tsr00283637151188534263780.jpg" alt="" class="img-thumbnail img-fluid rounded start w-100 h-100">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h2 class="card-title">{{getHotelName(item.hotelId)}}</h2>
+                <p class="card-text"></p>
+                <div class="card-text">
+                  <b>Giriş Tarihi :</b> {{item.checkIn |date : "mediumDate"}}
+                  <b>Çıkış Tarihi :</b> {{item.checkOut |date : "mediumDate"}}
+                </div>
+                <div class="card-text">
+                  <label> <b>Toplam ücret :</b> {{item.totalPrice}} ₺</label>
+                </div>
+                <a routerLink="/movies" class="btn btn-sm btn-outline-primary mt-3 w-100"> Reservasyon Detayları</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

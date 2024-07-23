@@ -1,0 +1,42 @@
+<h3>Odalarım</h3>
+<div>
+    <label for="hotelSelect">Otel Seçin:</label>
+    <select id="hotelSelect" (change)="onHotelSelect($event)">
+      <option>Lütfen Otel Seçiniz</option>
+      <option *ngFor="let hotel of myHotel" [value]="hotel.id">{{ hotel.name }}</option>
+    </select>
+  </div>
+  <ng-template #no_Room>
+    <div class="alert alert-warning">Oda Bulunamadı</div>
+  </ng-template>
+
+  <table *ngIf="myRoom && myRoom.length > 0 else no_Room" class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Otel ID</th>
+        <th>Oda Tipi ID</th>
+        <th>Yetişkin Fiyatı</th>
+        <th>Çocuk Fiyatı</th>
+        <th>Durum</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody >
+      <tr  *ngFor="let room of myRoom">
+        <td>{{ room.id }}</td>
+        <td>{{ room.hotelId }}</td>
+        <td>{{ room.roomTypeId }}</td>
+        <td>{{ room.baseAdultPrice }}</td>
+        <td>{{ room.baseChildPrice }}</td>
+        <td>{{ room.status }}</td>
+        <td>
+            <div class="w-100">
+            <button (click)="editRoom(room.id)" class="btn btn-primary w-100 mb-1"> Düzenle</button>
+            <button class="btn btn-danger w-100"> Sil</button>
+        </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+

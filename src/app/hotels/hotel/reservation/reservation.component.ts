@@ -2,11 +2,14 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { roomTypeModel } from '../../../model/room-type';
 import { roomModel } from '../../../model/room';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { RoomService } from '../../../services/room.service';
 import { RoomTypeService } from '../../../services/room-type.service';
 import { ReservationService } from '../../../services/reservation.service';
 import { reservationModel } from '../../../model/reservation';
+import { LocalStorageService } from '../../../services/localstorage.service';
+import {  Router } from '@angular/router';
+import { Dialog } from '@angular/cdk/dialog';
 
 @Component({
   selector: 'app-reservation',
@@ -17,6 +20,7 @@ export class ReservationComponent implements OnInit {
 
 
   hotelId: string //Parametreden aldıgım idyi atamak için oluşturuldu.
+  userId:string
   roomType: roomTypeModel[];
   Room: roomModel[];
   totalPrice: number;
@@ -28,6 +32,83 @@ export class ReservationComponent implements OnInit {
   // Check-in ve check-out tarihlerini saklayan değişkenler
   checkInDate: Date | null = null;
   checkOutDate: Date | null = null;
+
+   
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: { hotelId: string },
+    private roomService: RoomService, //oda bilgilerini çekmek için room servisini çağırdık
+    private roomTypeService: RoomTypeService,
+    private formBuilder: FormBuilder, // FormBuilder eklenmesi
+    private localService: LocalStorageService, // user id için local servis
+    private reservationService: ReservationService,
+    private router:Router,
+    public dialogRef: MatDialogRef<ReservationComponent>
+  ) {
+    this.hotelId = data.hotelId; //aldigimiz idyi hotelId'ye aktardık.
+    this.userId = this.localService.getItem("Token").userId; //localstorageden aldıgım token idyi userIdye aktardım.
+    console.log(this.userId)
+  
+
+    this.range = new FormGroup({  //İki adet tarih nesnesini grup olarak interface tanımladık.
+      start: new FormControl<Date | null>(null),
+      end: new FormControl<Date | null>(null),
+    });
+ 
+
+    this.reservationForm = this.formBuilder.group({ //model ile göndermek için Form oluşturduk. Validator ile null kontrolü yaptık.
+      userId: [this.userId, Validators.required],
+      hotelId: [this.hotelId, Validators.required],
+      roomId: [null, Validators.required],
+      checkIn: [null, Validators.required],
+      checkOut: [null, Validators.required],
+      status: ["PNM", Validators.required]
+    });
+  }
+
+
+  ngOnInit(
+  ): void {
+    this.roomService.get().subscribe(rooms => {
+      console.log(rooms)
+      console.log('Injected hotelId:', this.hotelId); // hotelId'nin doğru gelip gelmediğini kontrol edin
+      // Oda bilgilerini aldıktan sonra, hotelId ile filtreleriz
+      this.Room = rooms.filter(room => room.hotelId === this.hotelId);
+      this.roomTypeService.get().subscribe(roomType =>
+        this.roomType = roomType
+      );
+    });
+
+
+  }
+
+  getRoomTypeName(roomTypeId: string): string { // Oda isimlerini. Oda tiplerinin yanına getirdik
+    if (this.roomType && this.roomType.length > 0) {
+      const roomType = this.roomType.find(rt => rt.id === roomTypeId);
+      return roomType ? roomType.name : '';
+    } else {
+      return 'Bir hata oluştu';
+    }
+  }
+
+  // Oda seçiminde değişiklik olduğunda oda fiyatını güncelleyen fonksiyon
+  onSelectionChange(selectedRoomId: string): void {
+    this.selectedRoom = this.Room.find(room => room.id === selectedRoomId); 
+    this.roomPricePerNight = this.selectedRoom ? this.selectedRoom.basePrice : 0;
+    this.totalPrice = this.calculateTotalPrice();
+  }
+
+  // Check-in ve check-out tarihleri arasındaki gün sayısını hesaplayan fonksiyon
+  calculateTotalPrice(): number {
+    if (this.checkInDate && this.checkOutDate && this.roomPricePerNight) {
+      const checkIn = new Date(this.checkInDate).setHours(0, 0, 0, 0); //saatleri 0a çektik düzgün hesaplama için
+      const checkOut = new Date(this.checkOutDate).setHours(0, 0, 0, 0);
+      const diffInTime = checkOut - checkIn;  //Aradaki zamanı bulmak için
+      const diffInDays = diffInTime / (1000 * 3600 * 24); //Fiyat hesaplama için zaman hesabı: 24 Saatte bir artıyor fiyat
+      return diffInDays * this.roomPricePerNight;
+    }
+    return 0;
+  }
+
 
   // Check-in tarihini seçerken bugünden sonraki ve check-out tarihinden önceki günler seçilebilir
   checkInFilter = (d: Date | null): boolean => {
@@ -67,89 +148,19 @@ export class ReservationComponent implements OnInit {
     }
   }
 
-
-  constructor(
-    @Inject(MAT_DIALOG_DATA) public data: { hotelId: string },
-    private roomService: RoomService, //oda bilgilerini çekmek için room servisini çağırdık
-    private roomTypeService: RoomTypeService,
-    private formBuilder: FormBuilder, // FormBuilder eklenmesi
-    private reservationService: ReservationService,
-   
-
-  ) {
-    this.hotelId = data.hotelId; //aldigimiz idyi hotelId'ye aktardık.
-    this.range = new FormGroup({  //İki adet tarih nesnesini grup olarak interface tanımladık.
-      start: new FormControl<Date | null>(null),
-      end: new FormControl<Date | null>(null),
-    });
- 
-    this.reservationForm = this.formBuilder.group({ //model ile göndermek için Form oluşturduk. Validator ile null kontrolü yaptık.
-      userId: ['', Validators.required],
-      hotelId: ['', Validators.required],
-      roomId: [null, Validators.required],
-      checkIn: [null, Validators.required],
-      checkOut: [null, Validators.required]
-    });
-
-  }
-
-
-  ngOnInit(
-  ): void {
-    this.roomService.get().subscribe(rooms => {
-      console.log(rooms)
-
-      console.log('Injected hotelId:', this.hotelId); // hotelId'nin doğru gelip gelmediğini kontrol edin
-
-      // Oda bilgilerini aldıktan sonra, hotelId ile filtreleriz
-      this.Room = rooms.filter(room => room.hotelId === this.hotelId);
-
-      this.roomTypeService.get().subscribe(roomType =>
-        this.roomType = roomType
-      );
-    });
-
-
-  }
-
-
-  getRoomTypeName(roomTypeId: string): string { // Oda isimlerini. Oda tiplerinin yanına getirdik
-    if (this.roomType && this.roomType.length > 0) {
-      const roomType = this.roomType.find(rt => rt.id === roomTypeId);
-      return roomType ? roomType.name : '';
-    } else {
-      return 'Bir hata oluştu';
-    }
-  }
-
-  // Oda seçiminde değişiklik olduğunda oda fiyatını güncelleyen fonksiyon
-  onSelectionChange(selectedRoomId: string): void {
-    this.selectedRoom = this.Room.find(room => room.id === selectedRoomId); 
-    this.roomPricePerNight = this.selectedRoom ? this.selectedRoom.basePrice : 0;
-    this.totalPrice = this.calculateTotalPrice();
-  }
-
   
-  // Check-in ve check-out tarihleri arasındaki gün sayısını hesaplayan fonksiyon
- 
-  calculateTotalPrice(): number {
-    if (this.checkInDate && this.checkOutDate && this.roomPricePerNight) {
-      const checkIn = new Date(this.checkInDate).setHours(0, 0, 0, 0); //saatleri 0a çektik düzgün hesaplama için
-      const checkOut = new Date(this.checkOutDate).setHours(0, 0, 0, 0);
-      const diffInTime = checkOut - checkIn;  //Aradaki zamanı bulmak için
-      const diffInDays = diffInTime / (1000 * 3600 * 24); //Fiyat hesaplama için zaman hesabı: 24 Saatte bir artıyor fiyat
-      return diffInDays * this.roomPricePerNight;
-    }
-    return 0;
-  }
-
-
   addReservation(): void{
-      
     console.log(this.reservationForm.value)
-    // this.reservationService.add(rModel).subscribe(response => console.log(response))
-
+    var resId:any;
+     this.reservationService.add(this.reservationForm.value).subscribe(resp => 
+      {
+        const resId = resp.id; // resp.id'yi resId'ye atar
+       console.log("ilk" +resp.id)
+       this.dialogRef.close(); // Dialog penceresini kapatır
+       this.router.navigate(['/payment/'+resId]);
+      }
+    )
     
     }
-  
+
 }

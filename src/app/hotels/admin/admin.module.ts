@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
 import { AddRoomComponent } from './room/add-room/add-room.component';
-import { AddRoomTypeComponent } from './add-room-type/add-room-type.component';
 import { GetReservationsComponent } from './reservation/get-reservations/get-reservations.component';
 import { MyHotelsComponent } from './hotels/my-hotels/my-hotels.component';
 import {MatTableModule} from '@angular/material/table';
@@ -15,16 +14,26 @@ import {MatButtonModule} from '@angular/material/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatOption } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { AddHotelComponent } from './hotels/add-hotel/add-hotel.component';
+import { GetRoomComponent } from './room/get-room/get-room.component';
+import { DeleteRoomComponent } from './room/delete-room/delete-room.component';
+import { UpdateRoomComponent } from './room/update-room/update-room.component';
+import { GetReviewComponent } from './get-review/get-review.component';
+
 
 
 @NgModule({
   declarations: [
     AdminComponent,
     AddRoomComponent,
-    AddRoomTypeComponent,
     GetReservationsComponent,
     MyHotelsComponent,
-    EditHotelComponent
+    EditHotelComponent,
+    AddHotelComponent,
+    GetRoomComponent,
+    DeleteRoomComponent,
+    UpdateRoomComponent,
+    GetReviewComponent
   ],
   imports: [
     CommonModule,
@@ -36,7 +45,7 @@ import { MatSelectModule } from '@angular/material/select';
     ReactiveFormsModule,
     FormsModule,
     MatOption,
-    MatSelectModule
+    MatSelectModule,
   ]
 })
 export class AdminModule { }

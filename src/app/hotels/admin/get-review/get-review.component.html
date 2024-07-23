@@ -1,0 +1,32 @@
+<p>get-room works!</p>
+<h3>Yorumlar</h3>
+<div>
+    <label for="hotelSelect">Otel Seçin:</label>
+    <select id="hotelSelect" (change)="onHotelSelect($event)">
+      <option>Lütfen Otel Seçiniz</option>
+      <option *ngFor="let hotel of hotelModal" [value]="hotel.id">{{ hotel.name }}</option>
+    </select>
+  </div>
+  
+  <table *ngIf="reviewModel else no_Review" class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Kişi Id</th>
+        <th>Oy</th>
+        <th>Yorum</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of reviewModel">
+        <td>{{ item.id }}</td>
+        <td>{{getUserName(item.userId)}}</td>
+        <td>{{ item.rating }}</td>
+        <td>{{ item.comment }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #no_Review>
+    <div class="alert alert-warning">Yorum Bulunamadı</div>
+  </ng-template>

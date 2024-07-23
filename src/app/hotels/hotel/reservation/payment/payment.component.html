@@ -1,0 +1,144 @@
+
+
+<h2 class="mb-4">Ödeme Sayfası</h2>
+<div *ngIf="!successEkrani">
+
+<form [formGroup]="paymentForm" (ngSubmit)="odemeyap()">
+  <!-- Fatura Bilgileri -->
+  <div class="card mb-4">
+    <div class="card-header">
+      Oda Bilgileri
+    </div>
+    <div class="card-body">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label>Ödeme Id</label>
+          <input formControlName="id" type="text" class="form-control" readonly>
+        </div>
+        <div class="form-group col-md-6">
+          <label>User Id</label>
+          <input formControlName="userId" type="text" class="form-control" readonly>
+        </div>
+        <div class="form-group col-md-6">
+          <label>hotelId</label>
+          <input formControlName="hotelId" type="text" class="form-control" readonly>
+        </div>
+        <div class="form-group col-md-6">
+          <label>checkIn Id</label>
+          <input formControlName="checkIn" type="text" class="form-control" readonly>
+        </div>
+        <div class="form-group col-md-6">
+          <label>checkOut Id</label>
+          <input formControlName="checkOut" type="text" class="form-control" readonly>
+        </div>
+        <div class="form-group col-md-6">
+          <label>Total Price</label>
+          <input formControlName="totalPrice" type="text" class="form-control" readonly>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="id">Ödeme Durumu</label>
+          <input formControlName="status" type="text" class="form-control" id="lastName" readonly>
+        </div>
+
+        <div class="form-group col-md-6">
+          <label for="firstName">Ad</label>
+          <input value="Abdullah" type="text" class="form-control disable" id="firstName" readonly>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="lastName">Soyad</label>
+          <input value="Yeşil" type="text" class="form-control" id="lastName" placeholder="Soyad" readonly>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fatura Bilgileri -->
+  <div class="card mb-4">
+    <div class="card-header">
+      Fatura Bilgileri
+    </div>
+    <div class="card-body">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="firstName">Ad</label>
+          <input type="text" class="form-control" id="firstName" placeholder="Ad">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="lastName">Soyad</label>
+          <input type="text" class="form-control" id="lastName" placeholder="Soyad">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" placeholder="Email">
+      </div>
+      <div class="form-group">
+        <label for="address">Adres</label>
+        <input type="text" class="form-control" id="address" placeholder="Adres">
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="city">Şehir</label>
+          <input type="text" class="form-control" id="city" placeholder="Şehir">
+        </div>
+        <div class="form-group col-md-4">
+          <label for="state">İl</label>
+          <input type="text" class="form-control" id="state" placeholder="İl">
+        </div>
+        <div class="form-group col-md-2">
+          <label for="zip">Posta Kodu</label>
+          <input type="text" class="form-control" id="zip" placeholder="Posta Kodu">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ödeme Bilgileri -->
+  <div class="card mb-4">
+    <div class="card-header">
+      Ödeme Bilgileri
+    </div>
+    <div class="card-body">
+      <div class="form-group">
+        <label>Kart Üzerindeki İsim</label>
+        <input formControlName="cardHolderName" type="text" class="form-control" placeholder="Kart Üzerindeki İsim">
+      </div>
+      <div class="form-group">
+        <label >Kart Numarası</label>
+        <input formControlName="cardNumber" type="text" class="form-control" placeholder="Kart Numarası">
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <label>Son Kullanma Tarihi Ay</label>
+          <input formControlName="expireMonth" type="text" class="form-control" placeholder="MM">
+        </div>
+        <div class="form-group col-md-4">
+          <label>Son Kullanma Tarihi Yıl</label>
+          <input formControlName="expireYear" type="text" class="form-control" placeholder="YY">
+        </div>
+        <div class="form-group col-md-4">
+          <label>CVV</label>
+          <input formControlName="cvc" type="text" class="form-control" placeholder="CVV">
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Submit Button -->
+  <button type="submit" class="btn btn-primary btn-block">Ödemeyi Tamamla</button>
+</form>
+
+</div>
+<!-- Ödeme başarılı ekranı! -->
+<div *ngIf="successEkrani">
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6 text-center">
+        <div class="alert alert-success" role="alert">
+          <i class="fas fa-check-circle" style="font-size: 3rem; color: green;"></i>
+          <h4 class="alert-heading">Ödeme başarıyla alındı!</h4>
+          <p>Rezervasyonunuz tamamlandı.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

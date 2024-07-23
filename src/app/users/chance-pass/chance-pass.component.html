@@ -1,0 +1,38 @@
+
+<div class="container my-3">
+  <div class="row">
+    <div class="col-md-3">
+      <!-- Sidebar Menu Component -->
+      <app-sidebar></app-sidebar>
+      
+    </div>
+      <div class="col-md-9">
+        <form [formGroup]="userForm" (ngSubmit)="submitForm()">
+          <div class="form-group">
+            <label for="username">Kullanıcı Adı</label>
+            <input type="text" class="form-control" id="username" formControlName="username">
+            <div *ngIf="userForm.get('username').errors?.['required']" class="invalid-feedback">Kullanıcı adı zorunludur.</div>
+          </div>
+          <div class="form-group">
+              <label for="username">Kullanıcı Adı</label>
+              <input type="text" class="form-control" id="username" formControlName="Name">
+              <div *ngIf="userForm.get('name').errors?.['required']" class="invalid-feedback">Kullanıcı adı zorunludur.</div>
+            </div>
+          <div class="form-group">
+            <label for="email">E-posta Adresi</label>
+            <input type="email" class="form-control" id="email" formControlName="email">
+            <div *ngIf="userForm.get('email').errors?.['required']" class="invalid-feedback">E-posta adresi zorunludur.</div>
+          </div>
+          <div class="form-group">
+            <label for="password">Yeni Şifre</label>
+            <input type="password" class="form-control" id="password" formControlName="password">
+          </div>
+          <div class="form-group">
+              <label for="Repassword">Yeni Şifre(Tekrar)</label>
+              <input type="Repassword" class="form-control" id="Repassword" formControlName="Repassword">
+            </div>
+          <button type="submit" class="btn btn-primary">Bilgileri Güncelle</button>
+        </form>
+      </div>
+
+  
