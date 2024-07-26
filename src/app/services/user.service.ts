@@ -15,11 +15,20 @@ export class UserService {
   getByIdUser(id:string){
     return this.http.get<userModal>(this.url+"/ById/"+id)
    }
+
    get():Observable<userModal[]>
    {
-
     return this.http.get<userModal[]>(this.url)
    }
+
+   updateUser(user:userModal){
+    return this.http.put(this.url, user)
+   }
+
+   createUser(user:userModal){
+    return this.http.post(this.url,user)
+   }
+
 
  
 }

@@ -19,7 +19,8 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
-import { UsersModule } from './users/users.module';
+import { SharedModule } from './shared/shared.module';
+
 
 
 
@@ -47,10 +48,10 @@ import { UsersModule } from './users/users.module';
     MatButtonModule,
     MatSnackBarModule,
     MatTabsModule,
-    UsersModule
+    SharedModule
   ],
   exports:[
-   
+
   ],
   providers: [
     provideAnimationsAsync(),

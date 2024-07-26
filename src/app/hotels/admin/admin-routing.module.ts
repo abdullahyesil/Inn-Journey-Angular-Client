@@ -9,6 +9,7 @@ import { GetRoomComponent } from './room/get-room/get-room.component';
 import { UpdateRoomComponent } from './room/update-room/update-room.component';
 import { DeleteRoomComponent } from './room/delete-room/delete-room.component';
 import { GetReviewComponent } from './get-review/get-review.component';
+import { PaymentComponent } from './getPayments/payment.component';
 
 const routes: Routes = [
   { path: '', component: AdminComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path:'myHotels/Rezervations/:id', component:GetReservationsComponent },
   {path:'addRoom', component:AddRoomComponent},
   {path:'getRoom', component:GetRoomComponent},
+  {path:'getPayments', component:PaymentComponent},
   {path:'getReview', component:GetReviewComponent},
   {path:'deleteRoom/:id', component:DeleteRoomComponent}
 

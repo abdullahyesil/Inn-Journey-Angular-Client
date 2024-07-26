@@ -21,6 +21,7 @@ export class ReservationComponent implements OnInit {
 
   hotelId: string //Parametreden aldıgım idyi atamak için oluşturuldu.
   userId:string
+  roomId:string
   roomType: roomTypeModel[];
   Room: roomModel[];
   totalPrice: number;
@@ -35,7 +36,7 @@ export class ReservationComponent implements OnInit {
 
    
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: { hotelId: string },
+    @Inject(MAT_DIALOG_DATA) public data: { hotelId: string , roomId:string},
     private roomService: RoomService, //oda bilgilerini çekmek için room servisini çağırdık
     private roomTypeService: RoomTypeService,
     private formBuilder: FormBuilder, // FormBuilder eklenmesi
@@ -45,6 +46,7 @@ export class ReservationComponent implements OnInit {
     public dialogRef: MatDialogRef<ReservationComponent>
   ) {
     this.hotelId = data.hotelId; //aldigimiz idyi hotelId'ye aktardık.
+    this.roomId = data.roomId
     this.userId = this.localService.getItem("Token").userId; //localstorageden aldıgım token idyi userIdye aktardım.
     console.log(this.userId)
   
@@ -58,9 +60,10 @@ export class ReservationComponent implements OnInit {
     this.reservationForm = this.formBuilder.group({ //model ile göndermek için Form oluşturduk. Validator ile null kontrolü yaptık.
       userId: [this.userId, Validators.required],
       hotelId: [this.hotelId, Validators.required],
-      roomId: [null, Validators.required],
+      roomId: [this.roomId, Validators.required],
       checkIn: [null, Validators.required],
       checkOut: [null, Validators.required],
+      totalPrice: [this.totalPrice ?? 0, Validators.required],
       status: ["PNM", Validators.required]
     });
   }
@@ -78,6 +81,7 @@ export class ReservationComponent implements OnInit {
       );
     });
 
+    this.selectedRoom = this.roomService.getById(this.roomId).subscribe(resp=> this.roomPricePerNight = resp.baseAdultPrice)
 
   }
 
@@ -88,13 +92,6 @@ export class ReservationComponent implements OnInit {
     } else {
       return 'Bir hata oluştu';
     }
-  }
-
-  // Oda seçiminde değişiklik olduğunda oda fiyatını güncelleyen fonksiyon
-  onSelectionChange(selectedRoomId: string): void {
-    this.selectedRoom = this.Room.find(room => room.id === selectedRoomId); 
-    this.roomPricePerNight = this.selectedRoom ? this.selectedRoom.basePrice : 0;
-    this.totalPrice = this.calculateTotalPrice();
   }
 
   // Check-in ve check-out tarihleri arasındaki gün sayısını hesaplayan fonksiyon
@@ -135,16 +132,20 @@ export class ReservationComponent implements OnInit {
   onCheckInDateChange(event: any): void {
     this.checkInDate = event.value;
     this.totalPrice = this.calculateTotalPrice(); // Toplam fiyatı hesapla
+    this.reservationForm.patchValue({ totalPrice: this.totalPrice }); // Formu güncelle
+  
     this.checkOutDate = null; // Check-out tarihini sıfırla
   }
 
   // Check-out tarihi değiştiğinde check-in tarihini kontrol et
   onCheckOutDateChange(event: any): void { 
     this.checkOutDate = event.value;
-    this.totalPrice = this.calculateTotalPrice(); // Toplam fiyatı hesapl
+    this.totalPrice = this.calculateTotalPrice(); // Toplam fiyatı hesapla
+    this.reservationForm.patchValue({ totalPrice: this.totalPrice }); // Formu güncelle
     if (this.checkInDate && this.checkInDate >= this.checkOutDate) {  //eğer giriş tarihi çıkış tarihinden büyük ise güvenlik için sıfırla.
       this.checkInDate = null; // Check-in tarihini sıfırla
       this.totalPrice = this.calculateTotalPrice(); // Toplam fiyatı hesapla
+      this.reservationForm.patchValue({ totalPrice: this.totalPrice }); // Formu güncelle
     }
   }
 
@@ -160,6 +161,7 @@ export class ReservationComponent implements OnInit {
        this.router.navigate(['/payment/'+resId]);
       }
     )
+
     
     }
 

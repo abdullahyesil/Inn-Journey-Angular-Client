@@ -9,6 +9,9 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChangePassComponent } from './chance-pass/chance-pass.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { SharedModule } from '../shared/shared.module';
+import { MyPaymentsComponent } from './my-payments/my-payments.component';
 
 
 @NgModule({
@@ -16,14 +19,21 @@ import { ChangePassComponent } from './chance-pass/chance-pass.component';
     UsersComponent,
     MyReservationsComponent,
     SidebarComponent,
-    ChangePassComponent
+    ChangePassComponent,
+    MyPaymentsComponent,
+
   ],
   imports: [
     CommonModule,
     UsersRoutingModule,
     MatTabsModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MatSnackBarModule,
+    SharedModule
+  ],
+  exports:[
+  
   ]
 })
 export class UsersModule { }

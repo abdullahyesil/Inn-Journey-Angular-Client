@@ -38,6 +38,7 @@ export class NavbarComponent implements OnInit {
   logOut(){
     this.localService.removeItem("Token")
     this.router.navigate(["/login"]);
+    this.authService.logout();
   }
 
 }

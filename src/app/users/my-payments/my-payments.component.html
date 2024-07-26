@@ -1,0 +1,31 @@
+<div class="container my-3">
+    <div class="row">
+      <div class="col-md-3">
+        <!-- Sidebar Menu Component -->
+        <app-sidebar></app-sidebar>
+        
+      </div>
+        <div class="col-md-9">
+
+<div class="container mt-5">
+    <label class="mb-1">Ödemelerim</label>
+    <div class="row">
+      <div class="col-md-4" *ngFor="let item of paymentModel">
+        <div class="card">
+          <img src="https://via.placeholder.com/150" class="card-img-top" alt="Card Image">
+          <div class="card-body">
+            <h5 class="card-title"> {{item.hotelId}}</h5>
+            <p class="card-text">{{item.amount}}</p>
+            <p class="card-text">{{item.paymentMethod}}</p>
+            <p *ngIf="item.status == 'success' " > Başarılı ✅ </p>
+            <p *ngIf="item.status == 'failure' " > Başarısız ❌ </p>
+            <p class="card-text">{{item.date | date: 'mediumDate'}}</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+  </div>

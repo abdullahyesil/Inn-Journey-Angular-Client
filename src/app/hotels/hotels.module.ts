@@ -17,6 +17,7 @@ import { AuthInterceptor } from '../services/interceptor/auth-interceptor';
 import { ReviewComponent } from './hotel/review/review.component';
 import { PaymentComponent } from './hotel/reservation/payment/payment.component';
 import { RoomComponent } from './hotel/room/room.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -37,7 +38,9 @@ import { RoomComponent } from './hotel/room/room.component';
     MatDatepickerModule,
     ReactiveFormsModule,
     MatSelectModule,
-    FormsModule //ngmodel için
+    FormsModule, //ngmodel için
+    SharedModule
+  
     
   ],
   providers:[

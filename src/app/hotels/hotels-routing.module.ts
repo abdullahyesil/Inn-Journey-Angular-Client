@@ -3,10 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { HotelsComponent } from './hotels.component';
 import { HotelComponent } from './hotel/hotel.component';
 import { PaymentComponent } from './hotel/reservation/payment/payment.component';
+import { ReservationComponent } from './hotel/reservation/reservation.component';
 
 const routes: Routes = [
   { path: "", component: HotelsComponent },
-  { path: "rentRoom/:id", component:HotelComponent},
+  { path: ":hotelName/details/:id", component:HotelComponent},
+  { path: "addReservation", component:ReservationComponent},
   { path:"payment/:id" , component:PaymentComponent}
 ];
 

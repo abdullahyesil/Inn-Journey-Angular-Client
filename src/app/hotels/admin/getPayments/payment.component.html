@@ -1,0 +1,44 @@
+<p>payment works!</p>
+
+<div>
+  <label for="hotelSelect">Otel Seçin:</label>
+  <select id="hotelSelect" (change)="onHotelSelect($event)">
+    <option>Lütfen Otel Seçiniz</option>
+    <option *ngFor="let hotel of myHotel" [value]="hotel.id">{{ hotel.name }}</option>
+  </select>
+</div>
+
+<ng-template #no_payments>
+  <div class="alert alert-warning">Ödeme Bulunamadı</div>
+</ng-template>
+<div class="container mt-4">
+    <h2>Ödemeler</h2>
+    <table *ngIf="paymentModal && paymentModal.length > 0 else no_payments" class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Rezervasyon Id</th>
+          <th scope="col">Hotel Adı</th>
+          <th scope="col">Kullanıcı</th>
+          <th scope="col">Ödeme Türü</th>
+          <th scope="col">Ödeme tarihi</th>
+          <th scope="col">Fiyat (TL)</th>
+          <th scope="col">Durum</th>
+        </tr>
+      </thead>
+      <tbody  *ngFor="let item of paymentModal; let i = index">
+        <tr>
+          <th scope="row">{{i+1}}</th>
+          <td>{{item.reservationId}}</td>
+          <td>{{item.hotelId}}</td>
+          <td>{{item.userId}}</td>
+          <td>{{item.paymentMethod}}</td>
+          <td>{{item.date}}</td>
+          <td>{{item.amount}}</td>
+          <td *ngIf="item.status == 'success' " > ✅ </td>
+          <td *ngIf="item.status == 'failure' " > ❌ </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

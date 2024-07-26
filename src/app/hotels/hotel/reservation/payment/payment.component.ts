@@ -5,6 +5,7 @@ import { reservationModel } from '../../../../model/reservation';
 import { PaymentService } from '../../../../services/payment.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PaymentModel } from '../../../../model/payment';
+import { ValidationService } from '../../../../services/validation.service';
 
 @Component({
   selector: 'app-payment',
@@ -35,12 +36,11 @@ export class PaymentComponent implements OnInit {
       checkOut: ["", Validators.required],
       totalPrice: ["", Validators.required],
       status: ["", Validators.required],
-      cardHolderName: ["", Validators.required],
-      cardNumber: [null, Validators.required],
-      expireMonth: ["", Validators.required],
-      expireYear: ["", Validators.required],
-      cvc: ["", Validators.required]
-
+      cardHolderName: ["", [Validators.required, ValidationService.cardholderNameValidator()]],
+      cardNumber: ["", [Validators.required, ValidationService.creditCardNumberValidator()]],
+      expireMonth: ["", [Validators.required]],
+      expireYear: ["", [Validators.required]],
+      cvc: ["", [Validators.required, ValidationService.creditCardCVVValidator()]]
     })
   }
 
@@ -94,7 +94,7 @@ export class PaymentComponent implements OnInit {
       hotelId: this.reservationModal.hotelId,
       checkIn: this.reservationModal.checkIn,
       checkOut: this.reservationModal.checkOut,
-      totalPrice: 5000,
+      totalPrice: this.reservationModal.totalPrice,
       status: this.reservationModal.status
     });
   }

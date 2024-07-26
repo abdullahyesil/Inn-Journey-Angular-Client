@@ -84,14 +84,14 @@ addReview(){
   if (this.addreview.valid) {
       this.reviewService.add(this.addreview.value).subscribe( response=>{
         console.log(response)
-      
+        this.loadReviews() // yorm getir
       }
       ,(error) => {
       
          this.errorMessage = 'Yorum yaparken bir hata oluştu Lütfen tekrar deneyin. Hata Mesajı:' + error;
          // Hata durumunda kullanıcıya bildirim
        });
-      this.loadReviews() // yorm getir
+    
       // this.addreview.reset(); // Formu sıfırla
       this.addreview.get('rating')?.setValue(null); // rating alanını sıfırla
       this.addreview.get('comment')?.setValue(''); // comment alanını sıfırla

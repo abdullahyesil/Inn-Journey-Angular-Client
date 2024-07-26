@@ -41,5 +41,13 @@ odeme(veri :payModal): Observable<payModal>
  return this.http.post<payModal>(this.url+"/Pay2/", veri)
 }
 
+getByHotelId(hotelId:string){
+  return this.http.get<PaymentModel[]>(this.url+"/payments/hotel/"+hotelId)
+}
+getByUserId(userId:string){
+  return this.http.get<PaymentModel[]>(this.url+"/payments/user/"+userId)
+}
+
+
 
 }

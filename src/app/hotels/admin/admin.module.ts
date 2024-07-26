@@ -19,6 +19,10 @@ import { GetRoomComponent } from './room/get-room/get-room.component';
 import { DeleteRoomComponent } from './room/delete-room/delete-room.component';
 import { UpdateRoomComponent } from './room/update-room/update-room.component';
 import { GetReviewComponent } from './get-review/get-review.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { SharedModule } from '../../shared/shared.module';
+import { PaymentComponent } from './getPayments/payment.component';
+
 
 
 
@@ -33,7 +37,8 @@ import { GetReviewComponent } from './get-review/get-review.component';
     GetRoomComponent,
     DeleteRoomComponent,
     UpdateRoomComponent,
-    GetReviewComponent
+    GetReviewComponent,
+    PaymentComponent
   ],
   imports: [
     CommonModule,
@@ -46,6 +51,8 @@ import { GetReviewComponent } from './get-review/get-review.component';
     FormsModule,
     MatOption,
     MatSelectModule,
+    MatSnackBarModule,
+    SharedModule
   ]
 })
 export class AdminModule { }

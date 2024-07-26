@@ -6,6 +6,9 @@ import { roomTypeModel } from '../../../../model/room-type';
 import { RoomTypeService } from '../../../../services/room-type.service';
 import { RoomService } from '../../../../services/room.service';
 import { LocalStorageService } from '../../../../services/localstorage.service';
+import { ValidationService } from '../../../../services/validation.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-room',
@@ -18,12 +21,15 @@ public roomForm: FormGroup
 public myHotels:HotelModal[]
 public roomType:roomTypeModel[];
 public userId:string
+errorMessage:string;
   constructor(
     private formBuilder: FormBuilder,
     private hotelsService:HotelService,
     private roomTypeService: RoomTypeService,
     private roomService: RoomService,
-    private localService: LocalStorageService
+    private localService: LocalStorageService,
+    private _snackBar: MatSnackBar,
+    private router:Router,
   ){
   this.userId=this.localService.getItem("Token").userId
 this.roomTypeService.get().subscribe(response => this.roomType=response);
@@ -32,8 +38,8 @@ this.roomTypeService.get().subscribe(response => this.roomType=response);
     this.roomForm = this.formBuilder.group({
       hotelId: ['', Validators.required],
       roomTypeId: ['', Validators.required],
-      baseAdultPrice: [null, [Validators.required, Validators.min(0)]],
-      baseChildPrice: [null, [Validators.required, Validators.min(0)]],
+      baseAdultPrice: [null, ValidationService.adultPriceValidator()],
+      baseChildPrice: [null, [Validators.required,ValidationService.childPriceValidator()]],
       status: ['', Validators.required]
     });
 
@@ -45,8 +51,20 @@ this.roomTypeService.get().subscribe(response => this.roomType=response);
   onSubmit(){
     if (this.roomForm.valid) {
     console.log(this.roomForm.value);
-    this.roomService.add(this.roomForm.value).subscribe(response=> console.log(response));
+    this.roomService.add(this.roomForm.value).subscribe(response=> {
+      this._snackBar.open( 'Başarıyla Giriş yapıldı.','',{ duration:4000 });
+
+    },
+    (error) => {
+
+      console.error('Add Room failed:', error);
+      this.errorMessage = 'Oda eklerken bir hata oluştu. Hata Mesajı:' + error;
+      // Hata durumunda kullanıcıya bildirim gösterebilirsiniz
     }
+  );
+  
+    }
+
   }
 
 }

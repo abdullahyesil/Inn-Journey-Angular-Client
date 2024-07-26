@@ -1,119 +1,47 @@
-<!-- <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
-
-<nav class="navbar navbar-expand-lg navbar-dark">
-  <div class="container">
-    <a class="navbar-brand" href="#">
-      <img src="https://w7.pngwing.com/pngs/339/163/png-transparent-trivago-n-v-logo-rebranding-hotel-hotel-text-logo-business.png" width="200" height="100" class="d-inline-block align-top" alt="Logo" loading="lazy">
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul  class="navbar-nav ml-auto">
-        <li  class="nav-item active">
-          <a class="nav-link text-uppercase"[ngClass]="{'active': isActive}"  routerLink="">Anasayfa <span class="sr-only"></span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-uppercase" (click)="isActive = true" routerLink="/hotels">Otel</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-uppercase" (click)="isActive = true" routerLink="/about">Bİz Kİmİz?</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-uppercase" (click)="isActive = true" routerLink="/contact">İLETİŞİM</a>
-        </li>
-      </ul>
-    </div>
-
-     <button *ngIf="!isLogin" routerLink="/login" class="btn btn-primary bordered ml-auto">Login</button>
-     <button *ngIf="!isLogin" routerLink="/signup" class="btn btn-primary bordered ml-auto">SignUp</button>
-     <button  *ngIf="isLogin" mat-button [matMenuTriggerFor]="menu" class="row align-items-center">
-      <div class="col-auto">
-        <i class="fas fa-user-circle fa-3x text-white"></i>
-      </div>
-      <div class="col">
-        <span class="text-white">Kullanıcı İşlemleri</span>
-      </div>
-    </button>
-    
-  <mat-menu #menu="matMenu">
-  <button routerLink="/hotels/admin" mat-menu-item>Admin</button>
-  <button mat-menu-item>Kullanıcı işlemleri</button>
-  <button (click)="logOut()" mat-menu-item>Çıkış Yap</button>
-  </mat-menu>
-
-
-  </div>
-</nav> -->
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid justify-content-between">
-    <!-- Left elements -->
-    <div class="d-flex">
-      <!-- Brand -->
-      <a class="navbar-brand me-2 mb-1 d-flex align-items-center" href="#">
-        <b>SEDNACLOUD</b>
-      </a>
-
-      <!-- Search form -->
-      <form class="input-group w-auto my-auto d-none d-sm-flex">
-        <input autocomplete="off" type="search"  class="form-control rounded" placeholder="Search" style="min-width: 125px"/>
-        <span class="input-group-text border-0 d-none d-lg-flex"
-          ><i class="fas fa-search"></i
-        ></span>
-      </form>
-    </div>
-    <!-- Left elements -->
-
-    <!-- Center elements -->
-    <ul class="navbar-nav flex-row d-none d-md-flex">
-      <li class="nav-item me-3 me-lg-1 active">
-        <a class="nav-link" href="#">
-          <span><i class="fas fa-home fa-lg"></i></span>
-        </a>
+<!-- 
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand text-dark fw-bold mb-2" href="#">
+    <img src="/assets/img/sedna.png" class="img">
+  </a>
+  <div class="collapse navbar-collapse w-100" id="navbarNav">
+    <ul class="navbar-nav text-uppercase fs-6 fw-bold w-100 justify-content-center">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Anasayfa</a>
       </li>
-
-      <li class="nav-item me-3 me-lg-1">
-        <a class="nav-link" routerLink="/hotels">
-          <span><i class="fas fa-shopping-cart fa-lg"></i></span>
-          <span class="badge rounded-pill badge-notification bg-danger">999+</span>
-        </a>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="hotels" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">OTEL</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="contact" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Hakkında</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="admin" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Admin</a>
       </li>
     </ul>
-    <!-- Center elements -->
-
-    <!-- Right elements -->
+  </div>
+  <div class="login-button-container">
     <ul class="navbar-nav flex-row">
-      <li class="nav-item me-3 me-lg-1">
-        <a class="nav-link d-sm-flex align-items-sm-center" *ngIf="isLogin">
-          <strong class="d-none d-sm-block ms-1 nav-link-text">{{userName}}</strong>
-        </a>
-      </li>
+     
       <li class="nav-item me-3 me-lg-1">
         <button ngClass="center"  *ngIf="isLogin" mat-button [matMenuTriggerFor]="menu" class="">
           <div class="col-auto">
-            <i class="fas fa-user-circle fa-3x text-white"></i>
+            <i class="fas fa-user-circle fa-3x text-dark"></i>
           </div>
           <div class="col">
-            <span class="text-white">Kullanıcı İşlemleri</span>
+            <span class="text-dark">Kullanıcı İşlemleri</span>
           </div>
         </button>
    
 
     <mat-menu #menu="matMenu">
-      <button routerLink="/hotels/admin" mat-menu-item>Admin</button>
+      <p> Hoşgeldiniz.. <strong class="d-none d-sm-block ms-1 nav-link-text">{{userName}}</strong> </p>
+       
+      <button routerLink="/hotels/admin" mat-menu-item>Hotel Admin</button>
       <button routerLink="/myProfile"  mat-menu-item>Kullanıcı işlemleri</button>
       <button (click)="logOut()" mat-menu-item>Çıkış Yap</button>
       </mat-menu>
     </li>
-<!-- 
-      <li class="nav-item me-3 me-lg-1">
-        <a class="nav-link d-sm-flex align-items-sm-center" *ngIf="isLogin"  routerLink="/hotels/admin">
-          <strong class="d-none d-sm-block ms-1 nav-link-text">Admin</strong>
-        </a>
-      </li> -->
+
       <li class="nav-item me-3 me-lg-1">
         <a class="nav-link d-sm-flex align-items-sm-center" *ngIf="!isLogin" routerLink="login">
           <strong class="d-none d-sm-block ms-1nav-link-text">Login</strong>
@@ -126,10 +54,89 @@
           <span class="li-ico"><i class="fa-solid fa-user-plus"></i></span>
         </a>
       </li>
+    </ul>
+  </div>
+  
+</nav>
+ -->
+
+
+ <!-- Navbar-->
+ <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid justify-content-between">
+    <!-- Left elements -->
+    <div class="d-flex">
+      <!-- Brand -->
+      <a class="navbar-brand me-2 mb-1 d-flex align-items-center" routerLink="">
+        <b>SEDNACLOUD</b>
+      </a>
+    </div>
+
+
+    <!-- Center elements -->
+    <ul class="navbar-nav flex-row d-none d-md-flex">
+      <li class="nav-item me-3 me-lg-1 active">
+        <a class="nav-link" routerLink="">
+          <span><i class="fas fa-home fa-lg" title="hotel"></i> Anasayfa</span>
+        </a>
+      </li>
+      <li class="nav-item me-3 me-lg-1 active">
+        <a class="nav-link" routerLink="hotels" >
+          <span><i class="fas fa-hotel fa-lg" ></i> Hotel</span>
+        </a>
+      </li>
+
+      <li class="nav-item me-3 me-lg-1 active">
+        <a class="nav-link" routerLink="">
+          <span><i class="fas fa-home fa-lg" title="hotel"></i> İletişim</span>
+        </a>
+      </li>
+      <li class="nav-item me-3 me-lg-1 active">
+        <a class="nav-link" routerLink="">
+          <span><i class="fas fa-home fa-lg" title="hotel"></i> Destek</span>
+        </a>
+      </li>
+
+    </ul>
+    <!-- Center elements -->
+
+    <!-- Right elements -->
+    <ul class="navbar-nav flex-row">
+      <!-- <li class="nav-item me-3 me-lg-1">
+        <a class="nav-link d-sm-flex align-items-sm-center" *ngIf="authService.isAuthenticated">
+          <strong class="d-none d-sm-block ms-1">Username</strong>
+        </a>
+      </li> -->
       <li class="nav-item me-3 me-lg-1">
-        <a class="nav-link d-sm-flex align-items-sm-center" *ngIf="isLogin"  (click)="logOut()">
-          <strong class="d-none d-sm-block ms-1 nav-link-text">Logout</strong>
-          <span class="li-ico"><i class="fa-solid fa-right-from-bracket"></i></span>
+        <button ngClass="center"  *ngIf="isLogin" mat-button [matMenuTriggerFor]="menu" class="">
+          <div class="col-auto">
+            <i class="fas fa-user-circle fa-3x text-white"></i>
+          </div>
+          <div class="col">
+            <span class="text-white">Kullanıcı İşlemleri</span>
+          </div>
+        </button>
+   
+
+    <mat-menu #menu="matMenu">
+      <p> Hoşgeldiniz.. <strong class="d-none d-sm-block ms-1 nav-link-text">{{userName}}</strong> </p>
+       
+      <button routerLink="/hotels/admin" mat-menu-item>Hotel Admin</button>
+      <button routerLink="/myProfile"  mat-menu-item>Kullanıcı işlemleri</button>
+      <button (click)="logOut()" mat-menu-item>Çıkış Yap</button>
+      </mat-menu>
+    </li>
+     
+      <li class="nav-item me-3 me-lg-1">
+        <a class="nav-link d-sm-flex align-items-sm-center" routerLink="login" *ngIf="!isLogin" routerLink="login">
+          <strong class="d-none d-sm-block ms-1">Login</strong>
+          <span class="li-ico"><i class="fa-solid fa-right-to-bracket"></i></span>
+        </a>
+      </li>
+      <li class="nav-item me-3 me-lg-1">
+        <a class="nav-link d-sm-flex align-items-sm-center" routerLink="register"  *ngIf="!isLogin" routerLink="register">
+          <strong class="d-none d-sm-block ms-1">Sign Up</strong>
+          <span class="li-ico"><i class="fa-solid fa-user-plus"></i></span>
         </a>
       </li>
     </ul>

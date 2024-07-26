@@ -1,6 +1,5 @@
 // Detay butonlarının stili
 
-
 .popular__grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -10,7 +9,6 @@
 .popular__card:hover {
     transform: scale(1.1)
 }
-
 .popular__card {
     display: flex;
     flex-direction: column;
@@ -20,13 +18,11 @@
     box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
     width: 100%;
     transition: 0.4s;
-
 }
 
 .popular__content {
     padding: 0.5rem;
 }
-
 .popular__card__header {
     display: flex;
     align-items: center;
@@ -34,7 +30,6 @@
     gap: 1rem;
     margin-bottom: 0.5rem;
 }
-
 .reservation-btn {
     padding: 8px 12px; // Buton içeriğinin iç boşluğu
     font-size: 14px; // Yazı boyutu

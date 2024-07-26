@@ -12,7 +12,6 @@ import { LocalStorageService } from './localstorage.service';
 export class AuthService {
 
   public $refreshToken = new Subject<boolean>();
-  user = new BehaviorSubject<User>(null);
   private loginStatusSubject = new BehaviorSubject<boolean>(this.isLogin());
 
   constructor(
@@ -42,7 +41,7 @@ export class AuthService {
 
     this.localService.removeItem("Token");
     this.localService.setItem("Token", response.token);
-    this.emitLoginStatus(true);
+   // this.emitLoginStatus(true); bir problem olursa burası
   }
 
   logout() {

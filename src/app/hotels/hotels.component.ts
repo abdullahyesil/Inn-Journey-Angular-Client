@@ -46,5 +46,9 @@ export class HotelsComponent implements OnInit {
       }
       return stars;
     }
+
+    getStarArray(hotel: HotelModal): number[] {
+      return Array(hotel.star || 0).fill(0);
+    }
     
 }

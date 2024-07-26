@@ -1,31 +1,23 @@
-<h2 mat-dialog-title>Rezervasyon </h2>
+<h2 mat-dialog-title class="text-center">Rezervasyon </h2>
 <mat-dialog-content class="mat-typography">
     <form [formGroup]="reservationForm" class="example-form">
         <mat-form-field class="example-full-width">
           <mat-label>UserId</mat-label>
           <input formControlName="userId" matInput placeholder="User Id">
-          <mat-error *ngIf="reservationForm.get('userId')?.hasError('required')">
-            UserId gereklidir
-          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Total Price</mat-label>
+          <input formControlName="totalPrice" matInput type="text" [value]="totalPrice">
         </mat-form-field>
         <mat-form-field class="example-full-width">
           <mat-label>HotelId</mat-label>
           <input formControlName="hotelId" matInput placeholder="Hotel Id">
-          <mat-error *ngIf="reservationForm.get('hotelId')?.hasError('required')">
-            HotelId gereklidir.
-          </mat-error>
         </mat-form-field>
         <br>
-        <mat-form-field>
-          <mat-label>Oda Seçimi</mat-label>
-          <mat-select formControlName="roomId" (selectionChange)="onSelectionChange($event.value)">
-            <mat-option *ngFor="let oda of Room" [value]="oda.id">
-              {{ oda.baseAdultPrice}} - {{ getRoomTypeName(oda.roomTypeId) }}
-            </mat-option>
-          </mat-select>
-          <mat-error *ngIf="reservationForm.get('roomId')?.hasError('required')">
-            Oda Seçimi gereklidir
-          </mat-error>
+        <mat-form-field class="example-full-width">
+          <mat-label>OdaId</mat-label>
+          <input formControlName="roomId" matInput placeholder="roomId">
         </mat-form-field>
         <br>
         <p>Selected range: {{range.value | json}}</p>
@@ -38,7 +30,6 @@
             Check-in Tarihi gereklidir
           </mat-error>
         </mat-form-field>
-
         <mat-form-field>
           <input formControlName="checkOut" matInput [matDatepickerFilter]="checkOutFilter" [matDatepicker]="checkOutPicker" placeholder="Check-out Date" [min]="checkInDate" (dateChange)="onCheckOutDateChange($event)">
           <mat-datepicker-toggle matSuffix [for]="checkOutPicker"></mat-datepicker-toggle>
@@ -47,15 +38,10 @@
             Check-out Tarihi gereklidir
           </mat-error>
         </mat-form-field>
-
         <mat-form-field class="example-full-width">
           <mat-label>status</mat-label>
           <input formControlName="status" value="PNC" matInput placeholder="status">
-          <mat-error *ngIf="reservationForm.get('hotelId')?.hasError('required')">
-            status gereklidir.
-          </mat-error>
         </mat-form-field>
-
         <label>Toplam fiyat: {{totalPrice}}</label>
     </form>
 </mat-dialog-content>

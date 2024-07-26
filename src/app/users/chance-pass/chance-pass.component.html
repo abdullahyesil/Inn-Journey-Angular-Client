@@ -1,4 +1,3 @@
-
 <div class="container my-3">
   <div class="row">
     <div class="col-md-3">
@@ -8,29 +7,72 @@
     </div>
       <div class="col-md-9">
         <form [formGroup]="userForm" (ngSubmit)="submitForm()">
+          <input type="hidden" value="{{userId}}" formControlName="id">
           <div class="form-group">
             <label for="username">Kullanıcı Adı</label>
             <input type="text" class="form-control" id="username" formControlName="username">
-            <div *ngIf="userForm.get('username').errors?.['required']" class="invalid-feedback">Kullanıcı adı zorunludur.</div>
+
+            <app-error-message
+            [control]="userForm.get('username')">
+          </app-error-message>
+
           </div>
           <div class="form-group">
-              <label for="username">Kullanıcı Adı</label>
-              <input type="text" class="form-control" id="username" formControlName="Name">
-              <div *ngIf="userForm.get('name').errors?.['required']" class="invalid-feedback">Kullanıcı adı zorunludur.</div>
+              <label for="name">İsim: </label>
+              <input type="text" class="form-control" id="name" formControlName="name">
+             
+            <app-error-message
+            [control]="userForm.get('name')">
+          </app-error-message>
             </div>
           <div class="form-group">
             <label for="email">E-posta Adresi</label>
             <input type="email" class="form-control" id="email" formControlName="email">
-            <div *ngIf="userForm.get('email').errors?.['required']" class="invalid-feedback">E-posta adresi zorunludur.</div>
+           
+            <app-error-message
+            [control]="userForm.get('email')">
+          </app-error-message>
+
           </div>
           <div class="form-group">
-            <label for="password">Yeni Şifre</label>
+            <label for="age">Yaş: </label>
+            <input type="text" class="form-control" id="age" formControlName="age">
+           
+            <app-error-message
+            [control]="userForm.get('age')">
+          </app-error-message>
+          </div>
+          <div class="form-group">
+            <label for="age">Phone: </label>
+            <input type="text" class="form-control" id="phone" formControlName="phone">
+           
+            <app-error-message
+            [control]="userForm.get('phone')">
+          </app-error-message>
+          </div>
+          <div class="form-group">
+            <label for="age">Şifre: </label>
             <input type="password" class="form-control" id="password" formControlName="password">
+            
+            <app-error-message
+            [control]="userForm.get('password')">
+          </app-error-message>
           </div>
           <div class="form-group">
-              <label for="Repassword">Yeni Şifre(Tekrar)</label>
-              <input type="Repassword" class="form-control" id="Repassword" formControlName="Repassword">
-            </div>
+            <label for="confirmPassword">Tekrar Şifre: </label>
+            <input type="password" class="form-control" id="confirmPassword" formControlName="confirmPassword">
+            
+            <app-error-message
+            [control]="userForm.get('password')">
+          </app-error-message>
+          </div>
+          <div class="form-group">
+            <label for="gender">Cinsiyet</label><br>
+            <input type="radio" id="male" name="gender" formControlName="gender" [value]="false">
+            <label for="male">Erkek</label><br>
+            <input type="radio" id="female" name="gender" formControlName="gender" [value]="true">
+            <label for="female">Kadın</label><br>
+          </div>
           <button type="submit" class="btn btn-primary">Bilgileri Güncelle</button>
         </form>
       </div>

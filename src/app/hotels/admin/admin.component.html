@@ -1,46 +1,12 @@
-<h3 class="text-center">Otel Admin Yönetimi</h3>
-<div class="row">
-    <div class="col-md-4 mb-4">
-        <div class="card h-100 border-0 shadow">
-          <div class="card-body d-flex flex-column justify-content-between">
-            <a routerLink="addHotel" class="btn btn-primary btn-block">Otel Ekle</a>
-          </div>
-        </div>
-      </div>
-    <div class="col-md-4 mb-4">
-      <div class="card h-100 border-0 shadow">
-        <div class="card-body d-flex flex-column justify-content-between">
-          <a routerLink="myHotels" class="btn btn-primary btn-block">Otel ve Rezervasyonlar</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4 mb-4">
-      <div class="card h-100 border-0 shadow">
-        <div class="card-body d-flex flex-column justify-content-between">
-          <a routerLink="getRoom" class="btn btn-primary btn-block">Odalarım</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4 mb-4">
-      <div class="card h-100 border-0 shadow">
-        <div class="card-body d-flex flex-column justify-content-between">
-          <a href="#" class="btn btn-primary btn-block">Ödemeler</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4 mb-4">
-      <div class="card h-100 border-0 shadow">
-        <div class="card-body d-flex flex-column justify-content-between">
-          <a routerLink="getReview" class="btn btn-primary btn-block">Yorumlar</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4 mb-4">
-      <div class="card h-100 border-0 shadow">
-        <div class="card-body d-flex flex-column justify-content-between">
-          <a routerLink="addRoom" class="btn btn-primary btn-block">Oda Ekle</a>
-        </div>
-      </div>
-    </div>
-  </div>
+<h3 class="text-center m-3">Otel Admin Yönetimi</h3>
+<hr class="w-100">
   
+ <!-- grid.component.html -->
+<div class="grid-container">
+  <button routerLink="addHotel" id="button1" class="rect-button">Otel Ekle</button>
+  <button routerLink="myHotels" id="button2" class="rect-button">Otel ve Rezervasyonlar</button>
+  <button routerLink="getRoom" id="button3" class="rect-button">Odalarım</button>
+  <button routerLink="getPayments" id="button4" class="rect-button">Ödemeler</button>
+  <button routerLink="getReview" id="button5" class="rect-button">Yorumlar</button>
+  <button routerLink="addRoom" id="button6" class="rect-button">Oda Ekle</button>
+</div>

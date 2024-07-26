@@ -3,6 +3,8 @@ import { RoomService } from '../../../services/room.service';
 import { RoomTypeService } from '../../../services/room-type.service';
 import { roomModel } from '../../../model/room';
 import { roomTypeModel } from '../../../model/room-type';
+import { ReservationComponent } from '../reservation/reservation.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-room',
@@ -18,8 +20,8 @@ export class RoomComponent  implements OnInit {
   @Input() hotelId: string = "";
   constructor(
     private RoomService:RoomService,
-    private RoomTypeService: RoomTypeService
-
+    private RoomTypeService: RoomTypeService,
+    private dialog: MatDialog
   ){
   
   }
@@ -44,5 +46,10 @@ export class RoomComponent  implements OnInit {
     const roomType = this.roomTypeMap[roomTypeId];
     return roomType ? roomType.name : "Bilinmeyen Oda";
   }
+
+  openRezervation(hotelId:string, roomId:string){   
+    const diagloRef= this.dialog.open(ReservationComponent ,{ data: {hotelId, roomId}
+    });
+    }
 
 }

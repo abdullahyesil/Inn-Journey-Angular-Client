@@ -92,7 +92,6 @@
       </div>
     </div>
   </div>
-
   <!-- Ödeme Bilgileri -->
   <div class="card mb-4">
     <div class="card-header">
@@ -102,10 +101,14 @@
       <div class="form-group">
         <label>Kart Üzerindeki İsim</label>
         <input formControlName="cardHolderName" type="text" class="form-control" placeholder="Kart Üzerindeki İsim">
+        <app-error-message [control]="paymentForm.get('cardHolderName')"></app-error-message>
       </div>
       <div class="form-group">
         <label >Kart Numarası</label>
         <input formControlName="cardNumber" type="text" class="form-control" placeholder="Kart Numarası">
+        <app-error-message
+        [control]="paymentForm.get('cardNumber')">
+      </app-error-message>
       </div>
       <div class="form-row">
         <div class="form-group col-md-4">
@@ -119,6 +122,9 @@
         <div class="form-group col-md-4">
           <label>CVV</label>
           <input formControlName="cvc" type="text" class="form-control" placeholder="CVV">
+          <app-error-message
+          [control]="paymentForm.get('cvc')">
+        </app-error-message>
         </div>
       </div>
     </div>
@@ -126,7 +132,6 @@
   <!-- Submit Button -->
   <button type="submit" class="btn btn-primary btn-block">Ödemeyi Tamamla</button>
 </form>
-
 </div>
 <!-- Ödeme başarılı ekranı! -->
 <div *ngIf="successEkrani">

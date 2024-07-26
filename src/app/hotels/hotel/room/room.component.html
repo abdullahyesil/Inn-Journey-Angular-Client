@@ -22,10 +22,8 @@
                     </span>
                 </div>
             </div>
-            <span class="price-info">
-                {{item.baseAdultPrice}} per night
-            </span>
-            <button class="reservation-btn" routerLink="/reservation" target="_blank">Make a reservation</button>
+            <span class="price" style="margin-left: 18rem;"> {{item.baseAdultPrice}} per night</span>
+            <button class="reservation-btn"  (click)="openRezervation(this.hotelId, item.id)" >Rezervasyon Yap</button>
         </div>
     </div>
     <ng-template #no_Room>

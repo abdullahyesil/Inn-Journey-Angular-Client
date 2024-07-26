@@ -35,13 +35,12 @@
       
     </div>
   </div>
-  <button class="bg-primary text-white" mat-button (click)="openRezervation(hotel.id)">Rezervasyon Yap</button>
 </div>
 
 <ng-template #no_Hotel>
   <div class="alert alert-warning">Hotel Bulunamadı</div>
 </ng-template>
-<app-room *ngIf="hotel" [hotelId]="hotel.id"></app-room>
+<app-room class="m-1" *ngIf="hotel" [hotelId]="hotel.id"></app-room>
 <app-review *ngIf="hotel" [hotelId]="hotel.id"></app-review>
 
 
