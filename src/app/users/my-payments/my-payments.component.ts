@@ -14,6 +14,7 @@ export class MyPaymentsComponent implements OnInit {
 
   paymentModel: PaymentModel[]
   hotelModel: HotelModal[]
+  hotelMap: { [key: string]: any } = {}; 
   constructor(
     private localService:LocalStorageService,
     private paymentService:PaymentService,
@@ -23,8 +24,23 @@ export class MyPaymentsComponent implements OnInit {
   }
   ngOnInit(): void {
        this.paymentService.getByUserId(this.localService.getItem("Token").userId).subscribe(resp => this.paymentModel = resp)
-       this.hotelService.getHotels().subscribe(response => this.hotelModel = response)
-       
+       this.hotelService.getHotels().subscribe(response => {
+        this.hotelModel = response
+        this.createHotelMap()
+      })
+
+  }
+
+  createHotelMap(): void {
+    this.hotelMap = {};
+    this.hotelModel.forEach(resp => {
+      this.hotelMap[resp.id] = resp;
+    });
+  }
+
+  getHotelName(hotelId: string): string {
+    const hotel = this.hotelMap[hotelId];
+    return hotel ? hotel.name : "Bilinmeyen Otel";
   }
 
 

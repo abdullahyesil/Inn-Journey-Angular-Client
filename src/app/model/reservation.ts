@@ -6,5 +6,6 @@ export interface reservationModel{
     checkIn : Date,
     checkOut: Date,
     totalPrice: number,
-    status: string
+    status: string,
+    deleted?:boolean
 }

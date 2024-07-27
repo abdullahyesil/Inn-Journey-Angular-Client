@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { roomModel } from '../../../../model/room';
 import { DialogRef } from '@angular/cdk/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-update-room',
@@ -18,6 +19,7 @@ export class UpdateRoomComponent {
   private roomService:RoomService,
   private fb:FormBuilder,
   private dialogref: DialogRef,
+  private _snackBar: MatSnackBar,
   @Inject(MAT_DIALOG_DATA) public data: { roomId: string },
  ){
 
@@ -56,6 +58,8 @@ this.roomForm = this.fb.group({
     {
       this.roomService.update(this.roomForm.value).subscribe(response => console.log(response))
       this.dialogref.close();
+      this._snackBar.open( 'Oda başarıyla Güncellendi.','',{ duration:4000 });
+      
     }
 
   }

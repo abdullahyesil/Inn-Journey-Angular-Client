@@ -7,9 +7,10 @@ import { ReservationComponent } from './hotel/reservation/reservation.component'
 
 const routes: Routes = [
   { path: "", component: HotelsComponent },
-  { path: ":hotelName/details/:id", component:HotelComponent},
-  { path: "addReservation", component:ReservationComponent},
-  { path:"payment/:id" , component:PaymentComponent}
+  { path: ":hotelName/details/:id", component: HotelComponent },
+  { path: "page/:pageNo", component: HotelsComponent, },
+  { path: "addReservation", component: ReservationComponent },
+  { path: "payment/:id", component: PaymentComponent }
 ];
 
 @NgModule({

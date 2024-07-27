@@ -1,58 +1,54 @@
-<h2 mat-dialog-title>Rezervasyon </h2>
+<h2 mat-dialog-title>Oda Güncelle</h2>
 <mat-dialog-content class="mat-typography">
-    <form [formGroup]="roomForm" class="example-form">
-        <mat-form-field class="example-full-width">
-          <mat-label>Room Id</mat-label>
-          <input formControlName="id" matInput placeholder="Room id">
-          <mat-error *ngIf="roomForm.get('id')?.hasError('required')">
-            Room Id gereklidir
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field class="example-full-width">
-          <mat-label>HotelId</mat-label>
-          <input formControlName="hotelId" matInput placeholder="Hotel Id">
-          <mat-error *ngIf="roomForm.get('hotelId')?.hasError('required')">
-            HotelId gereklidir.
-          </mat-error>
-        </mat-form-field>
+  <form [formGroup]="roomForm" class="example-form">
+    <!-- Room ID -->
+    <mat-form-field class="example-full-width">
+      <mat-label>Room ID</mat-label>
+      <input formControlName="id" matInput placeholder="Room ID">
+      <mat-error *ngIf="roomForm.get('id')?.hasError('required')">
+        Room ID gereklidir.
+      </mat-error>
+    </mat-form-field>
 
-        <mat-form-field class="example-full-width">
-          <mat-label>HotelId</mat-label>
-          <input formControlName="roomTypeId" matInput placeholder="Hotel Id">
-          <mat-error *ngIf="roomForm.get('hotelId')?.hasError('required')">
-            HotelId gereklidir.
-          </mat-error>
-        </mat-form-field>
+    <!-- Hotel ID -->
+    <mat-form-field class="example-full-width">
+      <mat-label>Hotel ID</mat-label>
+      <input formControlName="hotelId" matInput placeholder="Hotel ID">
+      <mat-error *ngIf="roomForm.get('hotelId')?.hasError('required')">
+        Hotel ID gereklidir.
+      </mat-error>
+    </mat-form-field>
 
-        <mat-form-field class="example-full-width">
-          <mat-label>baseAdultPrice</mat-label>
-          <input formControlName="baseAdultPrice" matInput placeholder="Hotel Id">
-          <mat-error *ngIf="roomForm.get('baseAdultPrice')?.hasError('required')">
-            baseAdultPrice gereklidir.
-          </mat-error>
-        </mat-form-field>
+    <!-- Room Type ID -->
+    <mat-form-field class="example-full-width">
+      <mat-label>Room Type ID</mat-label>
+      <input formControlName="roomTypeId" matInput placeholder="Room Type ID">
+      <mat-error *ngIf="roomForm.get('roomTypeId')?.hasError('required')">
+        Room Type ID gereklidir.
+      </mat-error>
+    </mat-form-field>
 
-        <mat-form-field class="example-full-width">
-          <mat-label>baseChildPrice</mat-label>
-          <input formControlName="baseChildPrice" matInput placeholder="Hotel Id">
-          <mat-error *ngIf="roomForm.get('baseChildPrice')?.hasError('required')">
-            baseChildPrice gereklidir.
-          </mat-error>
-        </mat-form-field>
+    <!-- Base Adult Price -->
+    <mat-form-field class="example-full-width">
+      <mat-label>Base Adult Price</mat-label>
+      <input formControlName="baseAdultPrice" matInput placeholder="Base Adult Price" type="number">
+      <mat-error *ngIf="roomForm.get('baseAdultPrice')?.hasError('required')">
+        Base Adult Price gereklidir.
+      </mat-error>
+    </mat-form-field>
 
-        <mat-form-field class="example-full-width">
-          <mat-label>HotelId</mat-label>
-          <input formControlName="status" matInput placeholder="Hotel Id">
-          <mat-error *ngIf="roomForm.get('status')?.hasError('required')">
-            HotelId gereklidir.
-          </mat-error>
-        </mat-form-field>
-
-        <br>
-        <br>
-    </form>
+    <!-- Base Child Price -->
+    <mat-form-field class="example-full-width">
+      <mat-label>Base Child Price</mat-label>
+      <input formControlName="baseChildPrice" matInput placeholder="Base Child Price" type="number">
+      <mat-error *ngIf="roomForm.get('baseChildPrice')?.hasError('required')">
+        Base Child Price gereklidir.
+      </mat-error>
+    </mat-form-field>
+  </form>
 </mat-dialog-content>
+
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button mat-dialog-close>İptal</button>
   <button (click)="updateRoom()" mat-button [disabled]="!roomForm.valid">Güncelle</button>
 </mat-dialog-actions>

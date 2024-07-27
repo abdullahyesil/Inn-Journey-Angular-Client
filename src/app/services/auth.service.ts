@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { User } from '../model/user';
 import { LocalStorageService } from './localstorage.service';
+import { userModal } from '../model/userModal';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +32,10 @@ export class AuthService {
       })
     );
   }
+
+
+
+
 
   private handleAuthentication(response: AuthResponse) {
     const accessToken = response.token.accessToken;

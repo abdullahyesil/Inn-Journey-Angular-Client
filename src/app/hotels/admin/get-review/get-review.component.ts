@@ -14,8 +14,8 @@ import { userModal } from '../../../model/userModal';
 })
 export class GetReviewComponent implements OnInit{
 
-hotelModal:HotelModal[]
-reviewModel:reviewModel[]
+hotelModal:HotelModal[] = [];
+reviewModel:reviewModel[] = [];
 userId:string;
 //kullanıcı adlarını gösterme
 users:userModal[]

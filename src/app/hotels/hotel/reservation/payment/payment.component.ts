@@ -6,6 +6,13 @@ import { PaymentService } from '../../../../services/payment.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PaymentModel } from '../../../../model/payment';
 import { ValidationService } from '../../../../services/validation.service';
+import { userModal } from '../../../../model/userModal';
+import { HotelModal } from '../../../../model/hotelmodal';
+import { HotelService } from '../../../../services/hotel.service';
+import { RoomTypeService } from '../../../../services/room-type.service';
+import { RoomService } from '../../../../services/room.service';
+import { roomTypeModel } from '../../../../model/room-type';
+import { roomModel } from '../../../../model/room';
 
 @Component({
   selector: 'app-payment',
@@ -15,17 +22,23 @@ import { ValidationService } from '../../../../services/validation.service';
 export class PaymentComponent implements OnInit {
 
   paymentForm: FormGroup
+  userModel:userModal
+  hotelModel:HotelModal
+  roomTypeModel:roomTypeModel
+  roomModel:roomModel
   paymentModel: PaymentModel
   reservationModal: reservationModel
-  successEkrani = false // Ödeme başarılı olursa yeni component açmadan aynı sayfada işlem yapalım
+  successEkrani:boolean = false // Ödeme başarılı olursa yeni component açmadan aynı sayfada işlem yapalım
+  failrueEkrani:boolean = false
   constructor(
     private activatedRoot: ActivatedRoute,
     private reservationService: ReservationService,
     private payService: PaymentService,
     private fb: FormBuilder,
-
+   private hotelService:HotelService,
+   private roomService:RoomService,
+   private roomTypeService:RoomTypeService
   ) {
-
 
     this.paymentForm = this.fb.group({
       id: ["", Validators.required],
@@ -45,18 +58,39 @@ export class PaymentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-
-    this.activatedRoot.params.subscribe(params =>
+    this.activatedRoot.params.subscribe(params => {
       this.reservationService.getById(params['id']).subscribe(response => {
-        this.reservationModal = response
-        this.formUpdate()
-      })
-    )
-
-
-
+        this.reservationModal = response;
+        this.formUpdate();
+        
+        this.hotelService.getHotelById(this.reservationModal.hotelId).subscribe(resp => {
+          this.hotelModel = resp;
+          console.log('Hotel Model:', this.hotelModel); // Debugging
+        });
+  
+        this.roomService.getById(this.reservationModal.roomId).subscribe(resp => {
+          this.roomModel = resp;
+          console.log('Room Model:', this.roomModel); // Debugging
+          
+          if (this.roomModel && this.roomModel.roomTypeId) {
+            this.roomTypeService.getById(this.roomModel.roomTypeId).subscribe(roomTypeResp => {
+              this.roomTypeModel = roomTypeResp;
+              console.log('Room Type Model:', this.roomTypeModel); // Debugging
+            }, error => {
+              console.error('Error fetching room type:', error);
+            });
+          } else {
+            console.warn('Room Model or Room Type ID is missing');
+          }
+        }, error => {
+          console.error('Error fetching room details:', error);
+        });
+      }, error => {
+        console.error('Error fetching reservation details:', error);
+      });
+    });
   }
+  
 
   odemeyap() {
     if (this.paymentForm.valid) {
@@ -71,9 +105,7 @@ export class PaymentComponent implements OnInit {
           this.successEkrani = true;
         } else {
           // Başarısız ödeme durumu için işlemler
-          console.error('Ödeme başarısız:', response);
-
-          alert('Ödeme başarısız. Lütfen tekrar deneyin.');
+          this.failrueEkrani =true;
         }
       }, error => {
         console.error('Ödeme işlemi sırasında hata oluştu:', error);
@@ -98,5 +130,9 @@ export class PaymentComponent implements OnInit {
       status: this.reservationModal.status
     });
   }
+
+
+
+ 
 
 }

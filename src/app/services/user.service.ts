@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { userModal } from '../model/userModal';
 import { User } from '../model/user';
+import { reservationModel } from '../model/reservation';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,12 @@ export class UserService {
 
   url:string= "https://localhost:7171/api/Users";
   constructor(private http:HttpClient) { }
+
+  responseModel :{
+    success:boolean,
+    message:string
+
+  }
 
   getByIdUser(id:string){
     return this.http.get<userModal>(this.url+"/ById/"+id)
@@ -26,7 +33,7 @@ export class UserService {
    }
 
    createUser(user:userModal){
-    return this.http.post(this.url,user)
+    return this.http.post<reservationModel>(this.url,user)
    }
 
 

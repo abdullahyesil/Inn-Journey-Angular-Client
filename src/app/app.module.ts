@@ -13,13 +13,14 @@ import { MenuComponent } from './menu/menu.component';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { AuthComponent } from './auth/auth.component';
+import { AuthComponent } from './SignInAndSingUp/auth/auth.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { SharedModule } from './shared/shared.module';
+import { SignupComponent } from './SignInAndSingUp/signup/signup.component';
 
 
 
@@ -34,7 +35,8 @@ import { SharedModule } from './shared/shared.module';
     ContactComponent,
     AboutComponent,
     MenuComponent,
-    AuthComponent
+    AuthComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,

@@ -64,7 +64,7 @@ export class ReservationComponent implements OnInit {
       checkIn: [null, Validators.required],
       checkOut: [null, Validators.required],
       totalPrice: [this.totalPrice ?? 0, Validators.required],
-      status: ["PNM", Validators.required]
+      status: ["PNC", Validators.required]
     });
   }
 

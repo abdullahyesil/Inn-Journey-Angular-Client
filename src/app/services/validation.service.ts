@@ -22,6 +22,7 @@ export class ValidationService {
     'creditCardNumber': 'Geçerli bir kredi kartı numarası giriniz.',
     'creditCardExpiration': 'Geçerli bir son kullanma tarihi giriniz (MM/YY).',
     'creditCardCVV': 'Geçerli bir CVV numarası giriniz (3-4 haneli).',
+    'address': 'Adres 15-600 karakter arasında olmalıdır. ',
   
   };
   getValidatorErrorMessage(validatorName: string): string {
@@ -110,6 +111,14 @@ static descriptionValidator(): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } | null => {
     const isValid = control.value && control.value.length >= 15 && control.value.length <= 600;
     return isValid ? null : { 'description': true };
+  };
+}
+
+// Açıklama doğrulaması (15-600 karakter arasında)
+static addressValidator(): ValidatorFn {
+  return (control: AbstractControl): { [key: string]: any } | null => {
+    const isValid = control.value && control.value.length >= 15 && control.value.length <= 600;
+    return isValid ? null : { 'address': true };
   };
 }
 

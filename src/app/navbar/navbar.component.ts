@@ -34,7 +34,6 @@ export class NavbarComponent implements OnInit {
     this.userService.getByIdUser(this.localService.getItem("Token").userId).subscribe(data => this.userName = data.name );
 
   }
-
   logOut(){
     this.localService.removeItem("Token")
     this.router.navigate(["/login"]);

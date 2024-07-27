@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-import { LocalStorageService } from '../services/localstorage.service';
-import { NavbarComponent } from '../navbar/navbar.component';
+import { LocalStorageService } from '../../services/localstorage.service';
+import { NavbarComponent } from '../../navbar/navbar.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { HotelComponent } from '../hotels/hotel/hotel.component';
+import { HotelComponent } from '../../hotels/hotel/hotel.component';
 
 @Component({
   selector: 'app-auth',
@@ -33,7 +33,7 @@ export class AuthComponent {
           // Burada başarılı giriş işlemi sonrası yapılacak işlemleri ekleyebilirsiniz
           this.localService.setItem("Token", response.token)
           this.authService.emitLoginStatus(true);  // Login durumunu yayınla
-        this._snackBar.open( 'Başarıyla Giriş yapıldı.','',{ duration:4000 });
+       
 
         },
         (error) => {

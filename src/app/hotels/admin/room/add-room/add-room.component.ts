@@ -40,23 +40,21 @@ this.roomTypeService.get().subscribe(response => this.roomType=response);
       roomTypeId: ['', Validators.required],
       baseAdultPrice: [null, ValidationService.adultPriceValidator()],
       baseChildPrice: [null, [Validators.required,ValidationService.childPriceValidator()]],
-      status: ['', Validators.required]
+      status: ['']
     });
-
   }
   ngOnInit(): void {
-
   }
 
   onSubmit(){
     if (this.roomForm.valid) {
     console.log(this.roomForm.value);
     this.roomService.add(this.roomForm.value).subscribe(response=> {
-      this._snackBar.open( 'Başarıyla Giriş yapıldı.','',{ duration:4000 });
-
+      this._snackBar.open( 'Oda başarıyla eklendi.','',{ duration:4000 });
+      this.router.navigate(["/getRoom"])
+    
     },
     (error) => {
-
       console.error('Add Room failed:', error);
       this.errorMessage = 'Oda eklerken bir hata oluştu. Hata Mesajı:' + error;
       // Hata durumunda kullanıcıya bildirim gösterebilirsiniz

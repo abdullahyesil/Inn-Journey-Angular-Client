@@ -1,5 +1,3 @@
-<p>my-hotels works! Admin</p>
-
 <div *ngIf="myHotel.length > 0; else no_hotel " class="alert alert-info">{{ myHotel.length }} adet oteliniz mevcut.</div>
 <ng-template #no_hotel>
   <div class="alert alert-warning">Mevcut oteliniz bulunamadı</div>
@@ -17,7 +15,7 @@
           <li class="list-group-item">{{item.email == null ? "Boş" : item.email}}</li>
           <li class="list-group-item">{{item.phone == null ? "Boş" : item.phone}}</li>
           <li class="list-group-item">{{item.star == null ? "Boş" : item.star}}</li>
-          <li class="list-group-item">{{item.starRating == null ? "Boş" : item.starRating}}</li>
+          <li class="list-group-item">{{item.starRating == null || item.starRating==0 ? "Daha önce yorum yapılmamış" : item.starRating}}</li>
           <li class="list-group-item">{{item.address == null ? "Boş" : item.address}}</li>
         </ul>
         <div class="card-body">

@@ -42,5 +42,4 @@ getReservationByUserId(userId:string):Observable<reservationModel[]>{
 return this.http.get<reservationModel[]>(this.url+"/Reservations/user/"+userId)
 }
 
-
 }

@@ -1,140 +1,74 @@
-// /* Navbar'ı dikey olarak ortalar */
-// .navbar {
-//   display: flex;
-//   flex-direction: column; /* İçerikleri dikey olarak hizalar */
-//   align-items: center; /* İçerikleri yatay olarak ortalar */
-//   padding: 0.5rem; /* Üst ve alt boşluk sağlar */
-//   height: auto; /* Yüksekliği otomatik ayarlar */
-// }
-
-// /* Logo için margin ve padding ayarları */
-// .navbar-brand {
-//   display: flex;
-//   justify-content: center; /* Ortalar */
-//   align-items: center; /* Dikey olarak ortalar */
-//   width: 100%; /* Genişliği kapsayıcıya göre ayarlar */
-// }
-// /* Logo boyutu */
-// .navbar-brand svg {
-//   width: 80px; /* Logo genişliği */
-//   height: 80px; /* Logo yüksekliği */
-// }
-
-// /* Menü öğelerini ortalar */
-// .navbar-nav {
-//   width: 100%; /* Menülerin tam genişlikte olmasını sağlar */
-//   justify-content: center; /* Menüleri yatay olarak ortalar */
-// }
-
-// /* Menü öğelerinin görünümü */
-// .nav-link {
-//   padding: 0.5rem 1.5rem; /* İçerik ile kenar arasında boşluk sağlar */
-//   font-size: 1.2rem; /* Font boyutu büyük kalır */
-//   color: #000; /* Yazı rengi */
-//   transition: background-color 0.3s, color 0.3s; /* Geçiş efekti */
-//   position: relative; /* Pozisyonu referans alarak içerik konumlandırması */
-//   margin: 0 5rem; /* Menü öğeleri arasında yatay boşluk sağlar */
-// }
-
-// /* Aktif menü öğesi */
-// .navbar-nav .nav-link.active {
-//   color: #fff; /* Yazı rengi beyaz */
-//   background-color: #007bff; /* Arka plan rengi */
-//   border-radius: 0; /* Köşeleri düz yapar */
-// }
-
-// /* Aktif menü öğesinin etrafındaki dikdörtgen */
-// .navbar-nav .nav-link.active::before {
-//   content: ''; /* İçerik ekler */
-//   position: absolute; /* Konumlandırma */
-//   top: 0;
-//   left: 0;
-//   width: 100%;
-//   height: 100%;
-//   background-color: #007bff; /* Arka plan rengi mavi */
-//   border-radius: 0; /* Köşeleri düz yapar */
-//   z-index: -1; /* Arka planda olmasını sağlar */
-// }
-// /* Logo resmi için stil */
-// .navbar-brand .img {
-//   width: 10%; /* İstediğiniz genişlik */
-//   height: auto; /* Yüksekliği orantılı olarak ayarlar */
-// }
-
-/* General Styles */
+/* Genel Navbar Stilleri */
 .navbar {
   z-index: 700;
   top: 0;
   width: 100%;
+  padding: 0 2rem; /* Sol ve sağ padding ekleyerek içeriği genişletir */
+  height: 80px; /* Navbar yüksekliğini artırır */
+  display: flex;
+  align-items: center; /* Dikey olarak ortalar */
+  background-color: #343a40; /* Navbar arka plan rengini koyu yapar */
 }
 
-.content {
-  margin-top: 55px; /* Adjust based on the height of the navbar */
+/* Logo için Margin ve Padding */
+.navbar-brand {
+  font-size: 1.5rem; /* Logo yazı boyutunu büyütür */
+  padding: 0.5rem 1rem; /* Logo etrafına padding ekler */
 }
 
-.li-ico {
-  margin-left: 5px;
+/* Menü Öğeleri */
+.navbar-nav {
+  display: flex;
+  flex-grow: 1; /* Menü öğelerinin genişlemesine izin verir */
+  justify-content: center; /* Menü öğelerini yatay olarak ortalar */
+  margin: 0; /* Menü öğeleri arasında boşluk bırakmaz */
 }
 
-/* Navbar Styles */
-.navbar .navbar-brand {
-  font-weight: bold;
+/* Menü öğelerinin görünümü */
+.navbar-nav .nav-item {
+  margin: 0 1rem; /* Menü öğeleri arasındaki boşluk */
 }
 
-.navbar .input-group {
-  margin: auto;
+.navbar-nav .nav-link {
+  padding: 0.75rem 1.5rem; /* İçerik ile kenar arasında boşluk sağlar */
+  font-size: 1.2rem; /* Font boyutunu büyütür */
+  color: #ffffff; /* Yazı rengi */
+  transition: background-color 0.3s, color 0.3s; /* Geçiş efekti */
 }
 
-.navbar .navbar-nav .nav-link {
-  color: #ffffff;
-  transition: color 0.3s;
+/* Aktif Menü Öğesi */
+.navbar-nav .nav-link.active {
+  color: #fff; /* Yazı rengi beyaz */
+  background-color: #007bff; /* Arka plan rengi mavi */
 }
 
-.navbar .navbar-nav .nav-link:hover {
-  color: #f1f1f1;
+/* Sağ Menüyü Düzenleme */
+.navbar-nav.right {
+  margin-left: auto; /* Sağ menüyü sağa yaslar */
 }
 
-.navbar .navbar-nav .badge-notification {
-  position: relative;
-  top: -5px;
-}
-
-/* Media Queries */
+/* Medya Sorguları */
 @media (max-width: 992px) {
-  .navbar .input-group {
-    display: none;
+  .navbar-nav {
+    flex-direction: column; /* Menü öğelerini dikey hizalar */
+    align-items: center; /* Merkezde hizalar */
   }
 
-  .navbar .navbar-nav {
-    flex-direction: column;
-  }
-
-  .navbar .navbar-nav .nav-item {
-    margin: 0.5rem 0;
+  .navbar-nav .nav-item {
+    margin: 0.5rem 0; /* Menü öğeleri arasındaki dikey boşluk */
   }
 }
 
 @media (max-width: 768px) {
-  .navbar .navbar-nav {
-    display: flex;
-    flex-direction: column;
+  .navbar-nav {
+    flex-direction: column; /* Menü öğelerini dikey hizalar */
   }
 
-  .navbar .navbar-nav .nav-item {
-    margin: 0.5rem 0;
+  .navbar-nav .nav-item {
+    margin: 0.5rem 0; /* Menü öğeleri arasındaki dikey boşluk */
   }
 
-  .navbar .navbar-nav .nav-link {
-    text-align: center;
-  }
-
-  .navbar .input-group {
-    display: flex;
-    width: 100%;
-    margin-top: 1rem;
-  }
-
-  .navbar .input-group .form-control {
-    width: 100%;
+  .navbar-nav .nav-link {
+    text-align: center; /* Menü metinlerini ortalar */
   }
 }

@@ -7,5 +7,6 @@ export interface HotelModal{
     description: string,
     star: number,
     starRating: number,
-    imageUrl:string
+    imageUrl:string,
+    totalCount?: number,
    }

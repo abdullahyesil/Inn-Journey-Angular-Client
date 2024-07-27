@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HotelModal } from '../model/hotelmodal';
@@ -14,10 +14,30 @@ export class HotelService {
   constructor(private http: HttpClient) { }
 
 
-getHotels(): Observable<HotelModal[]>
-{
-  return this.http.get<HotelModal[]>(this.url+"/Hotels")
-}
+
+
+  getHotels(maxStar?: boolean, page: number = 0, size: number = 5): Observable<HotelModal[]> {
+    //   if (maxStar === undefined) {
+    //     // maxStar değeri belirtilmemişse, parametre göndermeden veri al
+    //     return this.http.get<HotelModal[]>(`${this.url}/Hotels`);
+    // } else {
+    //     // maxStar değeri belirtilmişse, parametre ile veri al
+    //     return this.http.get<HotelModal[]>(`${this.url}/Hotels`, {
+    //         params: {
+    //             maxStar: maxStar.toString()
+    //         }
+    //     });
+
+    return this.http.get<HotelModal[]>(`${this.url}/Hotels`, {
+      params: {
+        page: page,
+        size: size
+      }
+    });
+
+
+  }
+
 
 getHotelById(id:string): Observable<HotelModal>
 {
