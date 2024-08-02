@@ -38,6 +38,8 @@ bosHotel:HotelModal[];
   ) {
   }
 
+
+      // #region Service
   ngOnInit() {
     console.log(this.maxPrice)
 
@@ -114,6 +116,7 @@ bosHotel:HotelModal[];
     });
   }
 
+      // #region Hesaplama
   calculatePageList(): number[] {
     const pageList: number[] = [];
     const delta = 3; // Gösterilecek sayfa numaralarının aralığı
@@ -127,6 +130,9 @@ bosHotel:HotelModal[];
   
     return pageList;
   }
+
+      // #region Date 
+
   onInputChange() {
     if (this.filterText && this.hotel) {
       const filterTextLower = this.filterText.toLowerCase();
@@ -243,5 +249,12 @@ bosHotel:HotelModal[];
     }
     
 
+    // #region Menü
+    isMenuOpen = false;
+
+    toggleMenu() {
+      this.isMenuOpen = !this.isMenuOpen;
+    }
+  
 
 }

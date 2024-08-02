@@ -59,7 +59,7 @@ export class ExtensionsComponent implements OnInit{
 
     this.extensionsService.update({ hotelExtensions: formattedExtensions }).subscribe(resp => {
 
-      if (resp.Success) {
+      if (resp.success) {
         this._snackBar.open('Eklentiler başarıyla güncellendi..', '', { duration: 4000 });
       }
       else {

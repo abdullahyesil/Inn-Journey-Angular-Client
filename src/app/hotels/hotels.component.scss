@@ -111,3 +111,89 @@ nav {
     background-color: #e9ecef; /* Hover durumu arka plan rengi */
   }
   
+
+  //searchbar
+
+  .search-form-container {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .search-form-shadow {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .mat-form-field.custom-form-field {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  
+  .mat-form-field.custom-form-field .mat-form-field-label {
+    color: #007bff;
+  }
+  
+  .mat-form-field.custom-form-field .mat-form-field-outline {
+    border-color: #007bff;
+  }
+  
+  .mat-form-field.custom-form-field .mat-form-field-outline .mat-form-field-outline-start {
+    border-color: #007bff;
+  }
+  
+  .mat-form-field.custom-form-field .mat-form-field-outline .mat-form-field-outline-end {
+    border-color: #007bff;
+  }
+  
+  .mat-form-field.custom-form-field .mat-form-field-underline {
+    background-color: #007bff;
+  }
+  
+  .mat-select.custom-select .mat-select-trigger {
+    font-size: 16px;
+  }
+  
+  .btn-search {
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 16px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 1rem;
+  }
+  
+  .btn-search:hover {
+    background-color: #0056b3;
+  }
+  
+  .btn-search:focus {
+    outline: none;
+  }
+  
+  .btn-toggle-menu {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .btn-toggle-menu:hover {
+    background-color: #0056b3;
+  }
+  
+  .toggle-icon {
+    font-size: 16px;
+    margin-right: 8px;
+  }
+  
+  .d-none {
+    display: none;
+  }
+  

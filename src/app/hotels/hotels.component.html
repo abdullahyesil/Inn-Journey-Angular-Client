@@ -9,50 +9,53 @@
   </div>
 </header>
 <!-- Row 1 -->
-<div class="div-border shadow-sm">
-    <div class="container mt-5">
-    
-      <div class="row justify-content-center">
-
-        <mat-form-field class="w-25">
-          <input  matInput [matDatepickerFilter]="checkInFilter" [matDatepicker]="checkInPicker" placeholder="Check-in Date" (dateChange)="onCheckInDateChange($event)">
+<div class="search-form-container search-form-shadow">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 text-center">
+        <button class="btn-toggle-menu" (click)="toggleMenu()">
+          <span class="toggle-icon">&#x25BC;</span> <!-- Ok işareti -->
+          Filtreleri Göster/Gizle
+        </button>
+      </div>
+      <div class="col-12" [ngClass]="{'d-none': !isMenuOpen}">
+        <mat-form-field class="w-25 custom-form-field">
+          <input matInput [matDatepickerFilter]="checkInFilter" [matDatepicker]="checkInPicker" placeholder="Check-in Date" (dateChange)="onCheckInDateChange($event)">
           <mat-datepicker-toggle matSuffix [for]="checkInPicker"></mat-datepicker-toggle>
           <mat-datepicker #checkInPicker></mat-datepicker>
         </mat-form-field>
 
-        <mat-form-field class="w-25">
-          <input  matInput [matDatepickerFilter]="checkOutFilter" [matDatepicker]="checkOutPicker" placeholder="Check-out Date" [min]="checkInDate" (dateChange)="onCheckOutDateChange($event)">
+        <mat-form-field class="w-25 custom-form-field">
+          <input matInput [matDatepickerFilter]="checkOutFilter" [matDatepicker]="checkOutPicker" placeholder="Check-out Date" [min]="checkInDate" (dateChange)="onCheckOutDateChange($event)">
           <mat-datepicker-toggle matSuffix [for]="checkOutPicker"></mat-datepicker-toggle>
           <mat-datepicker #checkOutPicker></mat-datepicker>
         </mat-form-field>
 
-        <div class="col-md-2 custom-col-spacing">
-          <mat-form-field appearance="outline">
-            <mat-label>Fiyatına Göre</mat-label>
-            <mat-select class="rounded" (selectionChange)="fiyatinaGoreSirala($event.value)">
-              <mat-option [value]="null">Normal sırala</mat-option>
-              <mat-option [value]="true">Yüksekten aşağı sırala</mat-option>
-              <mat-option [value]="false">Aşağıdan yukarı sırala</mat-option>
-            </mat-select>
-          </mat-form-field>
-         
-        </div>
+        <mat-form-field appearance="outline" class="custom-form-field">
+          <mat-label>Fiyatına Göre</mat-label>
+          <mat-select class="custom-select" (selectionChange)="fiyatinaGoreSirala($event.value)">
+            <mat-option [value]="null">Normal sırala</mat-option>
+            <mat-option [value]="true">Yüksekten aşağı sırala</mat-option>
+            <mat-option [value]="false">Aşağıdan yukarı sırala</mat-option>
+          </mat-select>
+        </mat-form-field>
 
-        <div class="col-md-2 custom-col-spacing">
-            <mat-form-field appearance="outline">
-              <mat-label>Yıldız sayısı</mat-label>
-              <mat-select class="rounded" (selectionChange)="onSortOrderChange($event.value)">
-                <mat-option [value]="null">Normal sırala</mat-option>
-                <mat-option [value]="true">Yüksekten aşağı sırala</mat-option>
-                <mat-option [value]="false">Aşağıdan yukarı sırala</mat-option>
-              </mat-select>
-            </mat-form-field>
+        <mat-form-field appearance="outline" class="custom-form-field">
+          <mat-label>Yıldız sayısı</mat-label>
+          <mat-select class="custom-select" (selectionChange)="onSortOrderChange($event.value)">
+            <mat-option [value]="null">Normal sırala</mat-option>
+            <mat-option [value]="true">Yüksekten aşağı sırala</mat-option>
+            <mat-option [value]="false">Aşağıdan yukarı sırala</mat-option>
+          </mat-select>
+        </mat-form-field>
 
-            <button (click)="tariheGoreGetir()" class="btn btn-primary">Ara</button>
-          </div>
+        <button (click)="tariheGoreGetir()" class="btn-search">Ara</button>
       </div>
     </div>
   </div>
+</div>
+
+
   <section class="section__container popular__container">
     <div class="popular__grid">
       <div class="popular__card" *ngFor="let item of Filteredhotel; let i = index">
