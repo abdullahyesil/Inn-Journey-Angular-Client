@@ -1,9 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { LocalStorageService } from '../services/localstorage.service';
 import { AuthService } from '../services/auth.service';
-import { Subscriber } from 'rxjs';
-import { User } from '../model/user';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -15,6 +13,8 @@ export class NavbarComponent implements OnInit {
  isActive:boolean;
   isLogin:boolean = false;
   userName:string;
+  isAdmin:boolean = false;
+ 
   constructor( private localService: LocalStorageService,
     private authService: AuthService,
     private router: Router,
@@ -27,17 +27,27 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
     this.authService.getLoginStatus().subscribe(status => {
       this.isLogin = status;
+  
+      const token = this.localService.getItem("Token");
+      if (token) {
+        this.isAdmin = token.isAdmin;
+      } else {
+        this.isAdmin = false;
+      }
     });
-
-    if(this.localService.getItem("Token") !=null)
-     
-    this.userService.getByIdUser(this.localService.getItem("Token").userId).subscribe(data => this.userName = data.name );
-
+  
+    const token = this.localService.getItem("Token");
+    if (token && token.userId) {
+      this.userService.getByIdUser(token.userId).subscribe(data => this.userName = data.name);
+    }
   }
+  
   logOut(){
     this.localService.removeItem("Token")
     this.router.navigate(["/login"]);
     this.authService.logout();
   }
+
+
 
 }

@@ -1,11 +1,12 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { HotelService } from '../../../../services/hotel.service';
 import { RoomService } from '../../../../services/room.service';
-import { HotelModal } from '../../../../model/hotelmodal';
-import { roomModel } from '../../../../model/room';
+import { HotelModal } from '../../../../model/Entities/hotelmodal';
+import { roomModel } from '../../../../model/Entities/room';
 import { LocalStorageService } from '../../../../services/localstorage.service';
 import { MatDialog } from '@angular/material/dialog';
 import { UpdateRoomComponent } from '../update-room/update-room.component';
+import { ExtensionsRoomComponent } from '../extensions-room/extensions-room.component';
 
 @Component({
   selector: 'app-get-room',
@@ -41,4 +42,21 @@ export class GetRoomComponent implements OnInit {
     const diagloRef= this.dialog.open(UpdateRoomComponent ,{ data: {roomId}
     });
   }
+
+  deleteRoom(roomId:string, event: Event){
+this.roomService.delete(roomId).subscribe(resp=> resp)
+
+this.onHotelSelect(event)
+  }
+
+  showExtensionsRoom(roomId: string) {
+    const dialogRef = this.dialog.open(ExtensionsRoomComponent, {
+      data: { roomId },
+      panelClass: 'custom-dialog-container' // Buraya stil sınıfını ekleyin
+    });
+  }
+  
+  
+
+
 }

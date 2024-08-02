@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PaymentService } from '../../../services/payment.service';
 import { HotelService } from '../../../services/hotel.service';
-import { HotelModal } from '../../../model/hotelmodal';
-import { PaymentModel } from '../../../model/payment';
+import { HotelModal } from '../../../model/Entities/hotelmodal';
+import { PaymentModel } from '../../../model/Entities/payment';
 import { LocalStorageService } from '../../../services/localstorage.service';
 
 @Component({

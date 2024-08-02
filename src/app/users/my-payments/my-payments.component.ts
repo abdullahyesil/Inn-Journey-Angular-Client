@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalStorageService } from '../../services/localstorage.service';
 import { PaymentService } from '../../services/payment.service';
-import { PaymentModel } from '../../model/payment';
+import { PaymentModel } from '../../model/Entities/payment';
 import { HotelService } from '../../services/hotel.service';
-import { HotelModal } from '../../model/hotelmodal';
+import { HotelModal } from '../../model/Entities/hotelmodal';
 
 @Component({
   selector: 'app-my-payments',

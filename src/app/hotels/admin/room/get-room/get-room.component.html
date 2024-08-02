@@ -34,16 +34,16 @@
         <td>{{ room.id }}</td>
         <td>{{ room.hotelId }}</td>
         <td>{{ room.roomTypeId }}</td>
-        <td>{{ room.baseAdultPrice | number:'1.2-2' }} ₺</td>
-        <td>{{ room.baseChildPrice | number:'1.2-2' }} ₺</td>
+        <td>{{ room.adultPrice | number:'1.2-2' }} ₺</td>
+        <td>{{ room.childPrice | number:'1.2-2' }} ₺</td>
         <td>
           <span [ngClass]="{'badge bg-success': room.status === 'available', 'badge bg-danger': room.status === 'unavailable'}">
-            {{ room.status }}
+            <button (click)="showExtensionsRoom(room.id)" class="btn btn-success btn-sm me-2">Bilgiler</button>
           </span>
         </td>
         <td class="text-center">
           <button (click)="editRoom(room.id)" class="btn btn-primary btn-sm me-2">Düzenle</button>
-          <button class="btn btn-danger btn-sm">Sil</button>
+          <button (click)="deleteRoom(room.id, $event)"  class="btn btn-danger btn-sm">Sil</button>
         </td>
       </tr>
     </tbody>

@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { userModal } from '../model/userModal';
+import { userModal } from '../model/Entities/userModal';
 import { User } from '../model/user';
-import { reservationModel } from '../model/reservation';
+import { reservationModel } from '../model/Entities/reservation';
 
 @Injectable({
   providedIn: 'root'

@@ -1,101 +1,39 @@
-<!-- <form (ngSubmit)="login()">
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" class="form-control" [(ngModel)]="email" required>
-    </div>
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" class="form-control" [(ngModel)]="password" required>
-    </div>
-    
-    <button type="submit" class="btn btn-primary">Login</button>
-    <span class="error-message bg-danger" *ngIf="errorMessage">{{ errorMessage }}</span>
-  </form>
-   -->
-
-   <!-- <div class="limiter">
-		<div class="container-login100">
-			<div class="wrap-login100">
-				<form class="login100-form validate-form" (ngSubmit)="login()">
-					<span class="login100-form-title p-b-26">
-						Welcome
-					</span>
-					<span class="login100-form-title p-b-48">
-						<i class="zmdi zmdi-font"></i>
-					</span>
-
-					<div class="wrap-input100 validate-input" data-validate="Valid email is: a@b.c">
-            <input class="input100" type="text" name="email" placeholder="Email" [(ngModel)]="email" required>
-            <span class="focus-input100"></span>
-        </div>
-        
-        <div class="wrap-input100 validate-input" data-validate="Enter password">
-            <span class="btn-show-pass">
-                <i class="zmdi zmdi-eye"></i>
-            </span>
-            <input  class="input100" type="password" name="pass" placeholder="Password" [(ngModel)]="password" required>
-            <span class="focus-input100"></span>
-        </div>
-        
-
-					<div class="container-login100-form-btn">
-						<div class="wrap-login100-form-btn">
-							<div class="login100-form-bgbtn"></div>
-							<button class="login100-form-btn">
-								Login
-							</button>
-						</div>
-					</div>
-
-					<div class="text-center p-t-115">
-						<span class="txt1">
-							Don’t have an account?
-						</span>
-
-						<a class="txt2" href="#">
-							Sign Up
-						</a>
-					</div>
-				</form>
-			</div>
-		</div> 
-	</div>-->
-
-
-	<section class="vh-100 ">
-		<div class="container py-5 h-100">
-			<div class="row d-flex justify-content-center align-items-center h-100">
-			  <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-				<div class="card text-white" style="border-radius: 1rem; background-color: rgb(43, 48, 53, 0.75);">
-				  <div class="card-body p-5 text-center">
-					<form  (ngSubmit)="login()" >
-					<div class=" mt-md-4 pb-5">
-					  <h2 class="fw-bold mb-2 text-uppercase">Giriş Yap</h2>
-						
-					  <div  class="form-group form-outline form-white mb-4">
-						  <label for="username" class="form-label">Username/Email</label>
-						  <input [(ngModel)]="email" type="text" name="email" class="form-control form-control-lg" placeholder="Username/Email"/>
-					  </div>
-
-					  <div class="form-group form-outline form-white mb-4">
-						  <label for="password" class="form-label">Şifre :</label>
-						  <input type="password" name="pass" placeholder="Password" [(ngModel)]="password" required  class="form-control form-control-lg"/>
-					  </div>
-					  
-					  <p class="small mb-3 pb-lg-2"><a class="text-white-50" routerLink="/password-reset">Şifremi Unuttum?</a></p>
-		
-					  <button class="btn btn-outline-dark btn-lg px-5" 
-					  type="submit">Giriş Yap</button>
-					</div>
-				</form>
-					<div>
-					  <p class="mb-0">You don't have an account? <a routerLink="register" class="text-white-50 fw-bold">Sign Up!</a></p>
-					</div>
-					
+<section class="vh-100">
+	<div class="container py-5">
+		<div class="row d-flex justify-content-center align-items-center h-100">
+		  <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+			<div class="card text-white" style="border-radius: 1rem; background-color: rgb(43, 48, 53);">
+			  <div class="card-body p-5 text-center">
+	
+				<form  (ngSubmit)="login()" >
+				<div class=" mt-md-4 pb-5">
+				  <h2 class="fw-bold mb-2 text-uppercase">Giriş Yap</h2>
+	
+				  <div data-mdb-input-init class="form-group form-outline form-white mb-4">
+					  <label for="username" class="form-label">Kullanıcı Adı/Email</label>
+					  <input [(ngModel)]="email" type="text" name="email" class="form-control form-control-lg" placeholder="Kullanıcı Adı/Email"/>
 				  </div>
+
+				  <div data-mdb-input-init class="form-group form-outline form-white mb-4">
+					  <label for="password" class="form-label">Şifre</label>
+					  <input type="password" name="pass" placeholder="Şifre" [(ngModel)]="password" required  class="form-control form-control-lg"/>
+				  </div>
+
+				  <p class="small mb-3 pb-lg-2"><a class="text-white-50" routerLink="/password-reset">Şifreni mi unuttun?</a></p>
+	
+				  <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-lg px-5" type="submit">Giriş Yap</button>
+	
 				</div>
+			</form>
+
+				<div>
+				  <p class="mb-0">Hesabın yok mu? <a routerLink="../register" class="text-white-50 fw-bold">Kayıt Ol!</a></p>
+				</div>
+	
 			  </div>
 			</div>
 		  </div>
-		
-	  </section>
+		</div>
+	  </div>
+	
+  </section>

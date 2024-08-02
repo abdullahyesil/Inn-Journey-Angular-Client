@@ -1,12 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ReviewService } from '../../../services/review.service';
-import { reviewModel } from '../../../model/review';
+import { reviewModel } from '../../../model/Entities/review';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../../model/user';
 import { LocalStorageService } from '../../../services/localstorage.service';
 import { AuthService } from '../../../services/auth.service';
 import { UserService } from '../../../services/user.service';
-import { userModal } from '../../../model/userModal';
+import { userModal } from '../../../model/Entities/userModal';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({

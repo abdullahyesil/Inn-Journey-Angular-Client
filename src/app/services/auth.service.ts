@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { User } from '../model/user';
 import { LocalStorageService } from './localstorage.service';
-import { userModal } from '../model/userModal';
+import { userModal } from '../model/Entities/userModal';
 
 @Injectable({
   providedIn: 'root'

@@ -1,81 +1,75 @@
 import { Component, OnInit } from '@angular/core';
 import { ReservationService } from '../../services/reservation.service';
-import { reservationModel } from '../../model/reservation';
+import { reservationModel } from '../../model/Entities/reservation';
 import { LocalStorageService } from '../../services/localstorage.service';
 import { HotelService } from '../../services/hotel.service';
-import { HotelModal } from '../../model/hotelmodal';
+import { HotelModal } from '../../model/Entities/hotelmodal';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-my-reservations',
   templateUrl: './my-reservations.component.html',
-  styleUrl: './my-reservations.component.scss'
+  styleUrls: ['./my-reservations.component.scss']
 })
-export class MyReservationsComponent{
+export class MyReservationsComponent implements OnInit {
 
-  errorMessage:""
-  hotelModel: HotelModal[]
-  myReservation:reservationModel[]
-  HotelMap: { [key: string]: any } = {}; 
+  errorMessage: string = "";
+  hotelModel: { [key: string]: HotelModal } = {}; // Değişiklik: hotelModel bir harita oldu
+  myReservation: reservationModel[] = [];
+
   constructor(
-    private reservationService:ReservationService,
-    private localService:LocalStorageService,
-    private hotelService:HotelService,
-    private _snackBar:MatSnackBar
-  ) { 
-this.reservationService.getReservationByUserId(this.localService.getItem("Token").userId).subscribe(resp=> this.myReservation= resp)
-this.hotelService.getHotels().subscribe(resp => {
-  this.hotelModel=resp;
-  this.createHotelMap()
+    private reservationService: ReservationService,
+    private localService: LocalStorageService,
+    private hotelService: HotelService,
+    private _snackBar: MatSnackBar
+  ) { }
 
-})
-
+  ngOnInit(): void {
+    this.loadReservations();
   }
 
-// Kullanıcı ismini yorumlara göstermek için userMap
-createHotelMap(): void {
-  this.HotelMap = {};
-  this.hotelModel.forEach(map => {
-    this.HotelMap[map.id] = map;
-  });
-}
+  loadReservations(): void {
+    this.reservationService.getReservationByUserId(this.localService.getItem("Token").userId).subscribe(resp => {
+      this.myReservation = resp;
+      this.loadHotelDetails();
+    });
+  }
 
-// kullanıcı ismini idye göre getir
-getHotelName(userId: string): string {
-  const hotel = this.HotelMap[userId];
-  return hotel ? hotel.name : "Bilinmeyen Otel";
-}
+  loadHotelDetails(): void {
+    const hotelIds = Array.from(new Set(this.myReservation.map(reservation => reservation.hotelId))); // Tekil otel ID'leri al
+    hotelIds.forEach(hotelId => {
+      this.hotelService.getHotelById(hotelId).subscribe(resp => {
+        this.hotelModel[hotelId] = resp; // Her oteli ID'ye göre sakla
+      });
+    });
+  }
 
-//Duruma göre ne eşit ise !!Daha düzeltilmedi
-getStatusClass(status: string): string {
-  switch (status) {
+  getHotelName(hotelId: string): string {
+    const hotel = this.hotelModel[hotelId];
+    return hotel ? hotel.name : "Bilinmeyen Otel";
+  }
+
+  getStatusClass(status: string): string {
+    switch (status) {
       case 'PC':
-      return 'active';
+        return 'active';
       case 'PNC':
-      return 'inactive';
+        return 'inactive';
       default:
-      return '';
-  }}
-
-cancelReservation(reservation:reservationModel){
-  if (reservation.id != null) {
-    console.log(reservation)
-    
-    reservation.deleted=true
-   
-   this.reservationService.update(reservation).subscribe(response=> {
-   debugger;
-    
-   console.log(response)
-     if(response.success == true)
-     { 
-      this._snackBar.open( 'Randevu Başarıyla İptal Edildi.','',{ duration:5000 });
-     }
-     else{
-      this._snackBar.open( 'Randevu iptal edilirken bir hata oluştu : '+ response.message,'',{ duration:5000 });
-     }  
-   });
+        return '';
+    }
   }
- 
-}
+
+  cancelReservation(reservation: reservationModel): void {
+    if (reservation.id != null) {
+      reservation.deleted = true;
+      this.reservationService.update(reservation).subscribe(response => {
+        if (response.success) {
+          this._snackBar.open('Randevu Başarıyla İptal Edildi.', '', { duration: 5000 });
+        } else {
+          this._snackBar.open('Randevu iptal edilirken bir hata oluştu: ' + response.message, '', { duration: 5000 });
+        }
+      });
+    }
+  }
 }

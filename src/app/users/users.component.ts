@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { userModal } from '../model/userModal';
+import { userModal } from '../model/Entities/userModal';
 import { UserService } from '../services/user.service';
 import { LocalStorageService } from '../services/localstorage.service';
 

@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HotelModal } from '../model/hotelmodal';
+import { HotelModal } from '../model/Entities/hotelmodal';
 
 
 
@@ -16,29 +16,65 @@ export class HotelService {
 
 
 
-  getHotels(maxStar?: boolean, page: number = 0, size: number = 5): Observable<HotelModal[]> {
-    //   if (maxStar === undefined) {
-    //     // maxStar değeri belirtilmemişse, parametre göndermeden veri al
-    //     return this.http.get<HotelModal[]>(`${this.url}/Hotels`);
-    // } else {
-    //     // maxStar değeri belirtilmişse, parametre ile veri al
-    //     return this.http.get<HotelModal[]>(`${this.url}/Hotels`, {
-    //         params: {
-    //             maxStar: maxStar.toString()
-    //         }
-    //     });
+  getHotels( maxStar?: boolean, page: number = 0, size: number = 5, maxPrice?:boolean): Observable<HotelModal[]> {
+      if ((maxStar == undefined || maxStar == null) && (maxPrice == null || maxPrice == undefined)) {
+        // maxStar değeri belirtilmemişse, parametre göndermeden veri al
+        return this.http.get<HotelModal[]>(`${this.url}/Hotels`, {
+          params: {
+            page: page,
+            size: size,
+          } 
+        });
+    } else if(maxStar != undefined || maxStar != null){
+        // maxStar değeri belirtilmişse, parametre ile veri al
+        return this.http.get<HotelModal[]>(`${this.url}/Hotels`, {
+            params: {
+              page: page,
+              size: size,
+              maxStar: maxStar
+            }
+        });}
 
-    return this.http.get<HotelModal[]>(`${this.url}/Hotels`, {
-      params: {
-        page: page,
-        size: size
-      }
-    });
+        else if(maxPrice != null)
+          {
 
+            return this.http.get<HotelModal[]>(`${this.url}/Hotels`, {
+              params: {
+                page: page,
+                size: size,
+                maxPrice: maxPrice
+              }
+          });
+          } 
+
+          else {
+
+            return this.http.get<HotelModal[]>(`${this.url}/Hotels`, {
+              params: {
+                page: page,
+                size: size,
+                maxPrice: maxPrice
+              }
+          });
+
+          }
 
   }
+  getHotelsDate(checkIn:Date, checkOut:Date, page: number = 0, size: number = 5): Observable<any> {
+ 
+    const checkInString = checkIn.toISOString();
+    const checkOutString = checkOut.toISOString();
 
+    // HttpParams ile tarih ve diğer parametreleri ayarla
+    const params = new HttpParams()
+      .set('checkIn', checkInString)
+      .set('checkOut', checkOutString)
+      .set('page', page.toString())
+      .set('size', size.toString());
 
+    return this.http.get<any>(`${this.url}/Hotels/AvaibleHotels`, { params });
+  }
+  
 getHotelById(id:string): Observable<HotelModal>
 {
   return this.http.get<HotelModal>(this.url+"/Hotels/"+id)

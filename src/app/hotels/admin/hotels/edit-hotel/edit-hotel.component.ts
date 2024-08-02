@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { HotelService } from '../../../../services/hotel.service';
-import { HotelModal } from '../../../../model/hotelmodal';
+import { HotelModal } from '../../../../model/Entities/hotelmodal';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidationService } from '../../../../services/validation.service';

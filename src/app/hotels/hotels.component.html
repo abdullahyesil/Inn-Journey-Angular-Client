@@ -1,6 +1,5 @@
 <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet" />
 
-
 <header class="mt-2">
   <div class="header__image__container">
       <div class="header__content text-white  ">
@@ -12,52 +11,74 @@
 <!-- Row 1 -->
 <div class="div-border shadow-sm">
     <div class="container mt-5">
-      <div class="row align-items-center">
+    
+      <div class="row justify-content-center">
 
-        <div class="mb-3 w-50 h-100">
-            <input [(ngModel)]="filterText" (keyup)="onInputChange()" type="text" class="form-control"
-                placeholder="Hotel ara..">
-            <small class="text-muted" *ngIf="filterText"> Aradığınız Otel: {{filterText}}</small>
+        <mat-form-field class="w-25">
+          <input  matInput [matDatepickerFilter]="checkInFilter" [matDatepicker]="checkInPicker" placeholder="Check-in Date" (dateChange)="onCheckInDateChange($event)">
+          <mat-datepicker-toggle matSuffix [for]="checkInPicker"></mat-datepicker-toggle>
+          <mat-datepicker #checkInPicker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="w-25">
+          <input  matInput [matDatepickerFilter]="checkOutFilter" [matDatepicker]="checkOutPicker" placeholder="Check-out Date" [min]="checkInDate" (dateChange)="onCheckOutDateChange($event)">
+          <mat-datepicker-toggle matSuffix [for]="checkOutPicker"></mat-datepicker-toggle>
+          <mat-datepicker #checkOutPicker></mat-datepicker>
+        </mat-form-field>
+
+        <div class="col-md-2 custom-col-spacing">
+          <mat-form-field appearance="outline">
+            <mat-label>Fiyatına Göre</mat-label>
+            <mat-select class="rounded" (selectionChange)="fiyatinaGoreSirala($event.value)">
+              <mat-option [value]="null">Normal sırala</mat-option>
+              <mat-option [value]="true">Yüksekten aşağı sırala</mat-option>
+              <mat-option [value]="false">Aşağıdan yukarı sırala</mat-option>
+            </mat-select>
+          </mat-form-field>
+         
         </div>
+
         <div class="col-md-2 custom-col-spacing">
             <mat-form-field appearance="outline">
               <mat-label>Yıldız sayısı</mat-label>
               <mat-select class="rounded" (selectionChange)="onSortOrderChange($event.value)">
-                <mat-option [value]="">Normal sırala</mat-option>
+                <mat-option [value]="null">Normal sırala</mat-option>
                 <mat-option [value]="true">Yüksekten aşağı sırala</mat-option>
                 <mat-option [value]="false">Aşağıdan yukarı sırala</mat-option>
               </mat-select>
             </mat-form-field>
+
+            <button (click)="tariheGoreGetir()" class="btn btn-primary">Ara</button>
           </div>
       </div>
     </div>
   </div>
-<!-- Row 1 bitiş-->
-<!-- Row 1 bitiş-->
-<section class="section__container popular__container">
-  <div class="popular__grid">
+  <section class="section__container popular__container">
+    <div class="popular__grid">
       <div class="popular__card" *ngFor="let item of Filteredhotel; let i = index">
-          
-          <img src="https://cdn.pixabay.com/photo/2015/09/07/19/12/hotel-928937_1280.jpg" width="400" height="400" alt="popular hotel" />
-          <div class="popular__content">
-              <div class="popular__card__header">
-                  <h4>{{item.name}}</h4>
-
-                  <div class="star-rating">
-                    <span class="icon" *ngFor="let star of getStarArray(item)">
-                      <i class="bi bi-star-fill"></i>
-                  </span> <br><br>
-                  </div>
-              </div>
-              <p><i class="ri-map-pin-line"></i>{{item.address}}</p>
-             <br>
+        <img 
+          [src]="item.imageUrl || 'https://cdn.pixabay.com/photo/2015/09/07/19/12/hotel-928937_1280.jpg'"
+          (error)="onImageError($event)"
+          alt="popular hotel" 
+        />
+        <div class="popular__content">
+          <div class="popular__card__header">
+            <h4>{{item.name}}</h4>
+            <div class="star-rating">
+              <span class="icon" *ngFor="let star of getStarArray(item)">
+                <i class="bi bi-star-fill"></i>
+              </span>
+            </div>
           </div>
-          <button class="details-btn " routerLink="/hotels/{{item.name}}/details/{{item.id}}" target="_blank">Details</button>
-      
+          <p><i class="ri-map-pin-line"></i>{{item.address}}</p>
+          <p><i class="ri-map-pin-line"></i> <label *ngIf="!maxStarSearch">Oda Fiyatı:</label> {{item.standartRoomPrice}} ₺ <label *ngIf="maxStarSearch"> Başlayan fiyatlarla...</label></p>
+          <a class="details-btn" [routerLink]="['/hotels', item.name, 'details', item.id]">Details</a>
+        </div>
       </div>
-  </div>
-</section>
-
+    </div>
+  </section>
+  
+  
 
 <nav>
   <ul class="pagination pagination-container">

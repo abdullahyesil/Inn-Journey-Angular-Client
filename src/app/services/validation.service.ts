@@ -31,7 +31,7 @@ export class ValidationService {
 
   static phoneValidator(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
-      const isValid = /^[0-9]{11,13}$/.test(control.value);
+      const isValid = /^[0-9]{10,13}$/.test(control.value);
        return isValid ? null : { 'phone': true };
     };
   }

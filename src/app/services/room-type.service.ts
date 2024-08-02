@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
-import { roomTypeModel } from '../model/room-type';
+import { roomTypeModel } from '../model/Entities/room-type';
 
 @Injectable({
   providedIn: 'root'
@@ -33,5 +33,6 @@ update(hotel: roomTypeModel): Observable<any>
 {
  return this.http.put(this.url+"/RoomTypes/",hotel)
 }
+
 
 }

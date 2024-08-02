@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { LocalStorageService } from '../../services/localstorage.service';
-import { userModal } from '../../model/userModal';
+import { userModal } from '../../model/Entities/userModal';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ValidationService } from '../../services/validation.service';
 

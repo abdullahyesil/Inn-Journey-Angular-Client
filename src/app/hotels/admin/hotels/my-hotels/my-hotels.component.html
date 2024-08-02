@@ -20,6 +20,7 @@
         </ul>
         <div class="card-body">
           <a routerLink="Rezervations/{{item.id}}" class="btn btn-primary">Rezervasyonlar</a>
+          <a (click)="openExtensionsDialog(item.id)" class="btn btn-success">Eklentileri Göster ve Düzenle</a>
           <a (click)="openDialog(item.id)" class="btn btn-primary">Otel Bilgilerini düzenle</a>
         </div>
       </div>

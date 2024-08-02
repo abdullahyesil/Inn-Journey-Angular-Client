@@ -2,7 +2,8 @@ export interface roomModel{
     id: string,
     hotelId: string,
     roomTypeId: string,
-    baseAdultPrice:number,
-    baseChildPrice:number
+    adultPrice:number,
+    childPrice:number
     status: string,
+    capacity: number
 }

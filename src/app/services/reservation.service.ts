@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { reservationModel } from '../model/reservation';
+import { reservationModel } from '../model/Entities/reservation';
 import { Observable } from 'rxjs/internal/Observable';
 
 @Injectable({
@@ -41,5 +41,8 @@ return this.http.get<reservationModel[]>(this.url+"/Reservations/hotel/"+hotelId
 getReservationByUserId(userId:string):Observable<reservationModel[]>{
 return this.http.get<reservationModel[]>(this.url+"/Reservations/user/"+userId)
 }
+getReservationByRoomId(roomId:string):Observable<reservationModel[]>{
+  return this.http.get<reservationModel[]>(this.url+"/Reservations/room/"+roomId)
+  }
 
 }

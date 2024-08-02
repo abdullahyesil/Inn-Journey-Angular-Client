@@ -1,11 +1,10 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { HotelService } from '../../../../services/hotel.service';
-import { HotelModal } from '../../../../model/hotelmodal';
+import { HotelModal } from '../../../../model/Entities/hotelmodal';
 import { MatDialog } from '@angular/material/dialog';
 import { EditHotelComponent } from '../edit-hotel/edit-hotel.component';
-import { User } from '../../../../model/user';
 import { LocalStorageService } from '../../../../services/localstorage.service';
-import { Token } from '@angular/compiler';
+import { ExtensionsComponent } from '../extensions/extensions.component';
 
 @Component({
   selector: 'app-my-hotels',
@@ -14,7 +13,7 @@ import { Token } from '@angular/compiler';
 })
 export class MyHotelsComponent implements OnInit {
 
-   readonly dialog = inject(MatDialog);
+  readonly dialog = inject(MatDialog);
   userId:string
   myHotel: HotelModal[] = [];
   constructor( 
@@ -26,12 +25,15 @@ private localService: LocalStorageService){}
        this.hotelService.getMyHotels(this.userId).subscribe(data => this.myHotel=data);
   }
 
-
   openDialog(hotelId:string) {
     const dialogRef = this.dialog.open(EditHotelComponent,{data: hotelId});
     dialogRef.afterClosed().subscribe(result => {
       this.hotelService.getMyHotels(this.userId).subscribe(data => this.myHotel=data);
     });
-
+  }
+  openExtensionsDialog(hotelId:string) {
+    console.log(hotelId)
+    const diagloRef= this.dialog.open(ExtensionsComponent ,{ data: {hotelId}
+    });
   }
 }

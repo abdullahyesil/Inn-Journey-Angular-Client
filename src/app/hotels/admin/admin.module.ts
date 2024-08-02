@@ -22,6 +22,9 @@ import { GetReviewComponent } from './get-review/get-review.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SharedModule } from '../../shared/shared.module';
 import { PaymentComponent } from './getPayments/payment.component';
+import { ExtensionsRoomComponent } from './room/extensions-room/extensions-room.component';
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import { ExtensionsComponent } from './hotels/extensions/extensions.component';
 
 
 
@@ -38,7 +41,9 @@ import { PaymentComponent } from './getPayments/payment.component';
     DeleteRoomComponent,
     UpdateRoomComponent,
     GetReviewComponent,
-    PaymentComponent
+    PaymentComponent,
+    ExtensionsRoomComponent,
+    ExtensionsComponent
   ],
   imports: [
     CommonModule,
@@ -52,7 +57,9 @@ import { PaymentComponent } from './getPayments/payment.component';
     MatOption,
     MatSelectModule,
     MatSnackBarModule,
-    SharedModule
+    SharedModule,
+    DragDropModule
+   
   ]
 })
 export class AdminModule { }

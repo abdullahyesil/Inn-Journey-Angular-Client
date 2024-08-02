@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ReservationService } from '../../../../services/reservation.service';
-import { reservationModel } from '../../../../model/reservation';
+import { reservationModel } from '../../../../model/Entities/reservation';
 import { PaymentService } from '../../../../services/payment.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PaymentModel } from '../../../../model/payment';
+import { PaymentModel } from '../../../../model/Entities/payment';
 import { ValidationService } from '../../../../services/validation.service';
-import { userModal } from '../../../../model/userModal';
-import { HotelModal } from '../../../../model/hotelmodal';
+import { userModal } from '../../../../model/Entities/userModal';
+import { HotelModal } from '../../../../model/Entities/hotelmodal';
 import { HotelService } from '../../../../services/hotel.service';
 import { RoomTypeService } from '../../../../services/room-type.service';
 import { RoomService } from '../../../../services/room.service';
-import { roomTypeModel } from '../../../../model/room-type';
-import { roomModel } from '../../../../model/room';
+import { roomTypeModel } from '../../../../model/Entities/room-type';
+import { roomModel } from '../../../../model/Entities/room';
 
 @Component({
   selector: 'app-payment',
@@ -62,7 +62,6 @@ export class PaymentComponent implements OnInit {
       this.reservationService.getById(params['id']).subscribe(response => {
         this.reservationModal = response;
         this.formUpdate();
-        
         this.hotelService.getHotelById(this.reservationModal.hotelId).subscribe(resp => {
           this.hotelModel = resp;
           console.log('Hotel Model:', this.hotelModel); // Debugging
@@ -90,18 +89,18 @@ export class PaymentComponent implements OnInit {
       });
     });
   }
-  
 
   odemeyap() {
     if (this.paymentForm.valid) {
       this.payService.odeme(this.paymentForm.value).subscribe(response => {
         console.log(response);
+        debugger;
         if (response.status === 'success') {
-          // this.router.navigate(['/success']); // Başarılı ödeme sayfasına yönlendirme
           this.reservationModal.status = "PC"
-          this.reservationService.update(this.reservationModal).subscribe(data => console.log(data))
-
-        
+          this.reservationModal.deleted = false;
+          this.reservationService.update(this.reservationModal).subscribe(data => 
+            console.log(data)
+          )
           this.successEkrani = true;
         } else {
           // Başarısız ödeme durumu için işlemler

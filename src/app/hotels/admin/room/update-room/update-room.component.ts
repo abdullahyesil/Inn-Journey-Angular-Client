@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { RoomService } from '../../../../services/room.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { roomModel } from '../../../../model/room';
+import { roomModel } from '../../../../model/Entities/room';
 import { DialogRef } from '@angular/cdk/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -47,8 +47,8 @@ this.roomForm = this.fb.group({
       id :  this.room.id ?? '',
       hotelId:  this.room.hotelId ?? '',
       roomTypeId: this.room.roomTypeId ?? '',
-      baseAdultPrice: this.room.baseAdultPrice ?? null,
-      baseChildPrice: this.room.baseChildPrice ?? null,
+      baseAdultPrice: this.room.adultPrice ?? 0,
+      baseChildPrice: this.room.childPrice ?? 0,
       status:  this.room.status ?? ''
     })
   }

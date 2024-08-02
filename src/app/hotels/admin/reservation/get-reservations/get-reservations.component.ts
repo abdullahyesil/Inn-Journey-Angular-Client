@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ReservationService } from '../../../../services/reservation.service';
-import { reservationModel } from '../../../../model/reservation';
+import { reservationModel } from '../../../../model/Entities/reservation';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

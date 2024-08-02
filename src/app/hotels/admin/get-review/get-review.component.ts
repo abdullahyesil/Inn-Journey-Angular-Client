@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { HotelService } from '../../../services/hotel.service';
 import { LocalStorageService } from '../../../services/localstorage.service';
 import { ReviewService } from '../../../services/review.service';
-import { reviewModel } from '../../../model/review';
-import { HotelModal } from '../../../model/hotelmodal';
+import { reviewModel } from '../../../model/Entities/review';
+import { HotelModal } from '../../../model/Entities/hotelmodal';
 import { UserService } from '../../../services/user.service';
-import { userModal } from '../../../model/userModal';
+import { userModal } from '../../../model/Entities/userModal';
 
 @Component({
   selector: 'app-get-review',

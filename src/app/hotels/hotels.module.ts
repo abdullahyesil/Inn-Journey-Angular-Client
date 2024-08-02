@@ -18,6 +18,9 @@ import { ReviewComponent } from './hotel/review/review.component';
 import { PaymentComponent } from './hotel/reservation/payment/payment.component';
 import { RoomComponent } from './hotel/room/room.component';
 import { SharedModule } from '../shared/shared.module';
+import { ExtensionsComponent } from './hotel/extensions/extensions.component';
+import { CalendarModule } from 'primeng/calendar';
+
 
 
 @NgModule({
@@ -27,7 +30,8 @@ import { SharedModule } from '../shared/shared.module';
     ReservationComponent,
     ReviewComponent,
     PaymentComponent,
-    RoomComponent
+    RoomComponent,
+    ExtensionsComponent
   ],
   imports: [
     CommonModule,
@@ -39,6 +43,7 @@ import { SharedModule } from '../shared/shared.module';
     ReactiveFormsModule,
     MatSelectModule,
     FormsModule, //ngmodel için
+    CalendarModule,
     SharedModule
   
     

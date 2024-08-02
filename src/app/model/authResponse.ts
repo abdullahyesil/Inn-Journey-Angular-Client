@@ -4,5 +4,4 @@ export interface AuthResponse{
     refreshToken:string,
     expiration:Date,
     userId:string
-}
-    }
+}}

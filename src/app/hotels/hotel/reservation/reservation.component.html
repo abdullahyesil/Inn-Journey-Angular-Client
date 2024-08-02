@@ -18,7 +18,7 @@
           </mat-error>
         </mat-form-field>
         <mat-form-field>
-          <input formControlName="checkOut" matInput [matDatepickerFilter]="checkOutFilter" [matDatepicker]="checkOutPicker" placeholder="Check-out Date" [min]="checkInDate" (dateChange)="onCheckOutDateChange($event)">
+          <input formControlName="checkOut" matInput [matDatepickerFilter]="checkOutFilter" [matDatepicker]="checkOutPicker" placeholder="Check-out Date"  (dateChange)="onCheckOutDateChange($event)" [min]="checkInDate" >
           <mat-datepicker-toggle matSuffix [for]="checkOutPicker"></mat-datepicker-toggle>
           <mat-datepicker #checkOutPicker></mat-datepicker>
           <mat-error *ngIf="reservationForm.get('checkOut')?.hasError('required')">
@@ -32,8 +32,23 @@
             <label><b>Toplam fiyat:</b> {{totalPrice}} ₺</label>
           </div>
     </form>
+    <h3>Yoğunluk takvimi</h3>
+    <div *ngIf="Room && rezModel" class="card flex justify-content-center">
+      <p-calendar
+      class="max-w-full" 
+      [inline]="true" 
+      [(ngModel)]="date">
+          <ng-template pTemplate="date" let-date>
+              <span [ngStyle]="getDayStyle(date)">
+                  {{ date.day }}
+              </span>
+          </ng-template>
+      </p-calendar>
+  </div>
+  
+
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button mat-dialog-close>İptal</button>
   <button (click)="addReservation()" mat-button [disabled]="!reservationForm.valid">Rezervasyon Yap</button>
 </mat-dialog-actions>

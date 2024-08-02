@@ -1,74 +1,77 @@
-/* Genel Navbar Stilleri */
+/* General Styles */
 .navbar {
   z-index: 700;
   top: 0;
   width: 100%;
-  padding: 0 2rem; /* Sol ve sağ padding ekleyerek içeriği genişletir */
-  height: 80px; /* Navbar yüksekliğini artırır */
-  display: flex;
-  align-items: center; /* Dikey olarak ortalar */
-  background-color: #343a40; /* Navbar arka plan rengini koyu yapar */
 }
 
-/* Logo için Margin ve Padding */
-.navbar-brand {
-  font-size: 1.5rem; /* Logo yazı boyutunu büyütür */
-  padding: 0.5rem 1rem; /* Logo etrafına padding ekler */
+.content {
+  margin-top: 55px; /* Adjust based on the height of the navbar */
 }
 
-/* Menü Öğeleri */
-.navbar-nav {
-  display: flex;
-  flex-grow: 1; /* Menü öğelerinin genişlemesine izin verir */
-  justify-content: center; /* Menü öğelerini yatay olarak ortalar */
-  margin: 0; /* Menü öğeleri arasında boşluk bırakmaz */
+.li-ico {
+  margin-left: 5px;
 }
 
-/* Menü öğelerinin görünümü */
-.navbar-nav .nav-item {
-  margin: 0 1rem; /* Menü öğeleri arasındaki boşluk */
+/* Navbar Styles */
+.navbar .navbar-brand {
+  font-weight: bold;
 }
 
-.navbar-nav .nav-link {
-  padding: 0.75rem 1.5rem; /* İçerik ile kenar arasında boşluk sağlar */
-  font-size: 1.2rem; /* Font boyutunu büyütür */
-  color: #ffffff; /* Yazı rengi */
-  transition: background-color 0.3s, color 0.3s; /* Geçiş efekti */
+.navbar .input-group {
+  margin: auto;
 }
 
-/* Aktif Menü Öğesi */
-.navbar-nav .nav-link.active {
-  color: #fff; /* Yazı rengi beyaz */
-  background-color: #007bff; /* Arka plan rengi mavi */
+.navbar .navbar-nav .nav-link {
+  color: #ffffff;
+  transition: color 0.3s;
 }
 
-/* Sağ Menüyü Düzenleme */
-.navbar-nav.right {
-  margin-left: auto; /* Sağ menüyü sağa yaslar */
+.navbar .navbar-nav .nav-link:hover {
+  color: #f1f1f1;
 }
 
-/* Medya Sorguları */
+.navbar .navbar-nav .badge-notification {
+  position: relative;
+  top: -5px;
+}
+
+/* Media Queries */
 @media (max-width: 992px) {
-  .navbar-nav {
-    flex-direction: column; /* Menü öğelerini dikey hizalar */
-    align-items: center; /* Merkezde hizalar */
+  .navbar .input-group {
+    display: none;
   }
 
-  .navbar-nav .nav-item {
-    margin: 0.5rem 0; /* Menü öğeleri arasındaki dikey boşluk */
+  .navbar .navbar-nav {
+    flex-direction: column;
+  }
+
+  .navbar .navbar-nav .nav-item {
+    margin: 0.5rem 0;
   }
 }
 
 @media (max-width: 768px) {
-  .navbar-nav {
-    flex-direction: column; /* Menü öğelerini dikey hizalar */
+  .navbar .navbar-nav {
+    display: flex;
+    flex-direction: column;
   }
 
-  .navbar-nav .nav-item {
-    margin: 0.5rem 0; /* Menü öğeleri arasındaki dikey boşluk */
+  .navbar .navbar-nav .nav-item {
+    margin: 0.5rem 0;
   }
 
-  .navbar-nav .nav-link {
-    text-align: center; /* Menü metinlerini ortalar */
+  .navbar .navbar-nav .nav-link {
+    text-align: center;
+  }
+
+  .navbar .input-group {
+    display: flex;
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  .navbar .input-group .form-control {
+    width: 100%;
   }
 }

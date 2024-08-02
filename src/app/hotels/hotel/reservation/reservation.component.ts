@@ -1,12 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { roomTypeModel } from '../../../model/room-type';
-import { roomModel } from '../../../model/room';
+import { roomTypeModel } from '../../../model/Entities/room-type';
+import { roomModel } from '../../../model/Entities/room';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { RoomService } from '../../../services/room.service';
 import { RoomTypeService } from '../../../services/room-type.service';
 import { ReservationService } from '../../../services/reservation.service';
-import { reservationModel } from '../../../model/reservation';
+import { reservationModel } from '../../../model/Entities/reservation';
 import { LocalStorageService } from '../../../services/localstorage.service';
 import {  Router } from '@angular/router';
 import { Dialog } from '@angular/cdk/dialog';
@@ -23,7 +23,7 @@ export class ReservationComponent implements OnInit {
   userId:string
   roomId:string
   roomType: roomTypeModel[];
-  Room: roomModel[];
+  Room: roomModel;
   totalPrice: number;
   range: FormGroup; // FormGroup tanımı
   selectedRoom: any = null;
@@ -33,6 +33,17 @@ export class ReservationComponent implements OnInit {
   // Check-in ve check-out tarihlerini saklayan değişkenler
   checkInDate: Date | null = null;
   checkOutDate: Date | null = null;
+
+
+  /*
+===============================
+      #DATE RENKLENDİRME
+===============================
+*/
+rezModel: reservationModel[]
+dateProductMap: Map<string, number> = new Map(); // Tarih ve doluluk sayısını saklayan bir Map
+date: Date | null = null; // Seçili tarih
+capacity: number= 1 // Oda kapasitesi (örnek olarak 5)
 
    
   constructor(
@@ -69,21 +80,25 @@ export class ReservationComponent implements OnInit {
   }
 
 
-  ngOnInit(
-  ): void {
-    this.roomService.get().subscribe(rooms => {
-      console.log(rooms)
-      console.log('Injected hotelId:', this.hotelId); // hotelId'nin doğru gelip gelmediğini kontrol edin
-      // Oda bilgilerini aldıktan sonra, hotelId ile filtreleriz
-      this.Room = rooms.filter(room => room.hotelId === this.hotelId);
+  ngOnInit(): void {
+    this.roomService.getById(this.roomId).subscribe(rooms => {
+      this.Room = rooms;
       this.roomTypeService.get().subscribe(roomType =>
         this.roomType = roomType
       );
     });
-
-    this.selectedRoom = this.roomService.getById(this.roomId).subscribe(resp=> this.roomPricePerNight = resp.baseAdultPrice)
-
+  
+    this.roomService.getById(this.roomId).subscribe(resp => {
+      this.roomPricePerNight = resp.adultPrice;
+      this.capacity = resp.capacity;
+    });
+  
+    this.reservationService.getReservationByRoomId(this.roomId).subscribe(resp => {
+      this.rezModel = resp;
+      this.updateDateProductMap(); // Bileşen başlatıldığında tarih haritasını güncelle
+    });
   }
+  
 
   getRoomTypeName(roomTypeId: string): string { // Oda isimlerini. Oda tiplerinin yanına getirdik
     if (this.roomType && this.roomType.length > 0) {
@@ -139,6 +154,7 @@ export class ReservationComponent implements OnInit {
 
   // Check-out tarihi değiştiğinde check-in tarihini kontrol et
   onCheckOutDateChange(event: any): void { 
+    debugger;
     this.checkOutDate = event.value;
     this.totalPrice = this.calculateTotalPrice(); // Toplam fiyatı hesapla
     this.reservationForm.patchValue({ totalPrice: this.totalPrice }); // Formu güncelle
@@ -164,5 +180,83 @@ export class ReservationComponent implements OnInit {
 
     
     }
+
+
+
+/*
+===============================
+      #DATE RENKLENDİRME
+===============================
+*/
+
+
+updateDateProductMap(): void {
+  this.dateProductMap.clear(); // Önceden var olan verileri temizle
+  
+  // Her bir rezervasyonu işle
+  this.rezModel.forEach(reservation => {
+    const startDate = new Date(reservation.checkIn); // Rezervasyon başlangıç tarihi
+    const endDate = new Date(reservation.checkOut); // Rezervasyon bitiş tarihi
+
+    // Bitiş tarihini bir gün artırarak son günü dahil et
+    startDate.setDate(startDate.getDate());
+    endDate.setDate(endDate.getDate());
+
+    // Eğer tarih aralığını kontrol etmek istiyorsanız, tarihleri kontrol edebilirsiniz:
+    const dateStrStart = this.formatDate(startDate); // Başlangıç tarihini formatla
+    const dateStrEnd = this.formatDate(endDate); // Bitiş tarihini formatla
+
+    // Başlangıç tarihinden bitiş tarihine kadar doluluk sayısını güncelle
+    for (let d = new Date(startDate); d < endDate; d.setDate(d.getDate() + 1)) {
+      const dateStr = this.formatDate(d); // Tarihi YYYY-MM-DD formatına dönüştür
+      this.dateProductMap.set(dateStr, (this.dateProductMap.get(dateStr) || 0) + 1); // Tarih ile doluluk sayısını güncelle
+    }
+  });
+}
+
+  
+  // Günün stilini hesaplar ve geri döndürür
+  getDayStyle(date: { day: number, month: number, year: number }): { [key: string]: string } {
+    const currentDate = new Date(date.year, date.month , date.day); // PrimeNG formatındaki günü Date nesnesine dönüştür
+    const dateStr = this.formatDate(currentDate); // YYYY-MM-DD formatında string oluştur
+    const totalCount = this.dateProductMap.get(dateStr) || 0; // Gün için doluluk sayısını al
+   
+    // Kapasiteye göre yüzdesel doluluk hesaplama
+    const capacityPercentage = (totalCount / this.capacity) * 100;
+
+    // Günün rengi ve stilini belirle
+    let color = 'lightgreen'; // Varsayılan renk
+    let fontWeight = 'normal';
+
+    if (capacityPercentage >= 80) {
+      color = 'red'; // %80 ve üzeri
+      fontWeight = 'bold'; // Koyu font
+    } else if (capacityPercentage >= 60) {
+      color = 'yellow'; // %60 - %79
+      fontWeight = 'bold'; // Koyu font
+    }
+
+    return {
+      color: color, // Arka plan rengini belirle
+      fontWeight: fontWeight, // Font ağırlığını belirle
+      pointerEvents: capacityPercentage >= 100 ? 'none' : 'auto' // Eğer kapasite %100'ün üzerindeyse, seçilemez yap
+    };
+  
+  }
+
+  // Tarihleri YYYY-MM-DD formatında döndürür
+  formatDate(date: Date): string {
+
+    const day = date.getUTCDate().toString().padStart(2, '0'); // Gün kısmını formatla
+    const month = (date.getUTCMonth() + 1).toString().padStart(2, '0'); // Ay kısmını formatla (1 ekleyin çünkü getUTCMonth() 0 tabanlıdır)
+    const year = date.getUTCFullYear(); // Yıl kısmını al
+    return `${year}-${month}-${day}`; // YYYY-MM-DD formatında geri döndür
+    
+  }
+
+
+
+
+
 
 }
