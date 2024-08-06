@@ -39,4 +39,10 @@ export class HotelComponent implements OnInit{
       return this.sanitizer.bypassSecurityTrustHtml(this.hotel.googleMap);
     }
 
+
+
+
+    getStarArray(star:number): number[] {
+      return Array(star || 0).fill(0);
+    }
 }

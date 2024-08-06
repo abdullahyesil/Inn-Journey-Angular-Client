@@ -20,6 +20,7 @@ export class RoomComponent implements OnInit {
   roomTypeMap: { [key: string]: any } = {};
   roomExtensionsMap: { [key: string]: roomExtensionsModel[] } = {}; // Yeni bir yapı ekledik
 
+  nowDate: Date = new Date(); // Şu anki tarihi alır
   @Input() hotelId: string = "";
 
   constructor(

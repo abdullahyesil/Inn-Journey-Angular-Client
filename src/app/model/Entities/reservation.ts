@@ -8,4 +8,5 @@ export interface reservationModel{
     totalPrice: number,
     status: string,
     deleted?:boolean
+    totalCount?: number,
 }

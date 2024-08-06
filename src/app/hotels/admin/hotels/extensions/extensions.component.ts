@@ -71,7 +71,7 @@ export class ExtensionsComponent implements OnInit{
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
-      if (event.container.data === this.myExtensions && this.myExtensions.length >= 5) {
+      if (event.container.data === this.myExtensions && this.myExtensions.length >= 9) {
         this.errorMessage = 'En fazla 5 Adet Eklenti Ekleyebilirsiniz';
         return;
       }

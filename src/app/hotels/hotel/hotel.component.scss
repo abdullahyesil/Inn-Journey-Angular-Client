@@ -86,7 +86,15 @@
   border-top: 1px solid #ddd;
 }
 
-.hotel-info p {
+.hotel-description {
+  margin-bottom: 1rem; /* Açıklama ve adres arasına boşluk ekleyin */
+}
+
+.hotel-address {
+  margin-bottom: 1rem; /* Adres ve diğer içerikler arasında boşluk ekleyin */
+}
+
+.hotel-description p, .hotel-address p {
   margin: 0;
   font-size: 1rem;
 }
@@ -105,4 +113,28 @@
 
 .reservation-btn:hover {
   background-color: #e0dcd6;
+}
+
+.star-rating {
+  color: #f39c12; /* Yıldız rengini ayarlayın */
+}
+
+.hotel-title-and-stars {
+  display: flex;
+  align-items: center; /* Yatayda ortalar */
+}
+
+.hotel-title {
+  margin: 0;
+  font-size: 2rem; /* Otel adı için uygun font boyutu */
+  margin-right: 10px; /* Yıldızlar ile otel adı arasındaki boşluk */
+}
+
+.star-rating {
+  display: flex;
+  align-items: center;
+}
+
+.star-rating .icon {
+  margin-left: 4px; /* Yıldızlar arasında boşluk */
 }

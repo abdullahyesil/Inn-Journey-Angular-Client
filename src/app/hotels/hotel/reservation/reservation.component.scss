@@ -26,6 +26,25 @@
   text-decoration: line-through; /* Üzerinden çizme */
 }
 
+/* Card Container */
+.card {
+  display: flex;
+  justify-content: center; /* Yatayda ortalar */
+  align-items: center; /* Düşeyde ortalar */
+  max-width: 100%; /* Kart genişliğinin ekranı aşmasını engeller */
+  box-sizing: border-box; /* Padding ve border'ları genişlik hesaplamasına dahil eder */
+}
+
+/* Calendar */
+p-calendar {
+  max-width: 100%; /* Takvimin genişliğini kapsayıcı elementin genişliği ile sınırlayacak */
+  box-sizing: border-box; /* Padding ve border'ları genişlik hesaplamasına dahil eder */
+}
+
+/* Eğer kartın içeriğinin ortalanmasını istiyorsanız */
+.card .p-calendar {
+  width: 100%;
+}
 
 
 

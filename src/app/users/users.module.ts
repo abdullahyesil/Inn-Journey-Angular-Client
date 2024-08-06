@@ -12,6 +12,7 @@ import { ChangePassComponent } from './chance-pass/chance-pass.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SharedModule } from '../shared/shared.module';
 import { MyPaymentsComponent } from './my-payments/my-payments.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { MyPaymentsComponent } from './my-payments/my-payments.component';
     ReactiveFormsModule,
     FormsModule,
     MatSnackBarModule,
+    MatPaginatorModule,
     SharedModule
   ],
   exports:[

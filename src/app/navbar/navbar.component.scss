@@ -1,77 +1,97 @@
-/* General Styles */
+/* Genel Body Stilleri */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Navbar Stilleri */
 .navbar {
-  z-index: 700;
-  top: 0;
-  width: 100%;
+  background-color: #FF71CD; /* Açık mavi arka plan */
+  padding: 10px 20px;
 }
 
-.content {
-  margin-top: 55px; /* Adjust based on the height of the navbar */
-}
-
-.li-ico {
-  margin-left: 5px;
-}
-
-/* Navbar Styles */
-.navbar .navbar-brand {
+.navbar-brand {
+  font-size: 1.5em;
   font-weight: bold;
+  color: #fff; /* Beyaz logo metni */
 }
 
-.navbar .input-group {
-  margin: auto;
+.navbar-nav .nav-link {
+  color: #fff; /* Beyaz metin */
 }
 
-.navbar .navbar-nav .nav-link {
-  color: #ffffff;
-  transition: color 0.3s;
+.navbar-nav .nav-link:hover {
+  color: #f0f8ff; /* Daha açık mavi renk */
 }
 
-.navbar .navbar-nav .nav-link:hover {
-  color: #f1f1f1;
+.nav-item {
+  margin-left: 15px;
 }
 
-.navbar .navbar-nav .badge-notification {
-  position: relative;
-  top: -5px;
+.nav-item .nav-link {
+  display: flex;
+  align-items: center;
 }
 
-/* Media Queries */
-@media (max-width: 992px) {
-  .navbar .input-group {
-    display: none;
-  }
-
-  .navbar .navbar-nav {
-    flex-direction: column;
-  }
-
-  .navbar .navbar-nav .nav-item {
-    margin: 0.5rem 0;
-  }
+.nav-item .nav-link i {
+  font-size: 1.5em;
 }
 
-@media (max-width: 768px) {
-  .navbar .navbar-nav {
-    display: flex;
-    flex-direction: column;
-  }
+.navbar-nav .nav-item.active .nav-link {
 
-  .navbar .navbar-nav .nav-item {
-    margin: 0.5rem 0;
-  }
+  border-radius: 5px;
+}
 
-  .navbar .navbar-nav .nav-link {
-    text-align: center;
-  }
 
-  .navbar .input-group {
-    display: flex;
-    width: 100%;
-    margin-top: 1rem;
-  }
 
-  .navbar .input-group .form-control {
-    width: 100%;
-  }
+/* Stilinizi burada tanımlayın */
+.custom-menu {
+  background-color: #1e2a38;
+  border: 1px solid #2c3e50;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.custom-menu p {
+  color: #ecf0f1;
+}
+
+.custom-menu .mat-menu-item {
+  color: #ecf0f1;
+  padding: 10px 20px;
+  border-radius: 4px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.custom-menu .mat-menu-item:hover {
+  background-color: #34495e;
+  color: #fff;
+}
+
+/* src/styles.scss */
+
+/* src/styles.scss */
+
+/* Mat-MDC Menu Panel Stili */
+::ng-deep .mat-mdc-menu-panel {
+  background-color: #FF71CD !important; /* Açık pembe arka plan */
+  border: 1px solid #FF61B3 !important; /* Biraz daha koyu pembe sınır */
+  border-radius: 8px !important;
+  padding: 10px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Mat-MDC Menu Öğeleri Stili */
+::ng-deep .mat-mdc-menu-item {
+  color: #fff !important; /* Beyaz metin */
+  padding: 10px 20px !important;
+  border-radius: 4px !important;
+  transition: background-color 0.3s, color 0.3s !important;
+}
+
+/* Menü Öğeleri Üzerine Hover Efekti */
+::ng-deep .mat-mdc-menu-item:hover {
+  background-color: #FF61B3 !important; /* Daha koyu pembe hover efekti */
+  color: #fff !important;
 }

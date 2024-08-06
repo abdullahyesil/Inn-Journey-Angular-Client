@@ -58,7 +58,7 @@ export class ExtensionsRoomComponent implements OnInit {
 
     this.extensionsService.update({ roomExtensions: formattedExtensions }).subscribe(resp => {
 
-      if (resp.Success) {
+      if (resp.success) {
         this._snackBar.open('Eklentiler başarıyla güncellendi..', '', { duration: 4000 });
       }
       else {
