@@ -24,7 +24,7 @@
                 </div>
                 <!-- <a routerLink="" class="btn btn-primary w-100 mb-2">Rezervasyon Detayları</a> -->
                 <!-- İptal Et Butonu -->
-                <button *ngIf="!item.deleted" (click)="cancelReservation(item)" class="btn btn-danger w-100">İptal Et</button>
+                <p-button *ngIf="!item.deleted" (onClick)="confirm2($event, item)" label="İptal Et" severity="danger" [outlined]="true" />
                 <div *ngIf="item.deleted" class="badge badge-secondary w-100">İptal Edilmiş</div>
                 <div *ngIf="!!errorMessage" class="alert alert-warning mt-2">{{ errorMessage }}</div>
               </div>
@@ -37,3 +37,6 @@
 </div>
 <mat-paginator [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]" (page)="onPageChange($event)">
 </mat-paginator>
+
+<p-confirmDialog></p-confirmDialog>
+

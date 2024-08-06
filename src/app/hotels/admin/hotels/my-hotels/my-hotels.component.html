@@ -6,8 +6,15 @@
 <div class="row">
     <div *ngFor="let item of myHotel; let i = index" class="col-md-6">
       <div class="card mb-4" >
-        <img class="card-img-top" src="https://w7.pngwing.com/pngs/948/610/png-transparent-white-and-brown-hotel-building-illustration-hotel-manager-child-apps-hotel-illustration-hotels-lights-text-cloud-thumbnail.png" alt="Card image cap">
+       
+        <img 
+        [src]="item.imageUrl || 'https://w7.pngwing.com/pngs/948/610/png-transparent-white-and-brown-hotel-building-illustration-hotel-manager-child-apps-hotel-illustration-hotels-lights-text-cloud-thumbnail.png'"
+        (error)="onImageError($event)"
+        class="card-img-top"
+      />
+        
         <div class="card-body">
+          
           <h5 class="card-title">{{item.name}}</h5>
           <p class="card-text">{{item.description == null ? "Boş" : item.description}}</p>
         </div>

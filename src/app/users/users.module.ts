@@ -13,6 +13,11 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SharedModule } from '../shared/shared.module';
 import { MyPaymentsComponent } from './my-payments/my-payments.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
+import { MenuItem } from 'primeng/api';
+import { TabMenuModule } from 'primeng/tabmenu';
 
 
 @NgModule({
@@ -32,7 +37,14 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     FormsModule,
     MatSnackBarModule,
     MatPaginatorModule,
-    SharedModule
+    SharedModule,
+    ConfirmDialogModule,
+    ButtonModule,
+    ToastModule,
+    TabMenuModule,
+    
+
+    
   ],
   exports:[
   

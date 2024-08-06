@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { LocalStorageService } from '../../services/localstorage.service';
 import { PaymentService } from '../../services/payment.service';
 import { PaymentModel } from '../../model/Entities/payment';
 import { HotelService } from '../../services/hotel.service';
 import { HotelModal } from '../../model/Entities/hotelmodal';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-my-payments',
@@ -12,6 +13,16 @@ import { HotelModal } from '../../model/Entities/hotelmodal';
 })
 export class MyPaymentsComponent implements OnInit {
 
+  //Pagination Baslangic
+  currentPageNo: number = 0;
+  totalPageCount: number;
+  totalCount: number;
+  pageSize: number = 12;
+  pageList: number[] = [];
+  paginatedPayment: PaymentModel[]
+  //Pagination Bitis
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   paymentModel: PaymentModel[]
   hotelModel: HotelModal[]
   hotelMap: { [key: string]: any } = {}; 
@@ -23,13 +34,40 @@ export class MyPaymentsComponent implements OnInit {
   
   }
   ngOnInit(): void {
-       this.paymentService.getByUserId(this.localService.getItem("Token").userId).subscribe(resp => this.paymentModel = resp)
-       this.hotelService.getHotels().subscribe(response => {
-        this.hotelModel = response
-        this.createHotelMap()
-      })
+    if (this.paginator) {
+      this.paginator.length = this.totalCount; // Paginator'ın length özelliğini ayarla
+    }
+ 
+
+    this.loadPayments();
 
   }
+
+  loadPayments():void{
+    debugger;
+    this.paymentService.getByUserId(this.localService.getItem("Token").userId,this.currentPageNo,this.pageSize).subscribe(resp => {
+     
+      this.totalCount = resp.payments.length > 0 ? resp.totalCount : 0; // Toplam öğe sayısını al
+      this.paymentModel = resp.payments
+      if (this.paginator) {
+        this.paginator.length = this.totalCount; // Paginator'ın length özelliğini ayarla
+      }
+    })
+    
+    this.hotelService.getHotels().subscribe(response => {
+     this.hotelModel = response
+     this.createHotelMap()
+   })
+
+  }
+
+  paginate(): void {
+    const start = (this.currentPageNo) * this.pageSize;
+    const end = start + this.pageSize;
+   this.loadPayments()
+   this.paginate();
+  }
+
 
   createHotelMap(): void {
     this.hotelMap = {};
@@ -43,6 +81,26 @@ export class MyPaymentsComponent implements OnInit {
     return hotel ? hotel.name : "Bilinmeyen Otel";
   }
 
+  onPageChange(event: any): void {
+    this.currentPageNo = event.pageIndex; // Sayfa numarasını 1 tabanlı olarak ayarla
+    this.pageSize = event.pageSize;
+    this.loadPayments(); // Veriyi yeniden yükle
+  }
+  
 
+  
+  calculatePageList(): number[] {
+    const pageList: number[] = [];
+    const delta = 3;
+
+    let startPage = Math.max(1, this.currentPageNo - delta);
+    let endPage = Math.min(this.totalPageCount, this.currentPageNo + delta);
+
+    for (let i = startPage; i <= endPage; i++) {
+      pageList.push(i);
+    }
+
+    return pageList;
+  }
 
 }

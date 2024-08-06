@@ -29,7 +29,7 @@ maxPrice:boolean = null;
 dateSearch:boolean=false;
 bosHotel:HotelModal[];
 
-loading:boolean
+loading:boolean= false
 
 
   constructor(
@@ -40,87 +40,88 @@ loading:boolean
 
 
       // #region Service
-  ngOnInit() {
-    console.log(this.maxPrice)
-
-    this.activatedRoute.params.subscribe({
-      next: async (paramas) => {
-        this.currentPageNo = parseInt(paramas["pageNo"] ?? 1);
-        this.loading = true
-        if(this.dateSearch)
-        {
-            this.hotelService.getHotelsDate(this.checkInDate,this.checkOutDate, this.currentPageNo - 1, this.pageSize).subscribe(response=> {
-             
-              console.log(response)
-              this.Filteredhotel=response.hotels
-              this.totalCount = response.Hotels.length > 0 ? response.totalCount : 0;
-              this.totalPageCount = Math.ceil(this.totalCount / this.pageSize);
-              this.pageList = this.calculatePageList();
-              console.log("TEST"+this.checkInDate)
-              console.log(this.checkOutDate)
-              this.loading = false
-            })
-        }
-
-
-        else if (this.maxPrice || this.maxPrice !=null || this.maxPrice == false){
-          this.loading = true
-          this.hotelService.getHotels( null,  this.currentPageNo - 1, this.pageSize ,this.maxPrice).subscribe(
-            (data) => {
-              // Gelen veriler ile yapılacak işlemler
-              this.hotel = data;
-              this.Filteredhotel = this.hotel;
-              this.totalCount = data.length > 0 ? data[0].totalCount : 0;
-              this.totalPageCount = Math.ceil(this.totalCount / this.pageSize);
-              this.pageList = this.calculatePageList();
-              this.loading = false
-            },
-            (error) => {
-              console.error('Hata:', error);
-            }
-          );
-        }
-          else if (this.maxStar || this.maxStar != null || this.maxStar == false){
-          this.hotelService.getHotels( this.maxStar,  this.currentPageNo - 1, this.pageSize ,null).subscribe(
-            (data) => {
-              // Gelen veriler ile yapılacak işlemler
-              this.hotel = data;
-              this.Filteredhotel = this.hotel;
-              this.totalCount = data.length > 0 ? data[0].totalCount : 0;
-              this.totalPageCount = Math.ceil(this.totalCount / this.pageSize);
-              this.pageList = this.calculatePageList();   
-              this.loading = false         
-            },
-            (error) => {
-              console.error('Hata:', error);
-            }
-          );
-        }
-
-        else {
-
-          this.hotelService.getHotels(this.maxStar, this.currentPageNo - 1, this.pageSize, null).subscribe(data => {
-            this.hotel = data;
-            this.Filteredhotel = this.hotel;
-            this.totalCount = data.length > 0 ? data[0].totalCount : 0;
-            this.totalPageCount = Math.ceil(this.totalCount / this.pageSize);
-            this.pageList = this.calculatePageList();
-            this.loading = false
-  
-          });
-  
-
-        }
-
-      }
-
+      ngOnInit() {
+        console.log(this.maxPrice);
       
-    });
-
-  
-    this.selectedLayout = 'horizontal'; // Örneğin, varsayılan olarak 'horizontal' seçili olabilir
-  }
-
+        this.activatedRoute.params.subscribe({
+          next: async (params) => {
+            this.currentPageNo = parseInt(params["pageNo"] ?? '1');
+            this.loading = true; // Başlangıçta loading'i true yap
+      
+            if (this.dateSearch) {
+              this.hotelService.getHotelsDate(this.checkInDate, this.checkOutDate, this.currentPageNo - 1, this.pageSize).subscribe({
+                next: (response) => {
+                  console.log(response);
+                  this.Filteredhotel = response.hotels;
+                  this.totalCount = response.hotels.length > 0 ? response.totalCount : 0;
+                  this.totalPageCount = Math.ceil(this.totalCount / this.pageSize);
+                  this.pageList = this.calculatePageList();
+                  console.log("TEST" + this.checkInDate);
+                  console.log(this.checkOutDate);
+                },
+                error: (error) => {
+                  console.error('Hata:', error);
+                },
+                complete: () => {
+                  this.loading = false; // İşlem tamamlandığında loading'i false yap
+                }
+              });
+            } else if (this.maxPrice != null) {
+              this.hotelService.getHotels(null, this.currentPageNo - 1, this.pageSize, this.maxPrice).subscribe({
+                next: (data) => {
+                  this.hotel = data;
+                  this.Filteredhotel = this.hotel;
+                  this.totalCount = data.length > 0 ? data[0].totalCount : 0;
+                  this.totalPageCount = Math.ceil(this.totalCount / this.pageSize);
+                  this.pageList = this.calculatePageList();
+                },
+                error: (error) => {
+                  console.error('Hata:', error);
+                },
+                complete: () => {
+                  this.loading = false; // İşlem tamamlandığında loading'i false yap
+                }
+              });
+            } else if (this.maxStar != null) {
+              this.hotelService.getHotels(this.maxStar, this.currentPageNo - 1, this.pageSize, null).subscribe({
+                next: (data) => {
+                  this.hotel = data;
+                  this.Filteredhotel = this.hotel;
+                  this.totalCount = data.length > 0 ? data[0].totalCount : 0;
+                  this.totalPageCount = Math.ceil(this.totalCount / this.pageSize);
+                  this.pageList = this.calculatePageList();
+                },
+                error: (error) => {
+                  console.error('Hata:', error);
+                },
+                complete: () => {
+                  this.loading = false; // İşlem tamamlandığında loading'i false yap
+                }
+              });
+            } else {
+              this.hotelService.getHotels(this.maxStar, this.currentPageNo - 1, this.pageSize, null).subscribe({
+                next: (data) => {
+                  this.hotel = data;
+                  this.Filteredhotel = this.hotel;
+                  this.totalCount = data.length > 0 ? data[0].totalCount : 0;
+                  this.totalPageCount = Math.ceil(this.totalCount / this.pageSize);
+                  this.pageList = this.calculatePageList();
+                },
+                error: (error) => {
+                  console.error('Hata:', error);
+                },
+                complete: () => {
+                  this.loading = false; // İşlem tamamlandığında loading'i false yap
+                }
+              });
+            }
+      
+          }
+        });
+      
+        this.selectedLayout = 'horizontal'; // Örneğin, varsayılan olarak 'horizontal' seçili olabilir
+      }
+      
       // #region Hesaplama
   calculatePageList(): number[] {
     const pageList: number[] = [];
@@ -164,20 +165,26 @@ loading:boolean
   onSortOrderChange(selectedValue: boolean) {
 
     this.maxStar=selectedValue
-    this.hotelService.getHotels(this.maxStar ,  this.currentPageNo - 1, this.pageSize).subscribe(
-      (data) => {
+    this.loading = true; // Başlangıçta loading'i true yap
+
+    this.hotelService.getHotels(this.maxStar, this.currentPageNo - 1, this.pageSize).subscribe({
+      next: (data) => {
         // Gelen veriler ile yapılacak işlemler
         this.hotel = data;
         this.Filteredhotel = this.hotel;
         this.totalCount = data.length > 0 ? data[0].totalCount : 0;
         this.totalPageCount = Math.ceil(this.totalCount / this.pageSize);
         this.pageList = this.calculatePageList();
-      
       },
-      (error) => {
+      error: (error) => {
         console.error('Hata:', error);
+        // Hata durumunda uygun kullanıcı geri bildirimi veya hata işleme yapabilirsiniz
+      },
+      complete: () => {
+        this.loading = false; // İşlem tamamlandığında loading'i false yap
       }
-    );
+    });
+    
   }
 
   
@@ -217,20 +224,33 @@ loading:boolean
     }
 
 
-    tariheGoreGetir(){
-      this.loading = true
-      console.log(this.checkInDate)
-      this.dateSearch=true;
-        this.hotelService.getHotelsDate(this.checkInDate,this.checkOutDate, this.currentPageNo - 1, this.pageSize).subscribe((resp) =>  this.Filteredhotel =resp.hotels)
-        this.loading = false
-      }
+    tariheGoreGetir() {
+      this.loading = true; // Başlangıçta loading'i true yap
+      this.dateSearch = true;
+    
+      this.hotelService.getHotelsDate(this.checkInDate, this.checkOutDate, this.currentPageNo - 1, this.pageSize)
+        .subscribe({
+          next: (resp) => {
+            this.Filteredhotel = resp.hotels;
+          },
+          error: (err) => {
+            console.error('Bir hata oluştu:', err);
+            // Hata durumunda uygun kullanıcı geri bildirimi veya hata işleme yapabilirsiniz
+          },
+          complete: () => {
+            this.loading = false; // İşlem tamamlandığında loading'i false yap
+          }
+        });
+    }
+    
 
     fiyatinaGoreSirala(selectedValue: boolean) {
       this.maxPrice = selectedValue
       console.log(this.maxPrice)
+      this.loading = true;
 
-      this.hotelService.getHotels( undefined,  this.currentPageNo - 1, this.pageSize , this.maxPrice).subscribe(
-        (data) => {
+      this.hotelService.getHotels( undefined,  this.currentPageNo - 1, this.pageSize , this.maxPrice).subscribe({
+        next:  (data) => {
           // Gelen veriler ile yapılacak işlemler
           this.hotel = data;
           this.Filteredhotel = this.hotel;
@@ -239,9 +259,13 @@ loading:boolean
           this.pageList = this.calculatePageList();
         
         },
-        (error) => {
+        error: (error) => {
           console.error('Hata:', error);
+        },
+        complete: () => {
+          this.loading = false; // İşlem tamamlandığında loading'i false yap
         }
+      }
       );
     }
 

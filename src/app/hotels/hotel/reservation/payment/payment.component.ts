@@ -116,7 +116,6 @@ export class PaymentComponent implements OnInit {
     }
   }
 
-
   formUpdate() {
     this.paymentForm.patchValue({
       id: this.reservationModal.id,

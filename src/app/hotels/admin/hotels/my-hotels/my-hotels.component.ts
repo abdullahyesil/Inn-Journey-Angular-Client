@@ -14,26 +14,32 @@ import { ExtensionsComponent } from '../extensions/extensions.component';
 export class MyHotelsComponent implements OnInit {
 
   readonly dialog = inject(MatDialog);
-  userId:string
+  userId: string
   myHotel: HotelModal[] = [];
-  constructor( 
+  constructor(
     private hotelService: HotelService,
-private localService: LocalStorageService){}
+    private localService: LocalStorageService) { }
   ngOnInit(): void {
     this.userId = this.localService.getItem("Token").userId;
-  
-       this.hotelService.getMyHotels(this.userId).subscribe(data => this.myHotel=data);
+
+    this.hotelService.getMyHotels(this.userId).subscribe(data => this.myHotel = data);
   }
 
-  openDialog(hotelId:string) {
-    const dialogRef = this.dialog.open(EditHotelComponent,{data: hotelId});
+  openDialog(hotelId: string) {
+    const dialogRef = this.dialog.open(EditHotelComponent, { data: hotelId });
     dialogRef.afterClosed().subscribe(result => {
-      this.hotelService.getMyHotels(this.userId).subscribe(data => this.myHotel=data);
+      this.hotelService.getMyHotels(this.userId).subscribe(data => this.myHotel = data);
     });
   }
-  openExtensionsDialog(hotelId:string) {
+  openExtensionsDialog(hotelId: string) {
     console.log(hotelId)
-    const diagloRef= this.dialog.open(ExtensionsComponent ,{ data: {hotelId}
+    const diagloRef = this.dialog.open(ExtensionsComponent, {
+      data: { hotelId }
     });
+  }
+
+  onImageError(event: Event): void {
+    const target = event.target as HTMLImageElement;
+    target.src = 'https://w7.pngwing.com/pngs/948/610/png-transparent-white-and-brown-hotel-building-illustration-hotel-manager-child-apps-hotel-illustration-hotels-lights-text-cloud-thumbnail.png';
   }
 }

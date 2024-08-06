@@ -1,39 +1,61 @@
+/* Container and Row Styles */
+.container {
+  padding: 20px;
+}
+
+.row {
+  margin-bottom: 20px;
+}
+
+/* Card Styles */
 .payment-card {
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #fff;
+  transition: box-shadow 0.3s ease;
+}
+
+.payment-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  margin-bottom: 10px;
+}
+
+.card-text {
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.text-success {
+  color: #28a745;
+}
+
+.text-danger {
+  color: #dc3545;
+}
+
+/* Paginator Styles */
+mat-paginator {
+  margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .card-body {
+    padding: 15px;
   }
-  
-  .payment-card:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
+
   .card-title {
-    font-size: 1.25rem;
-    font-weight: bold;
+    font-size: 1.1rem;
   }
-  
+
   .card-text {
-    font-size: 1rem;
-    color: #555;
+    font-size: 0.9rem;
   }
-  
-  .text-success {
-    color: #28a745;
-  }
-  
-  .text-danger {
-    color: #dc3545;
-  }
-  
-  .container h2 {
-    font-size: 1.75rem;
-    font-weight: bold;
-  }
-  
-  .container .row {
-    display: flex;
-    gap: 1rem;
-  }
-  
-  
+}

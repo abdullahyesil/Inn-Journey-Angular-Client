@@ -1,110 +1,62 @@
-/* Global reset and basic styling */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: Arial, sans-serif;
-}
-/* Sidebar styling */
+/* Sidebar tasarımı */
 #sidebar {
-  position: fixed;
-  top: 3.7rem; /* Navbar'ın altında yerleştirilir */
-  left: 0;
-  height: calc(100% - 50px); /* Yükseklik navbar'dan sonra kalan alan */
-  width: 256px;
-  background-color: #333;
-  color: #fff;
-  padding-top: 20px;
-  transition: width 0.3s;
-  z-index: 999; /* Navbar'ın altında ama içerikten üstte */
-}
-.sidebar-header {
-  padding: 10px 20px;
+  background-color: #343a40; /* Koyu gri arka plan rengi */
+  color: #fff; /* Yazı rengi beyaz */
+  padding: 10px;
+  border-bottom: 1px solid #ddd; /* Altında ince bir çizgi */
 }
 
-.sidebar-header h3 {
-  margin-bottom: 10px;
-}
-
-.nav-links {
-  list-style: none;
+#sidebar ul {
+  list-style-type: none; /* Liste noktalarını kaldırır */
   padding: 0;
+  margin: 0;
+  display: flex; /* Menü öğelerini yatayda hizala */
+  justify-content: space-around; /* Öğeleri eşit aralıklı yerleştir */
 }
 
-.nav-links li {
-  margin-bottom: 10px;
+#sidebar li {
+  margin: 0; /* Kenar boşluklarını kaldırır */
 }
 
-.nav-links a {
+#sidebar a {
+  color: #fff; /* Bağlantı rengi beyaz */
+  text-decoration: none; /* Alt çizgiyi kaldırır */
   display: flex;
   align-items: center;
-  padding: 10px 20px;
-  color: #fff;
-  text-decoration: none;
-  transition: background-color 0.3s; /* Hover efekti için geçiş süresi */
+  padding: 10px;
 }
 
-.nav-links a:hover {
-  background-color: #555;
+#sidebar a:hover {
+  background-color: #495057; /* Üzerine gelindiğinde arka plan rengini değiştir */
+  border-radius: 5px; /* Köşeleri yuvarlatır */
 }
 
-.nav-links i {
-  font-size: 20px;
-  margin-right: 10px; /* İkon ve metin arasına boşluk ekler */
+#sidebar i {
+  margin-right: 8px; /* Simge ile metin arasında boşluk bırakır */
 }
 
-.nav-links span {
-  display: inline; /* Varsayılan olarak gösterir */
+#sidebar span {
+  font-size: 14px; /* Metin boyutunu ayarla */
 }
 
-/* Content area */
-#content {
-  margin-left: 256px; /* Sidebar genişliği */
-  padding: 20px;
-  transition: margin-left 0.3s; /* Animasyon efekti */
-}
-
-header {
-  background-color: #f2f2f2;
-  padding: 10px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #ddd;
-}
-
-header label {
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-
-main {
-  margin-top: 20px;
-}
-
-/* Responsive design */
+/* Mobil ekranlar için */
 @media screen and (max-width: 768px) {
-  #sidebar {
-      width: 80px;
-      overflow-x: hidden;
+  #sidebar ul {
+    flex-direction: column; /* Menü öğelerini dikeyde hizala */
+    align-items: flex-start; /* Öğeleri sola hizala */
   }
 
-  #content {
-      margin-left: 80px;
+  #sidebar a {
+    padding: 10px 20px; /* Daha fazla iç boşluk ekle */
   }
+}
 
-  .nav-links a {
-      justify-content: center; /* Metni ortalar */
-  }
+.nav-links li.active a {
+  background-color: #FF71CD; /* Aktif menü öğesi arka plan rengi */
+  color: #fff; /* Aktif menü öğesi metin rengi */
+  border-radius: 4px; /* Köşeleri yuvarlat */
+}
 
-  .nav-links span {
-      display: none; /* Metni gizler */
-  }
-
-  .nav-links i {
-      font-size: 24px; /* İkon boyutunu artırır */
-  }
+.nav-links li.active a i {
+  color: #fff; /* Aktif menü öğesi simge rengi */
 }

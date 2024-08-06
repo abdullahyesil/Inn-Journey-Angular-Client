@@ -6,11 +6,15 @@ import { LocalStorageService } from '../../services/localstorage.service';
 import { HotelService } from '../../services/hotel.service';
 import { HotelModal } from '../../model/Entities/hotelmodal';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ConfirmationService, MessageService } from 'primeng/api';
+
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @Component({
   selector: 'app-my-reservations',
   templateUrl: './my-reservations.component.html',
-  styleUrls: ['./my-reservations.component.scss']
+  styleUrls: ['./my-reservations.component.scss'],
+  providers: [ConfirmationService, MessageService]
 })
 export class MyReservationsComponent implements OnInit {
 
@@ -30,7 +34,9 @@ export class MyReservationsComponent implements OnInit {
     private reservationService: ReservationService,
     private localService: LocalStorageService,
     private hotelService: HotelService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
   ) { }
 
   ngOnInit(): void {
@@ -65,7 +71,7 @@ export class MyReservationsComponent implements OnInit {
   }
 
   onPageChange(event: any): void {
-    this.currentPageNo = event.pageIndex + 1;
+    this.currentPageNo = event.pageIndex;
     this.pageSize = event.pageSize;
     this.loadReservations();
   }
@@ -112,4 +118,29 @@ export class MyReservationsComponent implements OnInit {
 
     return pageList;
   }
+
+
+  //primeNG ConfirmDialog
+
+  confirm2(event: Event, reservation: reservationModel) {
+    this.confirmationService.confirm({
+        target: event.target as EventTarget,
+        message: 'Bu Rezervasyonu iptal etmek istediğine emin misin?',
+        header: 'İptal için onayla',
+        icon: 'pi pi-info-circle',
+        acceptButtonStyleClass:"p-button-danger p-button-text",
+        rejectButtonStyleClass:"p-button-text p-button-text",
+        acceptIcon:"none",
+        rejectIcon:"none",
+        acceptLabel:"Evet",
+        rejectLabel: "Hayır",
+
+        accept: () => {
+          this.cancelReservation(reservation)
+        },
+        reject: () => {
+           
+        }
+    });
+}
 }

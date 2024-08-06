@@ -8,7 +8,7 @@
               <img id="slide1" [src]="hotel.imageUrl || 'https://cdn.pixabay.com/photo/2015/09/07/19/12/hotel-928937_1280.jpg'" alt="">
             </div>
           </div>
-          <div class="gps-wrapper">
+          <div class="gps-wrapper h-80">
             <div *ngIf="hotel.googleMap" [innerHTML]="getSafeGoogleMap()"></div>
             <div *ngIf="!hotel.googleMap">
               Harita bilgisi girilmedi

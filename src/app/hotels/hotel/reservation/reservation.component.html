@@ -43,6 +43,9 @@
       </p-calendar>
   </div>
 </mat-dialog-content>
+<div class="errormessage" *ngIf="!!errorMessage">
+  {{this.errorMessage}}
+</div>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>İptal</button>
   <button (click)="addReservation()" mat-button [disabled]="!reservationForm.valid">Rezervasyon Yap</button>

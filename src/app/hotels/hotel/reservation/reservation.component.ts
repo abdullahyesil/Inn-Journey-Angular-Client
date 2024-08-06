@@ -34,6 +34,8 @@ export class ReservationComponent implements OnInit {
   checkInDate: Date | null = null;
   checkOutDate: Date | null = null;
 
+  errorMessage:string = '';
+
 
   /*
 ===============================
@@ -173,8 +175,14 @@ capacity: number= 1 // Oda kapasitesi (örnek olarak 5)
       {
         const resId = resp.id; // resp.id'yi resId'ye atar
        console.log("ilk" +resp.id)
+       if(resp.success){
        this.dialogRef.close(); // Dialog penceresini kapatır
        this.router.navigate(['/payment/'+resId]);
+       }
+       else if(resp.success==false){
+          this.errorMessage = resp.message
+       }
+
       }
     )
 
