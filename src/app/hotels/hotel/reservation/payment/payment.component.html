@@ -2,12 +2,12 @@
 <h2 class="mb-4">Ödeme Sayfası</h2>
 
 <!-- Rezervasyon Bilgileri ve Ödeme Formu -->
-<div *ngIf="!successEkrani">
+<div *ngIf="!successEkrani || !failrueEkrani">
   <form [formGroup]="paymentForm" (ngSubmit)="odemeyap()">
     <input formControlName="id" type="hidden" class="form-control" readonly>
     <input formControlName="userId" type="hidden" class="form-control" readonly>
     <input formControlName="hotelId" type="hidden" class="form-control" readonly>
-
+    
     <!-- Oda Bilgileri -->
     <div class="card mb-4 room-info-card">
       <div class="card-header">

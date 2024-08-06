@@ -64,17 +64,17 @@ export class PaymentComponent implements OnInit {
         this.formUpdate();
         this.hotelService.getHotelById(this.reservationModal.hotelId).subscribe(resp => {
           this.hotelModel = resp;
-          console.log('Hotel Model:', this.hotelModel); // Debugging
+      
         });
   
         this.roomService.getById(this.reservationModal.roomId).subscribe(resp => {
           this.roomModel = resp;
-          console.log('Room Model:', this.roomModel); // Debugging
+       
           
           if (this.roomModel && this.roomModel.roomTypeId) {
             this.roomTypeService.getById(this.roomModel.roomTypeId).subscribe(roomTypeResp => {
               this.roomTypeModel = roomTypeResp;
-              console.log('Room Type Model:', this.roomTypeModel); // Debugging
+       
             }, error => {
               console.error('Error fetching room type:', error);
             });

@@ -29,6 +29,8 @@ maxPrice:boolean = null;
 dateSearch:boolean=false;
 bosHotel:HotelModal[];
 
+loading:boolean
+
 
   constructor(
     private hotelService: HotelService,
@@ -44,11 +46,11 @@ bosHotel:HotelModal[];
     this.activatedRoute.params.subscribe({
       next: async (paramas) => {
         this.currentPageNo = parseInt(paramas["pageNo"] ?? 1);
-        debugger;
+        this.loading = true
         if(this.dateSearch)
         {
             this.hotelService.getHotelsDate(this.checkInDate,this.checkOutDate, this.currentPageNo - 1, this.pageSize).subscribe(response=> {
-            
+             
               console.log(response)
               this.Filteredhotel=response.hotels
               this.totalCount = response.Hotels.length > 0 ? response.totalCount : 0;
@@ -56,12 +58,13 @@ bosHotel:HotelModal[];
               this.pageList = this.calculatePageList();
               console.log("TEST"+this.checkInDate)
               console.log(this.checkOutDate)
- 
+              this.loading = false
             })
         }
 
 
         else if (this.maxPrice || this.maxPrice !=null || this.maxPrice == false){
+          this.loading = true
           this.hotelService.getHotels( null,  this.currentPageNo - 1, this.pageSize ,this.maxPrice).subscribe(
             (data) => {
               // Gelen veriler ile yapılacak işlemler
@@ -70,7 +73,7 @@ bosHotel:HotelModal[];
               this.totalCount = data.length > 0 ? data[0].totalCount : 0;
               this.totalPageCount = Math.ceil(this.totalCount / this.pageSize);
               this.pageList = this.calculatePageList();
-            
+              this.loading = false
             },
             (error) => {
               console.error('Hata:', error);
@@ -85,7 +88,8 @@ bosHotel:HotelModal[];
               this.Filteredhotel = this.hotel;
               this.totalCount = data.length > 0 ? data[0].totalCount : 0;
               this.totalPageCount = Math.ceil(this.totalCount / this.pageSize);
-              this.pageList = this.calculatePageList();            
+              this.pageList = this.calculatePageList();   
+              this.loading = false         
             },
             (error) => {
               console.error('Hata:', error);
@@ -101,7 +105,7 @@ bosHotel:HotelModal[];
             this.totalCount = data.length > 0 ? data[0].totalCount : 0;
             this.totalPageCount = Math.ceil(this.totalCount / this.pageSize);
             this.pageList = this.calculatePageList();
-       
+            this.loading = false
   
           });
   
@@ -113,7 +117,7 @@ bosHotel:HotelModal[];
       
     });
 
-
+  
     this.selectedLayout = 'horizontal'; // Örneğin, varsayılan olarak 'horizontal' seçili olabilir
   }
 
@@ -214,15 +218,14 @@ bosHotel:HotelModal[];
 
 
     tariheGoreGetir(){
-
+      this.loading = true
       console.log(this.checkInDate)
       this.dateSearch=true;
-        this.hotelService.getHotelsDate(this.checkInDate,this.checkOutDate, this.currentPageNo - 1, this.pageSize).subscribe((resp) => this.Filteredhotel =resp.hotels)
-      
+        this.hotelService.getHotelsDate(this.checkInDate,this.checkOutDate, this.currentPageNo - 1, this.pageSize).subscribe((resp) =>  this.Filteredhotel =resp.hotels)
+        this.loading = false
       }
 
     fiyatinaGoreSirala(selectedValue: boolean) {
-      debugger;
       this.maxPrice = selectedValue
       console.log(this.maxPrice)
 

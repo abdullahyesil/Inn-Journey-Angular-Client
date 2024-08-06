@@ -20,6 +20,7 @@ import { RoomComponent } from './hotel/room/room.component';
 import { SharedModule } from '../shared/shared.module';
 import { ExtensionsComponent } from './hotel/extensions/extensions.component';
 import { CalendarModule } from 'primeng/calendar';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 
 
@@ -44,8 +45,8 @@ import { CalendarModule } from 'primeng/calendar';
     MatSelectModule,
     FormsModule, //ngmodel için
     CalendarModule,
-    SharedModule
-  
+    SharedModule,
+    ProgressSpinnerModule,
     
   ],
   providers:[

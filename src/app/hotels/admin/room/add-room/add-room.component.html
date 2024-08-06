@@ -24,8 +24,8 @@
       <app-error-message
       [control]="roomForm.get('adultPrice')">
     </app-error-message>
-    
     </mat-form-field>
+
     <mat-form-field class="example-full-width m-1">
       <mat-label>Çocuk Fiyatı</mat-label>
       <input matInput formControlName="ChildPrice" placeholder="Çocuk Fiyatı" type="number">
@@ -33,6 +33,13 @@
       [control]="roomForm.get('childPrice')">
     </app-error-message>
     </mat-form-field>
+
+
+    <mat-form-field class="example-full-width m-1">
+      <mat-label>Oda Kapasitesi</mat-label>
+      <input matInput formControlName="Capacity" placeholder="Oda Kapasitesi" type="number">
+    </mat-form-field>
+
 
     <input formControlName="status" type="hidden" value="OK" >
     <button mat-raised-button color="primary" type="submit">Submit</button>

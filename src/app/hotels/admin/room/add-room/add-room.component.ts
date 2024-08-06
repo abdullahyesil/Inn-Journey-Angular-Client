@@ -50,6 +50,7 @@ export class AddRoomComponent implements OnInit {
       roomTypeId: ['', Validators.required],
       AdultPrice: [null, ValidationService.adultPriceValidator()],
       ChildPrice: [null, [Validators.required, ValidationService.childPriceValidator()]],
+      Capacity: [0, Validators.required],
       status: ['']
     });
   }
@@ -59,7 +60,6 @@ export class AddRoomComponent implements OnInit {
   
   }
   
-
   onSubmit() {
     if (this.roomForm.valid) {
       if (this.myExtensions.length > 0 && this.myExtensions.length <= 5) {
