@@ -27,7 +27,6 @@ export class MyReservationsComponent implements OnInit {
   totalCount: number;
   pageSize: number = 5;
   pageList: number[] = [];
-
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(

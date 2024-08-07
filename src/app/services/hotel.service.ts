@@ -98,6 +98,10 @@ getMyHotels(userId:string): Observable<HotelModal[]>
   return this.http.get<HotelModal[]>(this.url+"/Hotels/myHotels/"+ userId)
 }
 
+getHotelsName(hotelIds:string[]){
+return this.http.post<any>(this.url+"/Hotels/GetHotelName", {hotelIds})
+}
+
 
 
 }

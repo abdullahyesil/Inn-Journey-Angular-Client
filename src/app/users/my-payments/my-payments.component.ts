@@ -24,7 +24,7 @@ export class MyPaymentsComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   paymentModel: PaymentModel[]
-  hotelModel: HotelModal[]
+  hotelModel: HotelModal[] = [];
   hotelMap: { [key: string]: any } = {}; 
   constructor(
     private localService:LocalStorageService,
@@ -38,7 +38,6 @@ export class MyPaymentsComponent implements OnInit {
       this.paginator.length = this.totalCount; // Paginator'ın length özelliğini ayarla
     }
  
-
     this.loadPayments();
 
   }
@@ -49,16 +48,11 @@ export class MyPaymentsComponent implements OnInit {
      
       this.totalCount = resp.payments.length > 0 ? resp.totalCount : 0; // Toplam öğe sayısını al
       this.paymentModel = resp.payments
+      this.loadHotelNames(this.paymentModel.map(resp => resp.hotelId));
       if (this.paginator) {
         this.paginator.length = this.totalCount; // Paginator'ın length özelliğini ayarla
       }
     })
-    
-    this.hotelService.getHotels().subscribe(response => {
-     this.hotelModel = response
-     this.createHotelMap()
-   })
-
   }
 
   paginate(): void {
@@ -69,18 +63,7 @@ export class MyPaymentsComponent implements OnInit {
   }
 
 
-  createHotelMap(): void {
-    this.hotelMap = {};
-    this.hotelModel.forEach(resp => {
-      this.hotelMap[resp.id] = resp;
-    });
-  }
-
-  getHotelName(hotelId: string): string {
-    const hotel = this.hotelMap[hotelId];
-    return hotel ? hotel.name : "Bilinmeyen Otel";
-  }
-
+  
   onPageChange(event: any): void {
     this.currentPageNo = event.pageIndex; // Sayfa numarasını 1 tabanlı olarak ayarla
     this.pageSize = event.pageSize;
@@ -102,5 +85,24 @@ export class MyPaymentsComponent implements OnInit {
 
     return pageList;
   }
+
+
+
+  //region Hotel
+  loadHotelNames(hotelIds: string[]): void {
+    if (hotelIds.length > 0) {
+      this.hotelService.getHotelsName(hotelIds).subscribe(resp => {
+        this.hotelModel = resp.hotels;
+        debugger;
+      });
+    }
+  }
+
+  getHotelName(id: string): string {
+    const hotel = this.hotelModel.find(h => h.id === id);
+    return hotel ? hotel.name : 'Bilinmeyen Hotel';
+  }
+  
+
 
 }

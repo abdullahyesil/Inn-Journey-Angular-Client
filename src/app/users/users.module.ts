@@ -18,7 +18,8 @@ import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { MenuItem } from 'primeng/api';
 import { TabMenuModule } from 'primeng/tabmenu';
-
+import { MyCommentsComponent } from './my-comments/my-comments.component';
+import { PaginatorModule } from 'primeng/paginator';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { TabMenuModule } from 'primeng/tabmenu';
     SidebarComponent,
     ChangePassComponent,
     MyPaymentsComponent,
+    MyCommentsComponent,
 
   ],
   imports: [
@@ -42,7 +44,7 @@ import { TabMenuModule } from 'primeng/tabmenu';
     ButtonModule,
     ToastModule,
     TabMenuModule,
-    
+    PaginatorModule
 
     
   ],
