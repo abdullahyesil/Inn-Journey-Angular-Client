@@ -1,7 +1,18 @@
 <div class="container mt-4">
+  
   <h2 class="mb-4">Yapılan Rezervasyonlar</h2>
   <div class="table-responsive">
-    <table class="table table-hover table-bordered">
+
+    <!-- Oda Tablosu -->
+<ng-template #no_Reservation>
+  <div class="alert alert-warning text-center">
+    <i class="fas fa-bed" style="font-size: 2rem;"></i>
+    <p class="mb-0">Rezervasyon Bulunamadı</p>
+  </div>
+</ng-template>
+
+
+    <table *ngIf="myHotelRezervation && myHotelRezervation.length > 0; else no_Reservation" class="table table-hover table-bordered">
       <thead class="thead-light">
         <tr>
           <th scope="col">#</th>
@@ -14,7 +25,7 @@
           <th scope="col">Rezervasyon Durumu</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody > 
         <tr *ngFor="let item of myHotelRezervation; let i = index">
           <th scope="row">{{i+1}}</th>
           <td><a class="btn btn-info" (click)="getUser(item.userId)" >{{getUsersName(item.userId)}}</a> </td>
@@ -31,3 +42,15 @@
     </table>
   </div>
 </div>
+<div *ngIf="myHotelRezervation && myHotelRezervation.length > 0" class="card flex justify-content-center">
+
+      <p-paginator
+      (onPageChange)="onPageChance($event)"
+      [first]="page"
+      [rows]="rows"
+      [totalRecords]="totalCount"
+      [rowsPerPageOptions]="[10,20,30]"
+      />
+</div>
+
+

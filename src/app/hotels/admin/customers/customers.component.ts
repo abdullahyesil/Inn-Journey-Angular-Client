@@ -22,8 +22,6 @@ this.userId = this.data
 if(this.userId){   
   this.userService.getByIdUser(this.userId).subscribe(response => this.userModal = response)
 }
-debugger;
-  
   }
 
   closeDialog(): void {

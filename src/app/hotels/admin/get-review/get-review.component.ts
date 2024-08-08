@@ -21,6 +21,12 @@ userId:string;
 users:userModal[]
 userMap: { [key: string]: any } = {}; 
 
+//pagination
+
+first: number = 0;
+rows: number = 10;
+totalCount: number = 0;
+
   constructor( 
     private localService:LocalStorageService,
     private hotelService:HotelService,
@@ -40,11 +46,17 @@ userMap: { [key: string]: any } = {};
       this.createUserMap()
     })
   }
-
+  selectedHotelId:string
   onHotelSelect(event: Event){
-    const selectedHotelId = (event.target as HTMLSelectElement).value;
-    this.reviewService.getbyIdHotel(selectedHotelId).subscribe(response =>{
-      this.reviewModel = response 
+    this.selectedHotelId = (event.target as HTMLSelectElement).value;
+    this.loadReviews(this.selectedHotelId, this.first , this.rows); // Yeni verileri yükle (myHotel[0]?.id örnek olarak alındı, uygun bir ID kullanılmalı)
+  }
+
+
+  loadReviews(selectedHotelId: string, page: number, size: number): void {
+    this.reviewService.getbyIdHotel(selectedHotelId, page, size).subscribe(response =>{
+      this.reviewModel = response.reviews
+      this.totalCount = response.totalCount
     });
   }
 
@@ -64,6 +76,13 @@ getUserName(userId: string): string {
 }
 
 
+onPageChange(event: any): void {
+    
+  this.first = event.first; // Sayfa başlangıç indeksini güncelle
+  this.rows = event.rows; // Sayfa başına öğe sayısını güncelle
+  const page = this.first / this.rows; // Sayfa numarasını hesapla
+  this.loadReviews(this.selectedHotelId, page, this.rows); // Yeni verileri yükle (myHotel[0]?.id örnek olarak alındı, uygun bir ID kullanılmalı)
+}
 
 
 }

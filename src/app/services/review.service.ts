@@ -34,8 +34,14 @@ update(hotel: reviewModel): Observable<any>
 {
  return this.http.put(this.url+"/Reviews/",hotel)
 }
-getbyIdHotel(hotelId:string):Observable<reviewModel[]>{
-  return this.http.get<reviewModel[]>(this.url+"/Reviews/comments/"+hotelId)
+getbyIdHotel(hotelId:string, page:number, size:number):Observable<any>{
+  return this.http.get<any>(this.url+"/Reviews/comments" ,{
+    params:{
+      hotelId:hotelId,
+      page:page,
+      size:size 
+    }
+  })
 }
 getByUserId(userId:string, page:number, size:number){
 return this.http.get<any>(this.url+ "/Reviews/user/comments", {

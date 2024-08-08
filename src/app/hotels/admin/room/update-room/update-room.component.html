@@ -31,7 +31,7 @@
     <!-- Base Adult Price -->
     <mat-form-field class="example-full-width">
       <mat-label>Base Adult Price</mat-label>
-      <input formControlName="baseAdultPrice" matInput placeholder="Base Adult Price" type="number">
+      <input formControlName="AdultPrice" matInput placeholder=" Adult Price" type="number">
       <mat-error *ngIf="roomForm.get('adultPrice')?.hasError('required')">
         Base Adult Price gereklidir.
       </mat-error>
@@ -40,11 +40,20 @@
     <!-- Base Child Price -->
     <mat-form-field class="example-full-width">
       <mat-label>Base Child Price</mat-label>
-      <input formControlName="baseChildPrice" matInput placeholder="Base Child Price" type="number">
+      <input formControlName="ChildPrice" matInput placeholder="Child Price" type="number">
       <mat-error *ngIf="roomForm.get('childPrice')?.hasError('required')">
         Base Child Price gereklidir.
       </mat-error>
     </mat-form-field>
+
+        <!-- Base Child Price -->
+        <mat-form-field class="example-full-width">
+          <mat-label>Oda kapasitesi</mat-label>
+          <input formControlName="capacity" matInput placeholder="Oda Kapasitesi" type="number">
+          <mat-error *ngIf="roomForm.get('capacity')?.hasError('required')">
+           Oda Kapasitesi gereklidir.
+          </mat-error>
+        </mat-form-field>
   </form>
 </mat-dialog-content>
 

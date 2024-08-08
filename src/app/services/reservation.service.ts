@@ -35,8 +35,14 @@ update(hotel: reservationModel): Observable<any>
  return this.http.put(this.url+"/Reservations/",hotel)
 }
 
-getByHotelRezervation(hotelId:string):Observable<reservationModel[]>{
-return this.http.get<reservationModel[]>(this.url+"/Reservations/hotel/"+hotelId)
+getByHotelRezervation(hotelId:string, page:number, size:number){
+return this.http.get<any>(this.url+"/Reservations/hotel/" ,{
+  params:{
+    hotelId:hotelId,
+    page:page,
+    size:size
+  }
+})
 }
 getReservationByUserId(userId:string, page: number = 0, size: number = 5, ):Observable<reservationModel[]>{
 return this.http.get<reservationModel[]>(this.url+"/Reservations/user", {

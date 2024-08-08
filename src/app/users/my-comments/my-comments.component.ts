@@ -36,7 +36,7 @@ export class MyCommentsComponent  implements OnInit{
       this.totalCount = resp.totalCount; // Toplam kayıt sayısını güncelleyin
       this.loadHotelNames(this.reviewsModel.map(review => review.hotelId));
     });
-   
+
   }
 
  onPageChange(event: any): void {
@@ -54,7 +54,7 @@ export class MyCommentsComponent  implements OnInit{
     if (hotelIds.length > 0) {
       this.hotelService.getHotelsName(hotelIds).subscribe(resp => {
         this.hotelModel = resp.hotels;
-        debugger;
+     
       });
     }
   }

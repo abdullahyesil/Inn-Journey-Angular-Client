@@ -56,9 +56,9 @@
           </div>
         </div>
       </div>
-
+      <div><button *ngIf="!loadmoreDeactive" class="btn-info btn w-100" (click)="loadMore()">Daha fazla yükle</button></div>
       <ng-template #no_Review>
-        <div style="margin-top: 15px;" class="alert alert-warning">Daha Önce Yorum Yapılmamış.</div>
+        <div style="margin-top: 15px;" class="alert alert-warning" >Daha Önce Yorum Yapılmamış.</div>
       </ng-template>
       
   </div>

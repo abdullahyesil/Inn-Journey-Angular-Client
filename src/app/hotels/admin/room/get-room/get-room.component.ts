@@ -7,6 +7,7 @@ import { LocalStorageService } from '../../../../services/localstorage.service';
 import { MatDialog } from '@angular/material/dialog';
 import { UpdateRoomComponent } from '../update-room/update-room.component';
 import { ExtensionsRoomComponent } from '../extensions-room/extensions-room.component';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-get-room',
@@ -21,7 +22,8 @@ export class GetRoomComponent implements OnInit {
   constructor(
     private localService:LocalStorageService,
     private hotelService:HotelService,
-    private roomService:RoomService
+    private roomService:RoomService,
+    private confirmationService: ConfirmationService
   ){
 
 
@@ -30,11 +32,11 @@ export class GetRoomComponent implements OnInit {
     this.userId = this.localService.getItem("Token").userId;
     this.hotelService.getMyHotels(this.userId).subscribe(data => this.myHotel=data)
   }
-
+   selectedHotelId : string = ""
   onHotelSelect(event: Event){
-    const selectedHotelId = (event.target as HTMLSelectElement).value;
-    console.log(selectedHotelId) //test
-    this.roomService.getRoomByHotelId(selectedHotelId).subscribe(res => this.myRoom = res);
+    this.selectedHotelId = (event.target as HTMLSelectElement).value;
+    console.log(this.selectedHotelId) //test
+    this.roomService.getRoomByHotelId(this.selectedHotelId).subscribe(res => this.myRoom = res);
   }
 
   editRoom(roomId:string)
@@ -43,18 +45,33 @@ export class GetRoomComponent implements OnInit {
     });
   }
 
-  deleteRoom(roomId:string, event: Event){
-this.roomService.delete(roomId).subscribe(resp=> resp)
 
-this.onHotelSelect(event)
+
+  confirmDelete(roomId: string, event: Event) {
+    // Tarayıcı onay penceresini göster
+    const confirmed = window.confirm('Bu odayı silmek istediğinize emin misiniz?');
+    
+    if (confirmed) {
+      // Kullanıcı onayladıysa oda silme işlemini yap
+      this.deleteRoom(roomId, event);
+    }
   }
 
+  deleteRoom(roomId: string, event: Event) {
+    this.roomService.delete(roomId).subscribe(() => {
+      // Silme işlemi başarılı olduğunda yapılacak işlemler
+      this.onHotelSelect(event);
+      this.roomService.getRoomByHotelId(this.selectedHotelId).subscribe(res => this.myRoom = res);
+    });
+  }
   showExtensionsRoom(roomId: string) {
     const dialogRef = this.dialog.open(ExtensionsRoomComponent, {
       data: { roomId },
       panelClass: 'custom-dialog-container' // Buraya stil sınıfını ekleyin
     });
   }
+  
+
   
   
 

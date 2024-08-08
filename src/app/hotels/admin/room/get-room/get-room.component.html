@@ -43,7 +43,10 @@
         </td>
         <td class="text-center">
           <button (click)="editRoom(room.id)" class="btn btn-primary btn-sm me-2">Düzenle</button>
-          <button (click)="deleteRoom(room.id, $event)"  class="btn btn-danger btn-sm">Sil</button>
+          <p-confirmDialog></p-confirmDialog>
+
+          <button (click)="confirmDelete(room.id, $event)" class="btn btn-danger btn-sm">Sil</button>
+      
         </td>
       </tr>
     </tbody>

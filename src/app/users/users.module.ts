@@ -41,10 +41,10 @@ import { PaginatorModule } from 'primeng/paginator';
     MatPaginatorModule,
     SharedModule,
     ConfirmDialogModule,
-    ButtonModule,
-    ToastModule,
-    TabMenuModule,
-    PaginatorModule
+      ButtonModule,
+      ToastModule,
+      TabMenuModule,
+      PaginatorModule
 
     
   ],

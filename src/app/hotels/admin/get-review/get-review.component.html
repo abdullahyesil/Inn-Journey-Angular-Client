@@ -38,3 +38,13 @@
     <p class="mb-0">Yorum Bulunamadı</p>
   </div>
 </ng-template>
+
+<div *ngIf="reviewModel && totalCount > rows" class="card flex justify-content-center">
+  <p-paginator 
+      (onPageChange)="onPageChange($event)" 
+      [first]="first" 
+      [rows]="rows" 
+      [totalRecords]="totalCount" 
+      [rowsPerPageOptions]="[10, 20, 30]" />
+</div>
+

@@ -8,6 +8,7 @@ import { ErrorMessageComponent } from '../error-message/error-message.component'
   declarations: [  ErrorMessageComponent],
   imports: [
     CommonModule
+    
   ],
   exports: [
     ErrorMessageComponent

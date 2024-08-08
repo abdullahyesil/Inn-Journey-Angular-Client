@@ -18,6 +18,10 @@ export class GetReservationsComponent implements OnInit{
   myHotelRezervation :reservationModel[] = []; 
   userModel:userModal[] = [];
 
+  page: number = 0;
+  rows: number = 10;
+  totalCount:number
+
   constructor(
     private rezervationService: ReservationService,
     private activatedRoute: ActivatedRoute,
@@ -27,8 +31,10 @@ export class GetReservationsComponent implements OnInit{
 
   ngOnInit(): void {
 this.activatedRoute.params.subscribe(params=> {
-  this.rezervationService.getByHotelRezervation(params["id"]).subscribe(data => {
-    this.myHotelRezervation = data
+  this.hotelId = params["id"]
+  this.rezervationService.getByHotelRezervation(params["id"], this.page, this.rows).subscribe(data => {
+    this.myHotelRezervation = data.rezervations
+    this.totalCount = data.totalCount
     this.loadUsersName(this.myHotelRezervation.map(resp => resp.userId));
   });
 });
@@ -50,9 +56,22 @@ getUsersName(id: string): string {
 
 getUser(userId:string):void{
   this.dialog.open(CustomersComponent, {data: userId})
-
 }
 
+onPageChance(event: any): void {
+  const page = event.first / event.rows; // Sayfa numarasını hesapla
+  this.rows = event.rows; // Sayfa başına öğe sayısını güncelle
+  this.loadReservations(page, this.rows); // Yeni verileri yükle
+}
+
+
+loadReservations(page:number, size:number):void{
+    this.rezervationService.getByHotelRezervation(this.hotelId,page,size).subscribe(data => {
+      this.myHotelRezervation = data.rezervations
+      this.totalCount = data.totalCount
+      this.loadUsersName(this.myHotelRezervation.map(resp => resp.userId));
+    });
+}
 
 
 

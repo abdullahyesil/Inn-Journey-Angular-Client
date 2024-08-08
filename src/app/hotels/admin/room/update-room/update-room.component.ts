@@ -33,9 +33,10 @@ this.roomForm = this.fb.group({
   id :  ['' , Validators.required],
   hotelId:  ['' , Validators.required],
   roomTypeId:  ['' , Validators.required],
-  baseAdultPrice: ['' , [Validators.required, Validators.min(0), Validators.max(999999999)]],
-  baseChildPrice: ['' , [Validators.required , Validators.min(0), Validators.max(999999999)]],
-  status:  ['' , Validators.required]
+  AdultPrice: ['' , [Validators.required, Validators.min(0), Validators.max(999999999)]],
+  ChildPrice: ['' , [Validators.required , Validators.min(0), Validators.max(999999999)]],
+  status:  ['' , Validators.required],
+  capacity: ['', Validators.required, , Validators.min(0), Validators.max(999999999)]
 })
 
 
@@ -47,9 +48,10 @@ this.roomForm = this.fb.group({
       id :  this.room.id ?? '',
       hotelId:  this.room.hotelId ?? '',
       roomTypeId: this.room.roomTypeId ?? '',
-      baseAdultPrice: this.room.adultPrice ?? 0,
-      baseChildPrice: this.room.childPrice ?? 0,
-      status:  this.room.status ?? ''
+      AdultPrice: this.room.adultPrice ?? 0,
+      ChildPrice: this.room.childPrice ?? 0,
+      status:  this.room.status ?? '',
+      capacity:  this.room.capacity ?? ''
     })
   }
 
@@ -59,7 +61,6 @@ this.roomForm = this.fb.group({
       this.roomService.update(this.roomForm.value).subscribe(response => console.log(response))
       this.dialogref.close();
       this._snackBar.open( 'Oda başarıyla Güncellendi.','',{ duration:4000 });
-      
     }
 
   }

@@ -27,6 +27,8 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import { ExtensionsComponent } from './hotels/extensions/extensions.component';
 import { PaginatorModule } from 'primeng/paginator';
 import { CustomersComponent } from './customers/customers.component';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 
 
 
@@ -62,8 +64,11 @@ import { CustomersComponent } from './customers/customers.component';
     MatSnackBarModule,
     SharedModule,
     DragDropModule,
-    PaginatorModule
+    PaginatorModule,
+    ConfirmDialogModule,
+    
    
-  ]
+  ],
+  providers: [ConfirmationService],
 })
 export class AdminModule { }

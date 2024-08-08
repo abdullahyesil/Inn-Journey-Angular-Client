@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { ReviewService } from '../../../services/review.service';
 import { reviewModel } from '../../../model/Entities/review';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -24,6 +24,10 @@ export class ReviewComponent implements OnInit {
   reviews: reviewModel[] = []; 
   userMap: { [key: string]: any } = {}; 
   errorMessage: string = ''; // Hata mesajı değişkeni
+  totalCount:number;
+  page:number = 0
+  size:number = 5
+  loadmoreDeactive=false;
 constructor(
   private reviewService: ReviewService,
   private fb:FormBuilder,
@@ -72,9 +76,11 @@ getUserName(userId: string): string {
 }
 
 loadReviews() {
+ 
   if (this.hotelId) {
-    this.reviewService.getbyIdHotel(this.hotelId).subscribe(response => {
-      this.reviews = response;
+    this.reviewService.getbyIdHotel(this.hotelId, this.page, this.size).subscribe(response => {
+      this.reviews = response.reviews;
+      this.totalCount = response.totalCount
     });
   }
 }
@@ -100,5 +106,46 @@ addReview(){
   }
   this.loadReviews() // yorm getir
 }
+
+
+  loadMore() {
+    if (this.size <= this.totalCount) {
+      this.page = this.page
+      this.size = this.size + this.size
+      this.loadReviews()
+    }
+    else {
+      this.loadmoreDeactive = true
+    }
+  }
+
+
+
+  //region #EventListener
+  spaceKeyPressed: boolean = false;
+
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll(event: Event): void {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+
+    if (scrollTop + windowHeight >= documentHeight - 5) {
+      this.loadMore();
+    }
+  }
+
+  @HostListener('window:keydown.space', ['$event'])
+  onSpaceKeyPress(event: KeyboardEvent): void {
+    this.spaceKeyPressed = true;
+    if (this.spaceKeyPressed) {
+      this.loadMore();
+    }
+  }
+
+  @HostListener('window:keyup.space', ['$event'])
+  onSpaceKeyRelease(event: KeyboardEvent): void {
+    this.spaceKeyPressed = false;
+  }
 
 }
