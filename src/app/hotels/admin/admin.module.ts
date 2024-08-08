@@ -25,6 +25,8 @@ import { PaymentComponent } from './getPayments/payment.component';
 import { ExtensionsRoomComponent } from './room/extensions-room/extensions-room.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { ExtensionsComponent } from './hotels/extensions/extensions.component';
+import { PaginatorModule } from 'primeng/paginator';
+import { CustomersComponent } from './customers/customers.component';
 
 
 
@@ -43,7 +45,8 @@ import { ExtensionsComponent } from './hotels/extensions/extensions.component';
     GetReviewComponent,
     PaymentComponent,
     ExtensionsRoomComponent,
-    ExtensionsComponent
+    ExtensionsComponent,
+    CustomersComponent
   ],
   imports: [
     CommonModule,
@@ -58,7 +61,8 @@ import { ExtensionsComponent } from './hotels/extensions/extensions.component';
     MatSelectModule,
     MatSnackBarModule,
     SharedModule,
-    DragDropModule
+    DragDropModule,
+    PaginatorModule
    
   ]
 })

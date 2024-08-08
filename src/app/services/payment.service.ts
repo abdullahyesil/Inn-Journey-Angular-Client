@@ -36,13 +36,19 @@ update(hotel: PaymentModel): Observable<any>
  return this.http.put(this.url+"/Payment/",hotel)
 }
 
-odeme(veri :payModal): Observable<payModal>
+odeme(veri :payModal): Observable<any>
 {
- return this.http.post<payModal>(this.url+"/Pay2/", veri)
+ return this.http.post<any>(this.url+"/Pay2/", veri)
 }
 
-getByHotelId(hotelId:string){
-  return this.http.get<PaymentModel[]>(this.url+"/payments/hotel/"+hotelId)
+getByHotelId(hotelId:string, page:number , size:number){
+  return this.http.get<any>(this.url+"/payments/hotel/", {
+    params:{
+      hotelId:hotelId,
+      page:page,
+      size:size
+    }
+  })
 }
 getByUserId(userId:string, page:number, size:number){
   return this.http.get<any>(this.url+"/payments/user/", {

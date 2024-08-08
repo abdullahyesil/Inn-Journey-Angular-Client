@@ -36,11 +36,9 @@ export class AuthComponent {
        
 
         },
-        (error) => {
-    
-          console.error('Login failed:', error);
-          this.errorMessage = 'Kullanıcı adı veya şifre hatalı. Lütfen tekrar deneyin. Hata Mesajı:' + error;
-          // Hata durumunda kullanıcıya bildirim gösterebilirsiniz
+        (error) => {  
+          this.errorMessage = "Kullanıcı adı veya şifre yanlış";
+        
         }
       );
   }

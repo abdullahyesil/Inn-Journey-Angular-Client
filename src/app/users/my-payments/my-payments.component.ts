@@ -47,7 +47,7 @@ export class MyPaymentsComponent implements OnInit {
     this.paymentService.getByUserId(this.localService.getItem("Token").userId,this.currentPageNo,this.pageSize).subscribe(resp => {
      
       this.totalCount = resp.payments.length > 0 ? resp.totalCount : 0; // Toplam öğe sayısını al
-      this.paymentModel = resp.payments
+      this.paymentModel = resp.payments 
       this.loadHotelNames(this.paymentModel.map(resp => resp.hotelId));
       if (this.paginator) {
         this.paginator.length = this.totalCount; // Paginator'ın length özelliğini ayarla
@@ -61,7 +61,7 @@ export class MyPaymentsComponent implements OnInit {
    this.loadPayments()
    this.paginate();
   }
-
+  
 
   
   onPageChange(event: any): void {

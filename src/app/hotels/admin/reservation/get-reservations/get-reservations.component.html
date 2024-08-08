@@ -17,7 +17,7 @@
       <tbody>
         <tr *ngFor="let item of myHotelRezervation; let i = index">
           <th scope="row">{{i+1}}</th>
-          <td>{{item.userId}}</td>
+          <td><a class="btn btn-info" (click)="getUser(item.userId)" >{{getUsersName(item.userId)}}</a> </td>
           <td>{{item.roomId}}</td>
           <td>{{item.checkIn | date: 'shortDate'}}</td>
           <td>{{item.checkOut | date: 'shortDate'}}</td>

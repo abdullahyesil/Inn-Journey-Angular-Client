@@ -2,7 +2,7 @@
 <h2 class="mb-4">Ödeme Sayfası</h2>
 
 <!-- Rezervasyon Bilgileri ve Ödeme Formu -->
-<div *ngIf="!successEkrani || !failrueEkrani">
+<div *ngIf="successEkrani == false && failrueEkrani == false && loading == false">
   <form [formGroup]="paymentForm" (ngSubmit)="odemeyap()">
     <input formControlName="id" type="hidden" class="form-control" readonly>
     <input formControlName="userId" type="hidden" class="form-control" readonly>
@@ -17,7 +17,7 @@
         <div class="row">
           <div class="col-md-4">
             <img *ngIf="roomTypeModel" src="{{roomTypeModel.imageUrl}}" alt="Oda Resmi" class="img-fluid rounded">
-            <img *ngIf="!roomTypeModel" src="{{roomTypeModel.imageUrl}}" alt="Oda Resmi" class="img-fluid rounded">
+            <img *ngIf="!roomTypeModel" src="" alt="Oda Resmi" class="img-fluid rounded">
           </div>
           <div class="col-md-8">
             <h5 class="card-title" *ngIf="hotelModel"> {{hotelModel.name}}</h5>
@@ -83,6 +83,13 @@
     </div>
   </div>
 </div>
+
+<div *ngIf="loading" class="text-center">
+  <div class="spinner-border" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
 <!-- Başarısız Ödeme Ekranı -->
 <div *ngIf="failrueEkrani">
   <div class="container mt-5">
@@ -97,4 +104,6 @@
     </div>
   </div>
 </div>
+
+<div *ngIf="!!errorMessage" class="bg-danger text-white"> {{errorMessage}}</div>
 

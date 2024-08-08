@@ -24,6 +24,7 @@
 				  <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-lg px-5" type="submit">Giriş Yap</button>
 	
 				</div>
+				<div *ngIf="!!errorMessage" class="text-white bg-danger mb-3 border-radius"> {{errorMessage}}</div>
 			</form>
 
 				<div>

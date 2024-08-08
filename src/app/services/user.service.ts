@@ -35,6 +35,9 @@ export class UserService {
    createUser(user:userModal){
     return this.http.post<reservationModel>(this.url,user)
    }
+   getByIdsUser(userIds:string[]){
+    return this.http.post<any>(this.url + "/GetByIds/", {userIds})
+   }
 
 
  

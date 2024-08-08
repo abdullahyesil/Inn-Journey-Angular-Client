@@ -30,6 +30,8 @@ export class PaymentComponent implements OnInit {
   reservationModal: reservationModel
   successEkrani:boolean = false // Ödeme başarılı olursa yeni component açmadan aynı sayfada işlem yapalım
   failrueEkrani:boolean = false
+  loading:boolean =false;
+  errorMessage:string = '';
   constructor(
     private activatedRoot: ActivatedRoute,
     private reservationService: ReservationService,
@@ -91,29 +93,63 @@ export class PaymentComponent implements OnInit {
   }
 
   odemeyap() {
+    debugger;
     if (this.paymentForm.valid) {
-      this.payService.odeme(this.paymentForm.value).subscribe(response => {
-        console.log(response);
-        debugger;
-        if (response.status === 'success') {
+    //   this.payService.odeme(this.paymentForm.value).subscribe(response => {
+     
+    //     if (response.status === 'success') {
+    //       this.reservationModal.status = "PC"
+    //       this.reservationModal.deleted = false;
+    //       this.reservationService.update(this.reservationModal).subscribe(data => 
+    //         console.log(data)
+    //       )
+    //       this.successEkrani = true;
+    //     } else {
+    //       // Başarısız ödeme durumu için işlemler
+    //       this.failrueEkrani =true;
+    //     }
+    //   }, error => {
+    //     console.error('Ödeme işlemi sırasında hata oluştu:', error);
+    //     alert('Ödeme işlemi sırasında hata oluştu. Lütfen tekrar deneyin.');
+    //   });
+    // } else {
+    //   console.error('Form geçerli değil:', this.paymentForm);
+    //   alert('Lütfen gerekli tüm alanları doldurun.');
+    // }
+
+this.loading = true
+    this.payService.odeme(this.paymentForm.value).subscribe({
+      next: (resp) => {
+        if (resp.status === 'success') {
           this.reservationModal.status = "PC"
           this.reservationModal.deleted = false;
           this.reservationService.update(this.reservationModal).subscribe(data => 
             console.log(data)
           )
           this.successEkrani = true;
-        } else {
+        } 
+        else {
           // Başarısız ödeme durumu için işlemler
           this.failrueEkrani =true;
         }
-      }, error => {
-        console.error('Ödeme işlemi sırasında hata oluştu:', error);
-        alert('Ödeme işlemi sırasında hata oluştu. Lütfen tekrar deneyin.');
-      });
-    } else {
-      console.error('Form geçerli değil:', this.paymentForm);
-      alert('Lütfen gerekli tüm alanları doldurun.');
-    }
+       if(resp.errorMessage)
+        { 
+          this.errorMessage = resp.errorMessage
+        }
+      
+         }
+         ,
+      error:(err) =>{
+        this.loading = false;
+          console.error('Ödeme işlemi sırasında hata oluştu:', err);
+          alert('Ödeme işlemi sırasında hata oluştu. Lütfen tekrar deneyin.');
+      },
+      complete: () =>  {
+        this.loading = false;
+      },
+    })
+  }
+
   }
 
   formUpdate() {
