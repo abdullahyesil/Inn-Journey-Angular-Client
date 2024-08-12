@@ -25,7 +25,6 @@ export class MyCommentsComponent  implements OnInit{
   ) { }
 
   ngOnInit(): void {
-    debugger;
     this.loadReviews(this.first, this.rows);
 
   }
@@ -48,21 +47,16 @@ export class MyCommentsComponent  implements OnInit{
   getStars(rating: number): number[] {
     return Array(5).fill(0).map((_, i) => i < rating ? i : i - 1); // Yıldızları ratinge göre döndür
   }
-
-
   loadHotelNames(hotelIds: string[]): void {
     if (hotelIds.length > 0) {
       this.hotelService.getHotelsName(hotelIds).subscribe(resp => {
         this.hotelModel = resp.hotels;
-     
       });
     }
   }
-
   getHotelName(id: string): string {
     const hotel = this.hotelModel.find(h => h.id === id);
     return hotel ? hotel.name : 'Bilinmeyen Hotel';
   }
   
-
 }

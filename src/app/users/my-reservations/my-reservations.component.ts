@@ -22,7 +22,7 @@ export class MyReservationsComponent implements OnInit {
   hotelModel: { [key: string]: HotelModal } = {};
   myReservation: reservationModel[] = [];
   paginatedReservations: reservationModel[] = [];
-  currentPageNo: number = 1;
+  currentPageNo: number = 0;
   totalPageCount: number;
   totalCount: number;
   pageSize: number = 5;

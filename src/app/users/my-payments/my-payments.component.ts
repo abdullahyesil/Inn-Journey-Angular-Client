@@ -43,7 +43,6 @@ export class MyPaymentsComponent implements OnInit {
   }
 
   loadPayments():void{
-    debugger;
     this.paymentService.getByUserId(this.localService.getItem("Token").userId,this.currentPageNo,this.pageSize).subscribe(resp => {
      
       this.totalCount = resp.payments.length > 0 ? resp.totalCount : 0; // Toplam öğe sayısını al
@@ -93,7 +92,7 @@ export class MyPaymentsComponent implements OnInit {
     if (hotelIds.length > 0) {
       this.hotelService.getHotelsName(hotelIds).subscribe(resp => {
         this.hotelModel = resp.hotels;
-        debugger;
+    
       });
     }
   }
