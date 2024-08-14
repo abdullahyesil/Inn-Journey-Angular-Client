@@ -44,7 +44,7 @@ export class SignupComponent {
   submitRegister() {
     if (this.signUpForm.valid) {
       var user = this.signUpForm.value
-      user.phone = "0" + user.phone;
+      user.phone = user.phone;
       user.age = user.age + ""
 
       this.userService.createUser(this.signUpForm.value).subscribe((resp) => {
